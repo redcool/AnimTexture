@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f55cca63de3fbab458a1f17c0c320dff
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 137587
+  packageName: AnimTexture-GPU Animation
+  packageVersion: 0.1
+  assetPath: Assets/AnimTexture/Scripts/Animation/MecanimController.cs
+  uploadId: 289903

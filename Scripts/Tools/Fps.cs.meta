@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a2b30003d1df1774ab02976976c62345
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 137587
+  packageName: AnimTexture-GPU Animation
+  packageVersion: 0.1
+  assetPath: Assets/AnimTexture/Scripts/Tools/Fps.cs
+  uploadId: 289903

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a76e1c8ccc9904e4b85a5bf0860ffe1c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 137587
+  packageName: AnimTexture-GPU Animation
+  packageVersion: 0.1
+  assetPath: Assets/AnimTexture/OtherRes/RTS Mini Legion Footman/Animations/GenericType/Victory.anim
+  uploadId: 289903

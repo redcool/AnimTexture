@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 53f5d966ec8c7bf4890e1c3db3f702d2
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 137587
+  packageName: AnimTexture-GPU Animation
+  packageVersion: 0.1
+  assetPath: Assets/AnimTexture/Scene/AnimatorNoBoneUpdate.unity
+  uploadId: 289903

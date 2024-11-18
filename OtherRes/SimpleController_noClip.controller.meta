@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 25dcb360a31be774e9a41e118cc312e8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 137587
+  packageName: AnimTexture-GPU Animation
+  packageVersion: 0.1
+  assetPath: Assets/AnimTexture/OtherRes/SimpleController_noClip.controller
+  uploadId: 289903

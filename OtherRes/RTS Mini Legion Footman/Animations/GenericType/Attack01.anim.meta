@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2821ca78d07865b42af55a48c649f030
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 137587
+  packageName: AnimTexture-GPU Animation
+  packageVersion: 0.1
+  assetPath: Assets/AnimTexture/OtherRes/RTS Mini Legion Footman/Animations/GenericType/Attack01.anim
+  uploadId: 289903
