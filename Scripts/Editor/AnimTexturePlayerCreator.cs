@@ -9,7 +9,7 @@ namespace AnimTexture
 
     public class AnimTexturePlayerCreator 
     {
-        [MenuItem(AnimTextureEditor.ANIM_TEXTURE_PATH+"/CreatePlayer")]
+        [MenuItem(AnimTextureEditor.POWER_UTILS_MENU+"/CreatePlayer_FromSelected")]
         static void CreatePlayer()
         {
             var prefabs = Selection.GetFiltered<GameObject>(SelectionMode.Assets);
