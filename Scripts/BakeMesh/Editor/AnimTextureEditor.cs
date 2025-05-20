@@ -8,7 +8,6 @@ namespace AnimTexture
     using System.Linq;
     using System.IO;
     using System.Text;
-    using System.Runtime.Remoting.Messaging;
 
     public class AnimTextureEditor
     {
@@ -63,13 +62,35 @@ namespace AnimTexture
             }
 
             //1 check animationClip
-            var clips = objs.SelectMany(obj => AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(obj)))
-                .Where(a => a is AnimationClip c && !c.name.StartsWith("__preview__"))
-                .Select(a => (AnimationClip)a);
+            var clipList = GetAnimationClipsFromAssets(objs);
+            if (clipList.Count() == 0)
+            {
+                clipList = GetAnimstionClipFromAnimation(objs);
+            }
 
-            var clipCount = BakeAllClips(skinnedMeshGo, clips.ToList());
+            var clipCount = BakeAllClips(skinnedMeshGo, clipList.ToList());
             ShowResult(skinnedMeshGo, clipCount);
             EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>($"Assets/{DEFAULT_TEX_DIR}"));
+        }
+
+        private static List<AnimationClip> GetAnimstionClipFromAnimation(GameObject[] objs)
+        {
+            var list = new List<AnimationClip>();
+            foreach (var item in objs)
+            {
+                var anim = item.GetComponentInChildren<Animation>();
+                var clips = AnimationUtility.GetAnimationClips(item);
+                list.AddRange(clips);
+            }
+            return list;
+        }
+
+        private static List<AnimationClip> GetAnimationClipsFromAssets(GameObject[] objs)
+        {
+            return objs.SelectMany(obj => AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(obj)))
+                .Where(a => a is AnimationClip c && !c.name.StartsWith("__preview__"))
+                .Select(a => (AnimationClip)a)
+                .ToList();
         }
 
         static void ShowResult(GameObject go,int clipCount)
@@ -148,7 +169,16 @@ namespace AnimTexture
 
             return index;
         }
-
+        /// <summary>
+        /// Get a texture atlas from skinnedMeshRenderer
+        /// 
+        ///  widch: vertexCount , less count less width
+        ///  height: sum of (clipLength * clip.frameRate) , less frameRate less height
+        /// </summary>
+        /// <param name="skin"></param>
+        /// <param name="clipList"></param>
+        /// <param name="atlas"></param>
+        /// <returns></returns>
         static List<int> GenerateAtlas(SkinnedMeshRenderer skin, List<AnimationClip> clipList, out Texture2D atlas)
         {
             var yList = new List<int>();

@@ -4,9 +4,15 @@
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.AI;
+    using static AnimTexture.AgentPlayer;
 
     public class AgentPlayer : MonoBehaviour
     {
+        public enum MoveType
+        {
+            ClickMove, JoyStickMove
+        }
+        public MoveType moveType = MoveType.ClickMove;
         public NavMeshAgent agent;
         public Animator animator;
         public float moveSpeed = 4;
@@ -22,7 +28,11 @@
         // Update is called once per frame
         void Update()
         {
-            ClickMove();
+            if(moveType == MoveType.JoyStickMove)
+                InputMove();
+            else if (moveType == MoveType.ClickMove)
+                ClickMove();
+
             //InputMove();
             if (Input.GetKeyDown(KeyCode.Escape))
             {

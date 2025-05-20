@@ -82,6 +82,10 @@
         {
             return clipNameHashDict[stateNameHash];
         }
+        public int GetClipIndex(string stateName)
+        {
+            return clipNameHashDict[Animator.StringToHash(stateName)];
+        }
 
         void UpdateAnimTime(int index, int startNameHash,int endNameHash)
         {
@@ -128,6 +132,12 @@
             UpdateAnimTime(index, ID_START_FRAME, ID_END_FRAME);
             UpdateAnimTime(index, ID_NEXT_START_FRAME, ID_NEXT_END_FRAME);
             UpdateCrossLerp(1);
+        }
+
+        public void Play(string clipName)
+        {
+            var index = GetClipIndex(clipName);
+            Play(index);
         }
 
         public void CrossFade(int index,int nextIndex,float fadeTime)
