@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using UnityEditor;
 using System.Linq;
 using System;
+using Unity.Mathematics;
 /// <summary>
 /// Test vs bind quad
 /// </summary>
@@ -22,6 +23,7 @@ public class TestShaderBind : MonoBehaviour
     public BoneWeight1[] weights;
     public Transform[] bones;
     public Matrix4x4[] bonesMats;
+    public float3x4[] bonesMats_3x4;
 
     public Matrix4x4[] bindPoses;
 
@@ -45,10 +47,10 @@ public class TestShaderBind : MonoBehaviour
         weightsBuffer.SetData(weights);
         mat.SetBuffer("_BoneWeight1Buffer", weightsBuffer);
 
-        bonesMats = bones.Select((b, id) => transform.worldToLocalMatrix * b.localToWorldMatrix * bindPoses[id]).ToArray();
-        //bonesMats = bones.Select((b, id) =>  b.localToWorldMatrix * bindPoses[id]).ToArray();
-        var bonesBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, bones.Length, Marshal.SizeOf<Matrix4x4>());
-        bonesBuffer.SetData(bonesMats);
+        bonesMats = bones.Select((b, id) => (transform.worldToLocalMatrix * b.localToWorldMatrix * bindPoses[id])).ToArray();
+        bonesMats_3x4 = bonesMats.Select((b, id) => b.ToFloat3x4()).ToArray();
+        var bonesBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, bones.Length, Marshal.SizeOf<float3x4>());
+        bonesBuffer.SetData(bonesMats_3x4);
         mat.SetBuffer("_Bones", bonesBuffer);
 
         var boneInfoBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, weights.Length, Marshal.SizeOf<BoneInfoPerVertex>());

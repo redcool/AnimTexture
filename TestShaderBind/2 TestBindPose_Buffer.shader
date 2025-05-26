@@ -36,7 +36,7 @@ ENDHLSL
 
 			StructuredBuffer<BoneInfoPerVertex> _BoneInfoPerVertexBuffer;
 			StructuredBuffer<BoneWeight1> _BoneWeight1Buffer;
-			StructuredBuffer<float4x4> _Bones;
+			StructuredBuffer<float3x4> _Bones;
 
             struct appdata
             {
@@ -67,7 +67,10 @@ ENDHLSL
 					float boneIndex = bw.boneIndex;
 					float weight = bw.weight;
 
-					boneMat = _Bones[boneIndex];
+					boneMat._11_12_13_14 = _Bones[boneIndex]._11_12_13_14;
+					boneMat._21_22_23_24 = _Bones[boneIndex]._21_22_23_24;
+					boneMat._31_32_33_34 = _Bones[boneIndex]._31_32_33_34;
+
 					bonePos += mul(boneMat,pos) * weight;
 				}
 
