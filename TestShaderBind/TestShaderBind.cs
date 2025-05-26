@@ -34,8 +34,14 @@ public class TestShaderBind : MonoBehaviour
     [Serializable]
     public struct BoneInfoPerVertex
     {
-        public float boneCount;
-        public float boneStart;
+        public float boneCount; // bones count per vertex,in BoneWeight1 array
+        public float boneStart; // bone start per vertex ,in BoneWeight1 array
+    }
+    [Serializable]
+    public struct BoneWeight_float
+    {
+        public float weight;
+        public float boneIndex;
     }
 
     public BoneInfoPerVertex[] boneInfos;
