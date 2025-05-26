@@ -1,10 +1,13 @@
 ﻿namespace AnimTexture
 {
+    using PowerUtilities;
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using Unity.Mathematics;
     using UnityEngine;
 
+    //[ExecuteAlways]
     public class TextureAnimation : MonoBehaviour
     {
         readonly int ID_ANIM_TEX = Shader.PropertyToID("_AnimTex");
@@ -35,22 +38,68 @@
         Dictionary<int, int> clipNameHashDict = new Dictionary<int, int>();
         public AnimTextureClipInfo curClipInfo;
 
+        [EditorButton(onClickCall ="Awake")]
+        public bool isUpdateBoneInfo;
+
+        [EditorButton(onClickCall = "Update")]
+        public bool isUpdateBones;
+
         // Start is called before the first frame update
         void Awake()
         {
             r = GetComponent<Renderer>();
-            r.sharedMaterial.SetTexture(ID_ANIM_TEX, manifest.atlas);
+
+            if(manifest.atlas)
+                r.sharedMaterial.SetTexture(ID_ANIM_TEX, manifest.atlas);
 
             block = new MaterialPropertyBlock();
 
             SetupDict();
 
             Play(curIndex);
+
+            UpdateBoneInfo(r.sharedMaterial);
         }
 
+        public static void FillBones(SkinnedMeshRenderer skin, AnimTextureManifest manifest)
+        {
+            var bindPoseArr = skin.sharedMesh.GetBindposes();
+            var arr = new float3x4[skin.bones.Length];
+
+            for (int i = 0; i < skin.bones.Length; i++)
+            {
+                var bindpose = bindPoseArr[i];
+                var bone = skin.bones[i];
+
+                var localToBone = bone.localToWorldMatrix;
+                arr[i] = new float3x4(
+                    (Vector3)localToBone.GetColumn(0),
+                    (Vector3)localToBone.GetColumn(1),
+                    (Vector3)localToBone.GetColumn(2),
+                    (Vector3)localToBone.GetColumn(3)
+                    );
+            }
+            manifest.bones = arr;
+        }
+
+        void UpdateBoneInfo(Material mat)
+        {
+            mat.SetBuffer("_BindPoses", manifest.GetBindPosesBuffer());
+
+            mat.SetBuffer("_BoneInfoPerVertexBuffer", manifest.GetBoneInfoPerVertexBuffer());
+
+            mat.SetBuffer("_BoneWeight1Buffer", manifest.GetBoneWeight1Buffer());
+        }
+
+        public void UpdateBones(Material mat)
+        {
+            mat.SetBuffer("_Bones",manifest.GetBonesBuffer(transform));
+        }
         // Update is called once per frame
         void Update()
         {
+            UpdateBones(r.sharedMaterial);
+
             playTime += Time.deltaTime;
             UpdatePlayTime();
             UpdateAnimLoop();
@@ -80,15 +129,20 @@
 
         public int GetClipIndex(int stateNameHash)
         {
-            return clipNameHashDict[stateNameHash];
+            if (clipNameHashDict.TryGetValue(stateNameHash, out int index))
+                return index;
+            return -1;
         }
         public int GetClipIndex(string stateName)
         {
-            return clipNameHashDict[Animator.StringToHash(stateName)];
+            return GetClipIndex(Animator.StringToHash(stateName));
         }
 
         void UpdateAnimTime(int index, int startNameHash,int endNameHash)
         {
+            if (index >= manifest.animInfos.Count)
+                return;
+
             curClipInfo = manifest.animInfos[index];
 
             block.SetFloat(startNameHash, curClipInfo.startFrame);
@@ -137,6 +191,9 @@
         public void Play(string clipName)
         {
             var index = GetClipIndex(clipName);
+            if (index < 0)
+                return;
+
             Play(index);
         }
 

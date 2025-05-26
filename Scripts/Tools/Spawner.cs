@@ -14,7 +14,7 @@
         public float animSampleRate = 30f;
         public float startTime = 0;
 
-        public bool spawn;
+        public bool isAutoSpawn;
         // Start is called before the first frame update
         void Start()
         {
@@ -24,19 +24,29 @@
         // Update is called once per frame
         void Update()
         {
-            if (spawn)
+            if (isAutoSpawn)
             {
-                spawn = false;
+                isAutoSpawn = false;
 
-                for (int i = 0; i < count; i++)
-                {
-                    var p = Instantiate(prefabs[Random.Range(0, prefabs.Length)], transform);
-
-                    var pos = Random.insideUnitSphere * radius;
-                    pos.y = Random.Range(-y, y);
-                    p.transform.localPosition = pos;
-                }
+                Spawn();
             }
+        }
+
+        private void Spawn()
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var p = Instantiate(prefabs[Random.Range(0, prefabs.Length)], transform);
+
+                var pos = Random.insideUnitSphere * radius;
+                pos.y = Random.Range(-y, y);
+                p.transform.localPosition = pos;
+            }
+        }
+
+        public void OnClick()
+        {
+            Spawn();
         }
     }
 }

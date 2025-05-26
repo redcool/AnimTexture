@@ -16,9 +16,8 @@
 		_CrossLerp("Cross Lerp",range(0,1)) = 0
     }
 
-CGINCLUDE
-
-		#include "UnityCG.cginc"
+HLSLINCLUDE
+		#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 		sampler2D _AnimTex;
 		sampler2D _MainTex;
 		
@@ -99,7 +98,7 @@ CGINCLUDE
 
 			return lerp(curPos, nextPos, crossLerp);
 		}		
-ENDCG
+ENDHLSL
     SubShader
     {
         Tags { "RenderType"="Opaque" }
@@ -107,11 +106,9 @@ ENDCG
 
         Pass
         {
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-			// enable gpu instancing
-			#pragma multi_compile_instancing
 
 
             struct appdata
@@ -134,9 +131,8 @@ ENDCG
 
 				half4 pos = GetBlendAnimPos(v.vertexId);
 
-				o.vertex = UnityObjectToClipPos(pos);
+				o.vertex = TransformObjectToHClip(pos);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                UNITY_TRANSFER_FOG(o,o.vertex);
 
                 return o;
             }
@@ -147,7 +143,7 @@ ENDCG
                 half4 col = tex2D(_MainTex, i.uv);
                 return col;
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }
