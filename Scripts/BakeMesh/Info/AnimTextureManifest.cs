@@ -27,22 +27,21 @@
         public Texture2D atlas;
 
         //----------- bake bone 
+       
+
         public GraphicsBuffer bindposesBuffer;
         public GraphicsBuffer bonesBuffer;
         public GraphicsBuffer boneInfoBuffer;
         public GraphicsBuffer boneWeightsBuffer;
 
         // original data
-        public float3x4[] bindposes;
-        public Matrix4x4[] originalBindPoses;
+        public Matrix4x4[] bindposes;
+        public Matrix4x4[] bones;
         public BoneInfoPerVertex[] boneInfoPerVertices;
+        public BoneWeight1[] boneWeightArray;
 
-        public BoneWeight1[] boneWeight1Array;
-
-        public string[] bonePaths;
         public Transform[] boneTrs;
-
-        public float3x4[] bones;
+        public string[] bonePaths;
 
         public Transform[] GetBoneTrs(Transform rootBone)
         {
@@ -63,10 +62,9 @@
         {
             if (!bindposesBuffer.IsValidSafe())
             {
-                bindposesBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, bindposes.Length, Marshal.SizeOf<float3x4>());
-
+                bindposesBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, bindposes.Length, AnimTextureUtils.BoneMatrixSize);
             }
-                bindposesBuffer.SetData(bindposes);
+            bindposesBuffer.SetData(bindposes);
             return bindposesBuffer;
         }
 
@@ -81,36 +79,21 @@
             return boneInfoBuffer;
         }
 
-        public GraphicsBuffer GetBoneWeight1Buffer()
+        public GraphicsBuffer GetBoneWeightsBuffer()
         {
             if (!boneWeightsBuffer.IsValidSafe())
             {
-                boneWeightsBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, boneWeight1Array.Length, Marshal.SizeOf<BoneWeight1>());
-                boneWeightsBuffer.SetData(boneWeight1Array);
+                boneWeightsBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneWeight1>());
+                boneWeightsBuffer.SetData(boneWeightArray);
             }
             return boneWeightsBuffer;
         }
-        public GraphicsBuffer GetBonesBuffer(Transform tr)
-        {
-            if (boneTrs == null)
-            {
-                GetBoneTrs(tr);
-            }
-            if(bones == null || bones.Length != boneTrs.Length)
-            {
-                bones = new float3x4[boneTrs.Length];
-            }
 
-            for (int i = 0; i < boneTrs.Length; i++)
-            {
-                var bone = boneTrs[i];
-                //var mat = bone.localToWorldMatrix * originalBindPoses[i];
-                var mat = bone.localToWorldMatrix;
-                bones[i] = mat.ToFloat3x4();
-            }
+        public GraphicsBuffer GetBonesBuffer()
+        {
             if (!bonesBuffer.IsValidSafe())
             {
-                bonesBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, bones.Length, Marshal.SizeOf<float3x4>());
+                bonesBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, bones.Length, AnimTextureUtils.BoneMatrixSize);
             }
             bonesBuffer.SetData(bones);
             return bonesBuffer;

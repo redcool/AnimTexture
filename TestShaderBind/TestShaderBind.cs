@@ -7,6 +7,7 @@ using UnityEditor;
 using System.Linq;
 using System;
 using Unity.Mathematics;
+using AnimTexture;
 /// <summary>
 /// Test vs bind quad
 /// </summary>
@@ -18,6 +19,10 @@ public class TestShaderBind : MonoBehaviour
     [EditorButton(onClickCall = "Send")]
     public bool isSend;
     public Material mat;
+
+    [EditorButton(onClickCall = "BakeBoneTex")]
+    public bool isBakeBoneTex;
+    public ComputeShader bakeBoneCS;
 
 
     public BoneWeight1[] weights;
@@ -45,21 +50,14 @@ public class TestShaderBind : MonoBehaviour
     }
 
     public BoneInfoPerVertex[] boneInfos;
-    public void Send()
+
+    /// <summary>
+    /// Get bone start index for per vertex
+    /// </summary>
+    /// <param name="bonesPerVertex"></param>
+    /// <returns></returns>
+    public static byte[] GetBoneStartPerVertex(byte[] bonesPerVertex)
     {
-        bones[1].position = new Vector3(5,5,5);
-
-        var weightsBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, weights.Length, Marshal.SizeOf<BoneWeight1>());
-        weightsBuffer.SetData(weights);
-        mat.SetBuffer("_BoneWeight1Buffer", weightsBuffer);
-
-        bonesMats = bones.Select((b, id) => (transform.worldToLocalMatrix * b.localToWorldMatrix * bindPoses[id])).ToArray();
-        bonesMats_3x4 = bonesMats.Select((b, id) => b.ToFloat3x4()).ToArray();
-        var bonesBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, bones.Length, Marshal.SizeOf<float3x4>());
-        bonesBuffer.SetData(bonesMats_3x4);
-        mat.SetBuffer("_Bones", bonesBuffer);
-
-        var boneInfoBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, weights.Length, Marshal.SizeOf<BoneInfoPerVertex>());
         var bonesStarts = new byte[bonesPerVertex.Length];
         byte startIndex = 0;
         for (int i = 0; i < bonesPerVertex.Length; i++)
@@ -68,15 +66,44 @@ public class TestShaderBind : MonoBehaviour
             bonesStarts[i] = startIndex;
             startIndex += count;
         }
+        return bonesStarts;
+    }
+
+    public void BakeBoneTex()
+    {
+#if UNITY_EDITOR
+        var texPath = "Assets/TestShaderBind/boneTex.asset";
+
+#endif
+    }
+
+    public void Send()
+    {
+        bones[1].position = new Vector3(5,5,5);
+
+        // set BoneWeight1{weight,boneIndex}
+        var weightsBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, weights.Length, Marshal.SizeOf<BoneWeight1>());
+        weightsBuffer.SetData(weights);
+        mat.SetBuffer("_BoneWeight1Buffer", weightsBuffer);
+
+        // set bone matrix 
+        bonesMats = bones.Select((b, id) => (transform.worldToLocalMatrix * b.localToWorldMatrix * bindPoses[id])).ToArray();
+        bonesMats_3x4 = bonesMats.Select((b, id) => b.ToFloat3x4()).ToArray();
+        var bonesBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, bones.Length, Marshal.SizeOf<float3x4>());
+        bonesBuffer.SetData(bonesMats_3x4);
+        mat.SetBuffer("_Bones", bonesBuffer);
+
+        // set bone info {count,boneStartIndex} per vertex
+        var bonesStarts = GetBoneStartPerVertex(bonesPerVertex);
         boneInfos = bonesPerVertex
             .Zip(bonesStarts, (count, start) => new BoneInfoPerVertex { boneCount = count, boneStart = start })
             .ToArray();
-
+        var boneInfoBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, weights.Length, Marshal.SizeOf<BoneInfoPerVertex>());
         boneInfoBuffer.SetData(boneInfos);
         //[{count,start}]
         mat.SetBuffer("_BoneInfoPerVertexBuffer", boneInfoBuffer);
 
-        // send array
+        // ========================= send array
         //[matrix4x4]
         mat.SetMatrixArray("_BonesArray", bonesMats);
         //[boneCountPerVertex] in {_BoneWeightArray,_BoneWeightIndexArray}

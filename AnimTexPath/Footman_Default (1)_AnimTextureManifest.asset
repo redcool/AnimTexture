@@ -1,0 +1,3308 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1caed7bf0dabfcd4b9ac19f67efd45e4, type: 3}
+  m_Name: Footman_Default (1)_AnimTextureManifest
+  m_EditorClassIdentifier: 
+  animInfos:
+  - clipName: Attack01
+    clipNameHash: 1331344109
+    startFrame: 0
+    endFrame: 40
+    isLoop: 0
+    length: 1.3333334
+  atlas: {fileID: 2800000, guid: 68b9fa9fa855f8b47a685768fc6dd201, type: 2}
+  bindposes:
+  - e00: 2.6924917e-16
+    e01: -0.9504804
+    e02: -0.31078455
+    e03: 40.421917
+    e10: 1.9523884e-16
+    e11: 0.31078455
+    e12: -0.9504804
+    e13: -16.206823
+    e20: 1
+    e21: 1.9523884e-16
+    e22: 2.6924917e-16
+    e23: -7.719366e-15
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 6.09523e-17
+    e01: -0.9954266
+    e02: 0.09552936
+    e03: 71.21149
+    e10: -1.6666175e-16
+    e11: 0.09552936
+    e12: 0.9954266
+    e13: -13.409768
+    e20: -1
+    e21: -7.6594635e-17
+    e22: -1.6007681e-16
+    e23: 9.928887e-15
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 1
+    e01: -5.029499e-16
+    e02: 2.1903262e-16
+    e03: 5.805591e-14
+    e10: 5.029499e-16
+    e11: 1
+    e12: 7.4940054e-16
+    e13: -121.85078
+    e20: -2.1903262e-16
+    e21: -7.4940054e-16
+    e22: 1
+    e23: -1.7775702
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 1
+    e01: -6.089168e-17
+    e02: 1.7660906e-16
+    e03: 50.220203
+    e10: 6.089168e-17
+    e11: 1
+    e12: 5.2735594e-16
+    e13: -95.65597
+    e20: -1.7660906e-16
+    e21: -5.2735594e-16
+    e22: 1
+    e23: 5.118476
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.99699366
+    e01: 2.107475e-16
+    e02: 0.07748337
+    e03: 28.64134
+    e10: -1.4127788e-16
+    e11: 1
+    e12: -9.020562e-16
+    e13: -85.11361
+    e20: -0.07748337
+    e21: 8.883976e-16
+    e22: 0.99699366
+    e23: -2.5026863
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.99477535
+    e01: 3.574227e-17
+    e02: -0.102088325
+    e03: 76.274
+    e10: -1.2850306e-16
+    e11: 1
+    e12: -9.020562e-16
+    e13: -85.11361
+    e20: 0.102088325
+    e21: 9.10462e-16
+    e22: 0.99477535
+    e23: 11.322255
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.99988747
+    e01: 1.2116225e-16
+    e02: -0.015001779
+    e03: 110.76999
+    e10: -1.3470986e-16
+    e11: 1
+    e12: -9.020562e-16
+    e13: -85.11361
+    e20: 0.015001779
+    e21: 9.039756e-16
+    e22: 0.99988747
+    e23: 1.6746428
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.99699366
+    e01: -1.220965e-16
+    e02: 0.07748334
+    e03: 28.641289
+    e10: -4.415667e-17
+    e11: 1
+    e12: 1.0076048e-15
+    e13: -85.1136
+    e20: -0.07748334
+    e21: 1.0011541e-15
+    e22: -0.99699366
+    e23: 2.502682
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.9947754
+    e01: -1.2182486e-16
+    e02: -0.10208749
+    e03: 76.27405
+    e10: -2.256387e-16
+    e11: 1
+    e12: 1.0053629e-15
+    e13: -85.1136
+    e20: 0.10208749
+    e21: 1.0231452e-15
+    e22: -0.9947754
+    e23: -11.322199
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.99988747
+    e01: -1.224509e-16
+    e02: -0.01500208
+    e03: 110.77034
+    e10: -1.3762643e-16
+    e11: 1
+    e12: 1.0105294e-15
+    e13: -85.1136
+    e20: 0.01500208
+    e21: 1.0124803e-15
+    e22: -0.99988747
+    e23: -1.6746815
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 1
+    e01: 2.5474198e-16
+    e02: 3.870168e-15
+    e03: -130.021
+    e10: 2.5474198e-16
+    e11: -1
+    e12: -1.0106431e-15
+    e13: 85.1136
+    e20: 3.870168e-15
+    e21: 1.0106431e-15
+    e22: -1
+    e23: 0.275935
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 1
+    e01: -7.23979e-16
+    e02: 2.402444e-16
+    e03: -50.2202
+    e10: -7.23979e-16
+    e11: -1
+    e12: -5.6655387e-16
+    e13: 95.656
+    e20: 2.402444e-16
+    e21: 5.6655387e-16
+    e22: -1
+    e23: -5.11848
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.14460963
+    e01: 0.9889032
+    e02: -0.034035433
+    e03: -34.283234
+    e10: -0.009726613
+    e11: 0.035815988
+    e12: 0.9993111
+    e13: 3.2385323
+    e20: 0.989441
+    e21: -0.14417896
+    e22: 0.014798016
+    e23: 26.937763
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.13571149
+    e01: 0.9270854
+    e02: 0.34942096
+    e03: -12.0866165
+    e10: -0.066231176
+    e11: -0.34340563
+    e12: 0.936849
+    e13: 8.490622
+    e20: 0.9885321
+    e21: -0.15028374
+    e22: 0.014797866
+    e23: 27.026485
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.0005973334
+    e01: 0.016236855
+    e02: -0.999868
+    e03: -8.664346
+    e10: 0.036759015
+    e11: 0.99919206
+    e12: 0.016247839
+    e13: -5.2763014
+    e20: 0.99932396
+    e21: -0.03676387
+    e22: 6.455316e-15
+    e23: 26.457872
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.99941546
+    e01: -0.034040608
+    e02: -0.003155321
+    e03: 26.512537
+    e10: 0.034183536
+    e11: 0.9938403
+    e12: 0.105417885
+    e13: -7.2429852
+    e20: -0.0004526036
+    e21: -0.10546413
+    e22: 0.99442303
+    e23: -20.92025
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 1
+    e01: -2.5556464e-16
+    e02: 8.402854e-17
+    e03: 300
+    e10: 2.5556464e-16
+    e11: 1
+    e12: 1.6653345e-16
+    e13: -100
+    e20: -8.402854e-17
+    e21: -1.6653345e-16
+    e22: 1
+    e23: 5.6556386e-15
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 1
+    e01: -2.5556464e-16
+    e02: 8.402854e-17
+    e03: -300
+    e10: 2.5556464e-16
+    e11: 1
+    e12: 1.6653345e-16
+    e13: -100
+    e20: -8.402854e-17
+    e21: -1.6653345e-16
+    e22: 1
+    e23: -1.3205155e-14
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.14461194
+    e01: 0.9889029
+    e02: -0.034035638
+    e03: -34.283207
+    e10: 0.009743832
+    e11: 0.035818737
+    e12: 0.9993108
+    e13: 3.2380524
+    e20: 0.98944044
+    e21: 0.14418064
+    e22: -0.014815521
+    e23: -26.937864
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.13571389
+    e01: 0.9270856
+    e02: 0.34941965
+    e03: -12.086611
+    e10: 0.06625031
+    e11: -0.34340134
+    e12: 0.9368492
+    e13: 8.490087
+    e20: 0.9885305
+    e21: 0.15029262
+    e22: -0.014815371
+    e23: -27.02669
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.00059539045
+    e01: 0.01623663
+    e02: -0.999868
+    e03: -8.6643915
+    e10: -0.03664012
+    e11: 0.9991964
+    e12: 0.016247543
+    e13: -5.2794466
+    e20: 0.9993284
+    e21: 0.036644958
+    e22: -7.6021313e-16
+    e23: -26.457268
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.99941546
+    e01: 0.034040608
+    e02: 0.003155321
+    e03: -26.51252
+    e10: 0.034183536
+    e11: -0.9938403
+    e12: -0.105417885
+    e13: 7.242991
+    e20: -0.0004526036
+    e21: 0.10546413
+    e22: -0.99442303
+    e23: 20.920277
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  bones:
+  - e00: -0.0000000023841857
+    e01: 0
+    e02: 0.010000003
+    e03: 0
+    e10: -0.009240331
+    e11: 0.0038231264
+    e12: 0
+    e13: 0.42757067
+    e20: -0.0038231283
+    e21: -0.009240331
+    e22: -0.0000000023841857
+    e23: -0.028417608
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.0000000021721023
+    e01: 9.830123e-10
+    e02: -0.010000005
+    e03: 0.000000072015595
+    e10: -0.00999466
+    e11: 0.0003267934
+    e12: -5.457939e-19
+    e13: 0.7066798
+    e20: 0.00032679224
+    e21: 0.009994662
+    e22: 0.0000000023841864
+    e23: 0.087062016
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.010000006
+    e01: 0.000000002287164
+    e02: 0.000000001865312
+    e03: 0.00000018043004
+    e10: 0.0000000011914563
+    e11: 0.009943835
+    e12: -0.0010583729
+    e13: 1.2055354
+    e20: -0.0000000024231435
+    e21: 0.0010583731
+    e22: 0.009943838
+    e23: 0.07075109
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.010000005
+    e01: 0.000000002256075
+    e02: 7.7101714e-10
+    e03: -0.50220215
+    e10: 5.457939e-19
+    e11: 0.00998017
+    e12: -0.00062948465
+    e13: 0.9484477
+    e20: -0.0000000023841864
+    e21: 0.0006294856
+    e22: 0.009980172
+    e23: -0.014561778
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.008647342
+    e01: -0.005020234
+    e02: -0.00014442603
+    e03: -0.28749156
+    e10: 0.004873608
+    e11: 0.00831837
+    e12: 0.0026556975
+    e13: 0.83983743
+    e20: -0.0012130818
+    e21: -0.0023668597
+    e22: 0.00963984
+    e23: 0.03263905
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.00035713293
+    e01: -0.005020234
+    e02: 0.008641171
+    e03: -0.7062634
+    e10: -0.002534988
+    e11: 0.00831837
+    e12: 0.004937471
+    e13: 0.60381925
+    e20: -0.009666767
+    e21: -0.0023668597
+    e22: -0.0009755461
+    e23: 0.09138595
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.0023120272
+    e01: -0.00007394298
+    e02: 0.009728782
+    e03: -0.71838033
+    e10: 0.0009585575
+    e11: 0.009952793
+    e12: -0.00015215
+    e13: 0.6898277
+    e20: -0.009681725
+    e21: 0.0009677352
+    e22: 0.0023082006
+    e23: 0.41936523
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.009281774
+    e01: 0.003476136
+    e02: -0.0013286286
+    e03: 0.28749123
+    e10: 0.0036915601
+    e11: 0.008149408
+    e12: -0.004467613
+    e13: 0.8398374
+    e20: -0.00047024677
+    e21: -0.004637207
+    e22: -0.00884733
+    e23: 0.0326389
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.0038729405
+    e01: 0.003476136
+    e02: 0.00853914
+    e03: 0.73698795
+    e10: -0.0032560795
+    e11: 0.008149408
+    e12: -0.004794281
+    e13: 0.6610629
+    e20: -0.008625448
+    e21: -0.004637207
+    e22: -0.0020243614
+    e23: 0.055411972
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.0016319832
+    e01: 0.009790557
+    e02: -0.0012172678
+    e03: 0.86839247
+    e10: 0.00324442
+    e11: -0.00063260586
+    e12: -0.0094378805
+    e13: 0.771538
+    e20: -0.009317211
+    e21: -0.0019351791
+    e22: -0.0030732283
+    e23: 0.34806362
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.0016135378
+    e01: -0.009790557
+    e02: -0.0012416136
+    e03: 0.8997921
+    e10: -0.0033856437
+    e11: 0.00063260586
+    e12: -0.009388145
+    e13: 0.7091148
+    e20: 0.009270057
+    e21: 0.0019351791
+    e22: -0.0032126599
+    e23: 0.5273283
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.010000005
+    e01: -0.0000000022560753
+    e02: -7.7101714e-10
+    e03: 0.50220233
+    e10: 5.457939e-19
+    e11: -0.00998017
+    e12: 0.00062948465
+    e13: 0.94844806
+    e20: -0.0000000023841864
+    e21: -0.0006294865
+    e22: -0.009980172
+    e23: -0.014562016
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.0014614378
+    e01: -0.00032391955
+    e02: 0.009887332
+    e03: -0.21664147
+    e10: 0.009820838
+    e11: -0.0011544442
+    e12: -0.0014894282
+    e13: 0.37136856
+    e20: 0.0011896838
+    e21: 0.009927859
+    e22: 0.00014939962
+    e23: -0.052370228
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.0013333474
+    e01: -0.00078281417
+    e02: 0.009879749
+    e03: -0.24544153
+    e10: 0.008956865
+    e11: -0.004171925
+    e12: -0.0015393544
+    e13: 0.17783266
+    e20: 0.0042422605
+    e21: 0.009054407
+    e22: 0.0001448919
+    e23: -0.07581492
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.0024809067
+    e01: 0.00031592
+    e02: 0.009682218
+    e03: -0.26240855
+    e10: 0.00016241311
+    e11: 0.009991921
+    e12: -0.00036763842
+    e13: 0.06385541
+    e20: -0.00968601
+    e21: 0.00024846033
+    e22: 0.0024737697
+    e23: -0.12979822
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.009690914
+    e01: 0.000070231035
+    e02: -0.002466025
+    e03: -0.3374119
+    e10: -0.0003404054
+    e11: 0.0099384
+    e12: -0.0010546863
+    e13: 0.0589453
+    e20: 0.0024434254
+    e21: 0.0011060326
+    e22: 0.009633609
+    e23: 0.16303155
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.009692998
+    e01: -0.000073943265
+    e02: -0.0024577177
+    e03: -0.73639005
+    e10: -0.00016651262
+    e11: 0.009952791
+    e12: -0.0009561621
+    e13: 0.61531854
+    e20: 0.0024531828
+    e21: 0.000967734
+    e22: 0.009646006
+    e23: 0.4859856
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.0016135374
+    e01: 0.0012416078
+    e02: -0.009790557
+    e03: 0.89818966
+    e10: -0.0033856397
+    e11: 0.009388145
+    e12: 0.00063260103
+    e13: 0.8945452
+    e20: 0.009270058
+    e21: 0.00321266
+    e22: 0.0019351772
+    e23: 0.5647721
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.0014164987
+    e01: -0.00025040205
+    e02: 0.009896003
+    e03: 0.21664105
+    e10: 0.00952002
+    e11: 0.0027057515
+    e12: 0.0014311477
+    e13: 0.37136886
+    e20: -0.0027134458
+    e21: 0.009623735
+    e22: -0.0001448874
+    e23: -0.052370295
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.001403002
+    e01: 0.0006035356
+    e02: 0.009882681
+    e03: 0.24455549
+    e10: 0.009422798
+    e11: -0.0029834188
+    e12: 0.0015199138
+    e13: 0.1837612
+    e20: 0.0030401503
+    e21: 0.009525493
+    e22: -0.00015012652
+    e23: 0.0011026282
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: -0.0019149228
+    e01: -0.0003286342
+    e02: 0.009809441
+    e03: 0.2624089
+    e10: 0.00016237819
+    e11: 0.009991968
+    e12: 0.0003664496
+    e13: 0.06385437
+    e20: -0.009813602
+    e21: 0.00022945786
+    e22: -0.0019080495
+    e23: -0.037583835
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  - e00: 0.009816321
+    e01: 0.00013426422
+    e02: -0.0019031254
+    e03: 0.32030138
+    e10: 0.0003404064
+    e11: -0.009938405
+    e12: 0.0010546548
+    e13: 0.058945358
+    e20: -0.0018772435
+    e21: -0.0011000668
+    e22: -0.0097604245
+    e23: 0.25910348
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  boneInfoPerVertices:
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 0
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 1
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 2
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 3
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 4
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 5
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 6
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 7
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 8
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 9
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 10
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 11
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 12
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 13
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 14
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 15
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 16
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 17
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 18
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 19
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 20
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 21
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 22
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 23
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 24
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 25
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 26
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 27
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 28
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 29
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 30
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 31
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 32
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 33
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 34
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 35
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 36
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 37
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 38
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 39
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 40
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 41
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 42
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 43
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 44
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 45
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 46
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 47
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 48
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 49
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 50
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 51
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 52
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 53
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 54
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 55
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 56
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 57
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 58
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 59
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 60
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 61
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 62
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 63
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 64
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 65
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 66
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 67
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 68
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 69
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 70
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 71
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 72
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 73
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 74
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 75
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 76
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 77
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 78
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 79
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 80
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 81
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 82
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 83
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 84
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 85
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 86
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 87
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 88
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 89
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 90
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 91
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 92
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 93
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 94
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 95
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 96
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 97
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 98
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 99
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 100
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 101
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 102
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 103
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 104
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 105
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 106
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 107
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 108
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 109
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 110
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 111
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 112
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 113
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 114
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 115
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 116
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 117
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 118
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 119
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 120
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 121
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 122
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 123
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 124
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 125
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 126
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 127
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 128
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 129
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 130
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 131
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 132
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 133
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 134
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 135
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 136
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 137
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 138
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 139
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 140
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 141
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 142
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 143
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 144
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 145
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 146
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 148
+  - bonesCountPerVertex: 3
+    bonesStartIndexPerVertex: 149
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 152
+  - bonesCountPerVertex: 3
+    bonesStartIndexPerVertex: 154
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 157
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 158
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 159
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 161
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 162
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 163
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 164
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 165
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 166
+  - bonesCountPerVertex: 3
+    bonesStartIndexPerVertex: 167
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 170
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 171
+  - bonesCountPerVertex: 3
+    bonesStartIndexPerVertex: 172
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 175
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 176
+  - bonesCountPerVertex: 3
+    bonesStartIndexPerVertex: 177
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 180
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 181
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 182
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 183
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 184
+  - bonesCountPerVertex: 3
+    bonesStartIndexPerVertex: 185
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 188
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 189
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 190
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 191
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 192
+  - bonesCountPerVertex: 3
+    bonesStartIndexPerVertex: 193
+  - bonesCountPerVertex: 3
+    bonesStartIndexPerVertex: 196
+  - bonesCountPerVertex: 3
+    bonesStartIndexPerVertex: 199
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 202
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 203
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 204
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 205
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 206
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 208
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 209
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 211
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 213
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 214
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 215
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 216
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 217
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 218
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 220
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 221
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 222
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 224
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 226
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 228
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 230
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 232
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 233
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 234
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 235
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 236
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 237
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 238
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 239
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 240
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 241
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 242
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 243
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 244
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 245
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 249
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 253
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 1
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 5
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 9
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 13
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 17
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 21
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 25
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 29
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 33
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 37
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 41
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 45
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 49
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 53
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 57
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 61
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 65
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 69
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 73
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 77
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 81
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 85
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 89
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 93
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 97
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 101
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 105
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 109
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 113
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 117
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 121
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 125
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 129
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 133
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 137
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 141
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 145
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 149
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 153
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 157
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 161
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 165
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 169
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 170
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 171
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 172
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 173
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 174
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 175
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 176
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 177
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 178
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 179
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 180
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 181
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 182
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 183
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 184
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 185
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 186
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 187
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 188
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 189
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 190
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 191
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 192
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 193
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 194
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 195
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 196
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 197
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 198
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 199
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 200
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 201
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 202
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 204
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 205
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 207
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 208
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 210
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 211
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 213
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 214
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 216
+  - bonesCountPerVertex: 2
+    bonesStartIndexPerVertex: 217
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 219
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 220
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 221
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 222
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 223
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 224
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 225
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 226
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 227
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 228
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 229
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 230
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 231
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 232
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 233
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 234
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 235
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 236
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 237
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 238
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 239
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 240
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 241
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 242
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 243
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 244
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 245
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 246
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 247
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 248
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 249
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 250
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 251
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 252
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 253
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 1
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 5
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 9
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 13
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 17
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 21
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 25
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 29
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 33
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 37
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 41
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 45
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 49
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 53
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 57
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 61
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 65
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 69
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 73
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 77
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 81
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 85
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 89
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 93
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 97
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 101
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 105
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 109
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 113
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 117
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 121
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 125
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 129
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 133
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 137
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 141
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 145
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 149
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 153
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 157
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 161
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 165
+  - bonesCountPerVertex: 4
+    bonesStartIndexPerVertex: 169
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 173
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 174
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 175
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 176
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 177
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 178
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 179
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 180
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 181
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 182
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 183
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 184
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 185
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 186
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 187
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 188
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 189
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 190
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 191
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 192
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 193
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 194
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 195
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 196
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 197
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 198
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 199
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 200
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 201
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 202
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 203
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 204
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 205
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 206
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 207
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 208
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 209
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 210
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 211
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 212
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 213
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 214
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 215
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 216
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 217
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 218
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 219
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 220
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 221
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 222
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 223
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 224
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 225
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 226
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 227
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 228
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 229
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 230
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 231
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 232
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 233
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 234
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 235
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 236
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 237
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 238
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 239
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 240
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 241
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 242
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 243
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 244
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 245
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 246
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 247
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 248
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 249
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 250
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 251
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 252
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 253
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 254
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 255
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 0
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 1
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 2
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 3
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 4
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 5
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 6
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 7
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 8
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 9
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 10
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 11
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 12
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 13
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 14
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 15
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 16
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 17
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 18
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 19
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 20
+  - bonesCountPerVertex: 1
+    bonesStartIndexPerVertex: 21
+  boneWeightArray:
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 9
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 1
+  - m_Weight: 1
+    m_BoneIndex: 0
+  - m_Weight: 0.87013865
+    m_BoneIndex: 0
+  - m_Weight: 0.12986138
+    m_BoneIndex: 14
+  - m_Weight: 1
+    m_BoneIndex: 1
+  - m_Weight: 0.6
+    m_BoneIndex: 2
+  - m_Weight: 0.35769188
+    m_BoneIndex: 1
+  - m_Weight: 0.042308107
+    m_BoneIndex: 0
+  - m_Weight: 0.8943119
+    m_BoneIndex: 0
+  - m_Weight: 0.105688065
+    m_BoneIndex: 14
+  - m_Weight: 0.6
+    m_BoneIndex: 2
+  - m_Weight: 0.3653824
+    m_BoneIndex: 1
+  - m_Weight: 0.03461758
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 1
+  - m_Weight: 0.86564124
+    m_BoneIndex: 0
+  - m_Weight: 0.13435875
+    m_BoneIndex: 14
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 1
+  - m_Weight: 1
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 1
+  - m_Weight: 0.6
+    m_BoneIndex: 2
+  - m_Weight: 0.36121562
+    m_BoneIndex: 1
+  - m_Weight: 0.038784362
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 0.6
+    m_BoneIndex: 2
+  - m_Weight: 0.36016712
+    m_BoneIndex: 1
+  - m_Weight: 0.039832857
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 0.6
+    m_BoneIndex: 2
+  - m_Weight: 0.36105263
+    m_BoneIndex: 1
+  - m_Weight: 0.038947333
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 0.6
+    m_BoneIndex: 2
+  - m_Weight: 0.3629101
+    m_BoneIndex: 1
+  - m_Weight: 0.037089895
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 0.6
+    m_BoneIndex: 2
+  - m_Weight: 0.3624149
+    m_BoneIndex: 1
+  - m_Weight: 0.037585087
+    m_BoneIndex: 0
+  - m_Weight: 0.6
+    m_BoneIndex: 2
+  - m_Weight: 0.36526063
+    m_BoneIndex: 1
+  - m_Weight: 0.034739334
+    m_BoneIndex: 0
+  - m_Weight: 0.6
+    m_BoneIndex: 2
+  - m_Weight: 0.35769188
+    m_BoneIndex: 1
+  - m_Weight: 0.042308107
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 1
+  - m_Weight: 1
+    m_BoneIndex: 1
+  - m_Weight: 1
+    m_BoneIndex: 1
+  - m_Weight: 1
+    m_BoneIndex: 1
+  - m_Weight: 0.92748
+    m_BoneIndex: 0
+  - m_Weight: 0.07252
+    m_BoneIndex: 20
+  - m_Weight: 1
+    m_BoneIndex: 0
+  - m_Weight: 0.92523134
+    m_BoneIndex: 0
+  - m_Weight: 0.074768685
+    m_BoneIndex: 20
+  - m_Weight: 0.87463593
+    m_BoneIndex: 0
+  - m_Weight: 0.12536404
+    m_BoneIndex: 20
+  - m_Weight: 1
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 0
+  - m_Weight: 0.86564124
+    m_BoneIndex: 0
+  - m_Weight: 0.13435875
+    m_BoneIndex: 14
+  - m_Weight: 1
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 0
+  - m_Weight: 0.87463593
+    m_BoneIndex: 0
+  - m_Weight: 0.12536404
+    m_BoneIndex: 20
+  - m_Weight: 0.8943119
+    m_BoneIndex: 0
+  - m_Weight: 0.105688065
+    m_BoneIndex: 14
+  - m_Weight: 0.92523134
+    m_BoneIndex: 0
+  - m_Weight: 0.074768685
+    m_BoneIndex: 20
+  - m_Weight: 0.87013865
+    m_BoneIndex: 0
+  - m_Weight: 0.12986138
+    m_BoneIndex: 14
+  - m_Weight: 0.92748
+    m_BoneIndex: 0
+  - m_Weight: 0.07252
+    m_BoneIndex: 20
+  - m_Weight: 1
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 1
+    m_BoneIndex: 2
+  - m_Weight: 0.32781273
+    m_BoneIndex: 13
+  - m_Weight: 0.2472327
+    m_BoneIndex: 12
+  - m_Weight: 0.23875962
+    m_BoneIndex: 14
+  - m_Weight: 0.18619503
+    m_BoneIndex: 0
+  - m_Weight: 0.4935682
+    m_BoneIndex: 0
+  - m_Weight: 0.25968927
+    m_BoneIndex: 12
+  - m_Weight: 0.18479627
+    m_BoneIndex: 13
+  - m_Weight: 0.061946206
+    m_BoneIndex: 14
+  - m_Weight: 0.6038062
+    m_BoneIndex: 0
+  - m_Weight: 0.23474379
+    m_BoneIndex: 12
+  - m_Weight: 0.13174185
+    m_BoneIndex: 13
+  - m_Weight: 0.029708158
+    m_BoneIndex: 14
+  - m_Weight: 0.28643432
+    m_BoneIndex: 0
+  - m_Weight: 0.27287933
+    m_BoneIndex: 12
+  - m_Weight: 0.23264197
+    m_BoneIndex: 13
+  - m_Weight: 0.20804442
+    m_BoneIndex: 14
+  - m_Weight: 0.5011031
+    m_BoneIndex: 0
+  - m_Weight: 0.30177134
+    m_BoneIndex: 12
+  - m_Weight: 0.14485362
+    m_BoneIndex: 13
+  - m_Weight: 0.05227204
+    m_BoneIndex: 14
+  - m_Weight: 0.52621514
+    m_BoneIndex: 14
+  - m_Weight: 0.25245646
+    m_BoneIndex: 13
+  - m_Weight: 0.1399676
+    m_BoneIndex: 12
+  - m_Weight: 0.08136077
+    m_BoneIndex: 15
+  - m_Weight: 0.4693702
+    m_BoneIndex: 14
+  - m_Weight: 0.3794767
+    m_BoneIndex: 13
+  - m_Weight: 0.13047133
+    m_BoneIndex: 12
+  - m_Weight: 0.020681744
+    m_BoneIndex: 0
+  - m_Weight: 0.3295537
+    m_BoneIndex: 12
+  - m_Weight: 0.27204412
+    m_BoneIndex: 14
+  - m_Weight: 0.20532268
+    m_BoneIndex: 13
+  - m_Weight: 0.19307958
+    m_BoneIndex: 0
+  - m_Weight: 0.41590074
+    m_BoneIndex: 0
+  - m_Weight: 0.3581777
+    m_BoneIndex: 12
+  - m_Weight: 0.16028927
+    m_BoneIndex: 13
+  - m_Weight: 0.06563234
+    m_BoneIndex: 14
+  - m_Weight: 0.48838875
+    m_BoneIndex: 14
+  - m_Weight: 0.19019768
+    m_BoneIndex: 15
+  - m_Weight: 0.16566552
+    m_BoneIndex: 12
+  - m_Weight: 0.15574808
+    m_BoneIndex: 13
+  - m_Weight: 0.60187495
+    m_BoneIndex: 14
+  - m_Weight: 0.2673843
+    m_BoneIndex: 15
+  - m_Weight: 0.08446897
+    m_BoneIndex: 13
+  - m_Weight: 0.046271876
+    m_BoneIndex: 12
+  - m_Weight: 0.32322866
+    m_BoneIndex: 12
+  - m_Weight: 0.25695756
+    m_BoneIndex: 14
+  - m_Weight: 0.2458217
+    m_BoneIndex: 13
+  - m_Weight: 0.17399204
+    m_BoneIndex: 0
+  - m_Weight: 0.35359257
+    m_BoneIndex: 12
+  - m_Weight: 0.3295137
+    m_BoneIndex: 0
+  - m_Weight: 0.22623618
+    m_BoneIndex: 13
+  - m_Weight: 0.090657584
+    m_BoneIndex: 14
+  - m_Weight: 0.3577992
+    m_BoneIndex: 13
+  - m_Weight: 0.2912013
+    m_BoneIndex: 14
+  - m_Weight: 0.25435108
+    m_BoneIndex: 12
+  - m_Weight: 0.096648425
+    m_BoneIndex: 0
+  - m_Weight: 0.40242627
+    m_BoneIndex: 0
+  - m_Weight: 0.32140177
+    m_BoneIndex: 12
+  - m_Weight: 0.21128157
+    m_BoneIndex: 13
+  - m_Weight: 0.06489044
+    m_BoneIndex: 14
+  - m_Weight: 0.34262335
+    m_BoneIndex: 13
+  - m_Weight: 0.3044398
+    m_BoneIndex: 12
+  - m_Weight: 0.18308851
+    m_BoneIndex: 0
+  - m_Weight: 0.1698483
+    m_BoneIndex: 14
+  - m_Weight: 0.4935682
+    m_BoneIndex: 0
+  - m_Weight: 0.25968927
+    m_BoneIndex: 12
+  - m_Weight: 0.18479627
+    m_BoneIndex: 13
+  - m_Weight: 0.061946206
+    m_BoneIndex: 14
+  - m_Weight: 0.32781273
+    m_BoneIndex: 13
+  - m_Weight: 0.2472327
+    m_BoneIndex: 12
+  - m_Weight: 0.23875962
+    m_BoneIndex: 14
+  - m_Weight: 0.18619503
+    m_BoneIndex: 0
+  - m_Weight: 0.4693702
+    m_BoneIndex: 14
+  - m_Weight: 0.3794767
+    m_BoneIndex: 13
+  - m_Weight: 0.13047133
+    m_BoneIndex: 12
+  - m_Weight: 0.020681744
+    m_BoneIndex: 0
+  - m_Weight: 0.4229203
+    m_BoneIndex: 13
+  - m_Weight: 0.34272313
+    m_BoneIndex: 14
+  - m_Weight: 0.19033645
+    m_BoneIndex: 12
+  - m_Weight: 0.044020105
+    m_BoneIndex: 0
+  - m_Weight: 0.4229203
+    m_BoneIndex: 13
+  - m_Weight: 0.34272313
+    m_BoneIndex: 14
+  - m_Weight: 0.19033645
+    m_BoneIndex: 12
+  - m_Weight: 0.044020105
+    m_BoneIndex: 0
+  - m_Weight: 0.45905215
+    m_BoneIndex: 14
+  - m_Weight: 0.39967883
+    m_BoneIndex: 13
+  - m_Weight: 0.1308385
+    m_BoneIndex: 12
+  - m_Weight: 0.010430531
+    m_BoneIndex: 0
+  - m_Weight: 0.5173761
+    m_BoneIndex: 14
+  - m_Weight: 0.2807757
+    m_BoneIndex: 13
+  - m_Weight: 0.14630172
+    m_BoneIndex: 12
+  - m_Weight: 0.055546418
+    m_BoneIndex: 15
+  - m_Weight: 0.49108663
+    m_BoneIndex: 14
+  - m_Weight: 0.18834138
+    m_BoneIndex: 15
+  - m_Weight: 0.17165136
+    m_BoneIndex: 12
+  - m_Weight: 0.14892069
+    m_BoneIndex: 13
+  - m_Weight: 0.6138461
+    m_BoneIndex: 14
+  - m_Weight: 0.2164859
+    m_BoneIndex: 15
+  - m_Weight: 0.112745
+    m_BoneIndex: 13
+  - m_Weight: 0.056922942
+    m_BoneIndex: 12
+  - m_Weight: 0.48285016
+    m_BoneIndex: 14
+  - m_Weight: 0.24900864
+    m_BoneIndex: 15
+  - m_Weight: 0.15327309
+    m_BoneIndex: 12
+  - m_Weight: 0.114868134
+    m_BoneIndex: 13
+  - m_Weight: 0.54772276
+    m_BoneIndex: 14
+  - m_Weight: 0.38706702
+    m_BoneIndex: 15
+  - m_Weight: 0.034805775
+    m_BoneIndex: 13
+  - m_Weight: 0.030404473
+    m_BoneIndex: 12
+  - m_Weight: 0.57944524
+    m_BoneIndex: 14
+  - m_Weight: 0.38581514
+    m_BoneIndex: 15
+  - m_Weight: 0.02481848
+    m_BoneIndex: 13
+  - m_Weight: 0.009921111
+    m_BoneIndex: 12
+  - m_Weight: 0.52552146
+    m_BoneIndex: 14
+  - m_Weight: 0.4628173
+    m_BoneIndex: 15
+  - m_Weight: 0.006852615
+    m_BoneIndex: 13
+  - m_Weight: 0.004808609
+    m_BoneIndex: 12
+  - m_Weight: 0.5187812
+    m_BoneIndex: 14
+  - m_Weight: 0.37074122
+    m_BoneIndex: 15
+  - m_Weight: 0.058988363
+    m_BoneIndex: 12
+  - m_Weight: 0.051489256
+    m_BoneIndex: 13
+  - m_Weight: 0.516509
+    m_BoneIndex: 14
+  - m_Weight: 0.4548136
+    m_BoneIndex: 15
+  - m_Weight: 0.015074297
+    m_BoneIndex: 13
+  - m_Weight: 0.013603085
+    m_BoneIndex: 12
+  - m_Weight: 0.5584236
+    m_BoneIndex: 14
+  - m_Weight: 0.41517323
+    m_BoneIndex: 15
+  - m_Weight: 0.01775841
+    m_BoneIndex: 13
+  - m_Weight: 0.008644767
+    m_BoneIndex: 12
+  - m_Weight: 0.5110466
+    m_BoneIndex: 14
+  - m_Weight: 0.40484297
+    m_BoneIndex: 15
+  - m_Weight: 0.044537086
+    m_BoneIndex: 12
+  - m_Weight: 0.039573446
+    m_BoneIndex: 13
+  - m_Weight: 0.5428702
+    m_BoneIndex: 14
+  - m_Weight: 0.3916121
+    m_BoneIndex: 15
+  - m_Weight: 0.03550254
+    m_BoneIndex: 13
+  - m_Weight: 0.030015063
+    m_BoneIndex: 12
+  - m_Weight: 0.5209575
+    m_BoneIndex: 14
+  - m_Weight: 0.3671046
+    m_BoneIndex: 15
+  - m_Weight: 0.05795106
+    m_BoneIndex: 12
+  - m_Weight: 0.053986926
+    m_BoneIndex: 13
+  - m_Weight: 0.52552146
+    m_BoneIndex: 14
+  - m_Weight: 0.4628173
+    m_BoneIndex: 15
+  - m_Weight: 0.006852615
+    m_BoneIndex: 13
+  - m_Weight: 0.004808609
+    m_BoneIndex: 12
+  - m_Weight: 0.57944524
+    m_BoneIndex: 14
+  - m_Weight: 0.38581514
+    m_BoneIndex: 15
+  - m_Weight: 0.02481848
+    m_BoneIndex: 13
+  - m_Weight: 0.009921111
+    m_BoneIndex: 12
+  - m_Weight: 0.5584236
+    m_BoneIndex: 14
+  - m_Weight: 0.41517323
+    m_BoneIndex: 15
+  - m_Weight: 0.01775841
+    m_BoneIndex: 13
+  - m_Weight: 0.008644767
+    m_BoneIndex: 12
+  - m_Weight: 0.6138461
+    m_BoneIndex: 14
+  - m_Weight: 0.2164859
+    m_BoneIndex: 15
+  - m_Weight: 0.112745
+    m_BoneIndex: 13
+  - m_Weight: 0.056922942
+    m_BoneIndex: 12
+  - m_Weight: 0.60187495
+    m_BoneIndex: 14
+  - m_Weight: 0.2673843
+    m_BoneIndex: 15
+  - m_Weight: 0.08446897
+    m_BoneIndex: 13
+  - m_Weight: 0.046271876
+    m_BoneIndex: 12
+  - m_Weight: 0.5173761
+    m_BoneIndex: 14
+  - m_Weight: 0.2807757
+    m_BoneIndex: 13
+  - m_Weight: 0.14630172
+    m_BoneIndex: 12
+  - m_Weight: 0.055546418
+    m_BoneIndex: 15
+  - m_Weight: 0.52621514
+    m_BoneIndex: 14
+  - m_Weight: 0.25245646
+    m_BoneIndex: 13
+  - m_Weight: 0.1399676
+    m_BoneIndex: 12
+  - m_Weight: 0.08136077
+    m_BoneIndex: 15
+  - m_Weight: 0.45905215
+    m_BoneIndex: 14
+  - m_Weight: 0.39967883
+    m_BoneIndex: 13
+  - m_Weight: 0.1308385
+    m_BoneIndex: 12
+  - m_Weight: 0.010430531
+    m_BoneIndex: 0
+  - m_Weight: 0.4693702
+    m_BoneIndex: 14
+  - m_Weight: 0.3794767
+    m_BoneIndex: 13
+  - m_Weight: 0.13047133
+    m_BoneIndex: 12
+  - m_Weight: 0.020681744
+    m_BoneIndex: 0
+  - m_Weight: 0.4229203
+    m_BoneIndex: 13
+  - m_Weight: 0.34272313
+    m_BoneIndex: 14
+  - m_Weight: 0.19033645
+    m_BoneIndex: 12
+  - m_Weight: 0.044020105
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 11
+  - m_Weight: 1
+    m_BoneIndex: 11
+  - m_Weight: 1
+    m_BoneIndex: 11
+  - m_Weight: 1
+    m_BoneIndex: 11
+  - m_Weight: 1
+    m_BoneIndex: 11
+  - m_Weight: 1
+    m_BoneIndex: 11
+  - m_Weight: 1
+    m_BoneIndex: 11
+  - m_Weight: 1
+    m_BoneIndex: 11
+  - m_Weight: 1
+    m_BoneIndex: 11
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 5
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 5
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 5
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 5
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 5
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 1
+    m_BoneIndex: 5
+  - m_Weight: 1
+    m_BoneIndex: 4
+  - m_Weight: 0.5972094
+    m_BoneIndex: 6
+  - m_Weight: 0.4027906
+    m_BoneIndex: 5
+  - m_Weight: 1
+    m_BoneIndex: 5
+  - m_Weight: 0.5972094
+    m_BoneIndex: 6
+  - m_Weight: 0.4027906
+    m_BoneIndex: 5
+  - m_Weight: 1
+    m_BoneIndex: 5
+  - m_Weight: 0.5996078
+    m_BoneIndex: 6
+  - m_Weight: 0.40039217
+    m_BoneIndex: 5
+  - m_Weight: 1
+    m_BoneIndex: 5
+  - m_Weight: 0.6116
+    m_BoneIndex: 6
+  - m_Weight: 0.38840002
+    m_BoneIndex: 5
+  - m_Weight: 1
+    m_BoneIndex: 5
+  - m_Weight: 0.64743054
+    m_BoneIndex: 5
+  - m_Weight: 0.35256943
+    m_BoneIndex: 6
+  - m_Weight: 1
+    m_BoneIndex: 5
+  - m_Weight: 0.5972094
+    m_BoneIndex: 6
+  - m_Weight: 0.4027906
+    m_BoneIndex: 5
+  - m_Weight: 1
+    m_BoneIndex: 5
+  - m_Weight: 1
+    m_BoneIndex: 3
+  - m_Weight: 1
+    m_BoneIndex: 3
+  - m_Weight: 1
+    m_BoneIndex: 3
+  - m_Weight: 1
+    m_BoneIndex: 3
+  - m_Weight: 1
+    m_BoneIndex: 3
+  - m_Weight: 1
+    m_BoneIndex: 3
+  - m_Weight: 1
+    m_BoneIndex: 3
+  - m_Weight: 1
+    m_BoneIndex: 3
+  - m_Weight: 1
+    m_BoneIndex: 3
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 1
+    m_BoneIndex: 8
+  - m_Weight: 1
+    m_BoneIndex: 7
+  - m_Weight: 0.32600185
+    m_BoneIndex: 19
+  - m_Weight: 0.26759157
+    m_BoneIndex: 18
+  - m_Weight: 0.23209402
+    m_BoneIndex: 20
+  - m_Weight: 0.1743126
+    m_BoneIndex: 0
+  - m_Weight: 0.58751297
+    m_BoneIndex: 0
+  - m_Weight: 0.26731122
+    m_BoneIndex: 18
+  - m_Weight: 0.119206384
+    m_BoneIndex: 19
+  - m_Weight: 0.025969516
+    m_BoneIndex: 20
+  - m_Weight: 0.46581754
+    m_BoneIndex: 0
+  - m_Weight: 0.30056328
+    m_BoneIndex: 18
+  - m_Weight: 0.17607333
+    m_BoneIndex: 19
+  - m_Weight: 0.057545874
+    m_BoneIndex: 20
+  - m_Weight: 0.30239478
+    m_BoneIndex: 18
+  - m_Weight: 0.27790037
+    m_BoneIndex: 0
+  - m_Weight: 0.22520076
+    m_BoneIndex: 19
+  - m_Weight: 0.19450416
+    m_BoneIndex: 20
+  - m_Weight: 0.5019323
+    m_BoneIndex: 0
+  - m_Weight: 0.30677468
+    m_BoneIndex: 18
+  - m_Weight: 0.14173044
+    m_BoneIndex: 19
+  - m_Weight: 0.049562562
+    m_BoneIndex: 20
+  - m_Weight: 0.5123422
+    m_BoneIndex: 20
+  - m_Weight: 0.25284362
+    m_BoneIndex: 19
+  - m_Weight: 0.15219726
+    m_BoneIndex: 18
+  - m_Weight: 0.08261696
+    m_BoneIndex: 21
+  - m_Weight: 0.46740133
+    m_BoneIndex: 20
+  - m_Weight: 0.37997815
+    m_BoneIndex: 19
+  - m_Weight: 0.133746
+    m_BoneIndex: 18
+  - m_Weight: 0.01887456
+    m_BoneIndex: 0
+  - m_Weight: 0.3192827
+    m_BoneIndex: 18
+  - m_Weight: 0.2717364
+    m_BoneIndex: 20
+  - m_Weight: 0.21347469
+    m_BoneIndex: 19
+  - m_Weight: 0.19550632
+    m_BoneIndex: 0
+  - m_Weight: 0.4267424
+    m_BoneIndex: 0
+  - m_Weight: 0.32343358
+    m_BoneIndex: 18
+  - m_Weight: 0.17846464
+    m_BoneIndex: 19
+  - m_Weight: 0.071359456
+    m_BoneIndex: 20
+  - m_Weight: 0.46307573
+    m_BoneIndex: 20
+  - m_Weight: 0.19354434
+    m_BoneIndex: 21
+  - m_Weight: 0.1815604
+    m_BoneIndex: 18
+  - m_Weight: 0.1618196
+    m_BoneIndex: 19
+  - m_Weight: 0.5881101
+    m_BoneIndex: 20
+  - m_Weight: 0.26921248
+    m_BoneIndex: 21
+  - m_Weight: 0.090114765
+    m_BoneIndex: 19
+  - m_Weight: 0.05256267
+    m_BoneIndex: 18
+  - m_Weight: 0.27676284
+    m_BoneIndex: 20
+  - m_Weight: 0.27136332
+    m_BoneIndex: 18
+  - m_Weight: 0.27115676
+    m_BoneIndex: 19
+  - m_Weight: 0.18071711
+    m_BoneIndex: 0
+  - m_Weight: 0.33512273
+    m_BoneIndex: 0
+  - m_Weight: 0.31574994
+    m_BoneIndex: 18
+  - m_Weight: 0.2506543
+    m_BoneIndex: 19
+  - m_Weight: 0.09847302
+    m_BoneIndex: 20
+  - m_Weight: 0.37739268
+    m_BoneIndex: 19
+  - m_Weight: 0.3061398
+    m_BoneIndex: 20
+  - m_Weight: 0.21482982
+    m_BoneIndex: 18
+  - m_Weight: 0.1016377
+    m_BoneIndex: 0
+  - m_Weight: 0.38524535
+    m_BoneIndex: 0
+  - m_Weight: 0.33270246
+    m_BoneIndex: 18
+  - m_Weight: 0.21868682
+    m_BoneIndex: 19
+  - m_Weight: 0.063365355
+    m_BoneIndex: 20
+  - m_Weight: 0.35703623
+    m_BoneIndex: 19
+  - m_Weight: 0.29026577
+    m_BoneIndex: 18
+  - m_Weight: 0.1808727
+    m_BoneIndex: 0
+  - m_Weight: 0.17182535
+    m_BoneIndex: 20
+  - m_Weight: 0.46581754
+    m_BoneIndex: 0
+  - m_Weight: 0.30056328
+    m_BoneIndex: 18
+  - m_Weight: 0.17607333
+    m_BoneIndex: 19
+  - m_Weight: 0.057545874
+    m_BoneIndex: 20
+  - m_Weight: 0.32600185
+    m_BoneIndex: 19
+  - m_Weight: 0.26759157
+    m_BoneIndex: 18
+  - m_Weight: 0.23209402
+    m_BoneIndex: 20
+  - m_Weight: 0.1743126
+    m_BoneIndex: 0
+  - m_Weight: 0.46740133
+    m_BoneIndex: 20
+  - m_Weight: 0.37997815
+    m_BoneIndex: 19
+  - m_Weight: 0.133746
+    m_BoneIndex: 18
+  - m_Weight: 0.01887456
+    m_BoneIndex: 0
+  - m_Weight: 0.42886811
+    m_BoneIndex: 19
+  - m_Weight: 0.3459861
+    m_BoneIndex: 20
+  - m_Weight: 0.1818515
+    m_BoneIndex: 18
+  - m_Weight: 0.04329428
+    m_BoneIndex: 0
+  - m_Weight: 0.47015923
+    m_BoneIndex: 20
+  - m_Weight: 0.40491337
+    m_BoneIndex: 19
+  - m_Weight: 0.11325216
+    m_BoneIndex: 18
+  - m_Weight: 0.011675268
+    m_BoneIndex: 0
+  - m_Weight: 0.5340751
+    m_BoneIndex: 20
+  - m_Weight: 0.29086453
+    m_BoneIndex: 19
+  - m_Weight: 0.12183185
+    m_BoneIndex: 18
+  - m_Weight: 0.053228617
+    m_BoneIndex: 21
+  - m_Weight: 0.5138529
+    m_BoneIndex: 20
+  - m_Weight: 0.1832447
+    m_BoneIndex: 21
+  - m_Weight: 0.1542801
+    m_BoneIndex: 19
+  - m_Weight: 0.14862227
+    m_BoneIndex: 18
+  - m_Weight: 0.6234279
+    m_BoneIndex: 20
+  - m_Weight: 0.21408284
+    m_BoneIndex: 21
+  - m_Weight: 0.11302449
+    m_BoneIndex: 19
+  - m_Weight: 0.04946481
+    m_BoneIndex: 18
+  - m_Weight: 0.48078156
+    m_BoneIndex: 20
+  - m_Weight: 0.24813382
+    m_BoneIndex: 21
+  - m_Weight: 0.153091
+    m_BoneIndex: 18
+  - m_Weight: 0.11799364
+    m_BoneIndex: 19
+  - m_Weight: 0.5598727
+    m_BoneIndex: 20
+  - m_Weight: 0.38406605
+    m_BoneIndex: 21
+  - m_Weight: 0.031826198
+    m_BoneIndex: 19
+  - m_Weight: 0.024235137
+    m_BoneIndex: 18
+  - m_Weight: 0.5813945
+    m_BoneIndex: 20
+  - m_Weight: 0.38518906
+    m_BoneIndex: 21
+  - m_Weight: 0.02464712
+    m_BoneIndex: 19
+  - m_Weight: 0.008769304
+    m_BoneIndex: 18
+  - m_Weight: 0.52520716
+    m_BoneIndex: 20
+  - m_Weight: 0.4626745
+    m_BoneIndex: 21
+  - m_Weight: 0.0072125993
+    m_BoneIndex: 19
+  - m_Weight: 0.0049058353
+    m_BoneIndex: 18
+  - m_Weight: 0.5306588
+    m_BoneIndex: 20
+  - m_Weight: 0.36747938
+    m_BoneIndex: 21
+  - m_Weight: 0.052974954
+    m_BoneIndex: 18
+  - m_Weight: 0.048886962
+    m_BoneIndex: 19
+  - m_Weight: 0.51595217
+    m_BoneIndex: 20
+  - m_Weight: 0.45458597
+    m_BoneIndex: 21
+  - m_Weight: 0.0154628325
+    m_BoneIndex: 19
+  - m_Weight: 0.013999051
+    m_BoneIndex: 18
+  - m_Weight: 0.55268055
+    m_BoneIndex: 20
+  - m_Weight: 0.4158756
+    m_BoneIndex: 21
+  - m_Weight: 0.02113937
+    m_BoneIndex: 19
+  - m_Weight: 0.010304484
+    m_BoneIndex: 18
+  - m_Weight: 0.51011854
+    m_BoneIndex: 20
+  - m_Weight: 0.40448785
+    m_BoneIndex: 21
+  - m_Weight: 0.045365937
+    m_BoneIndex: 18
+  - m_Weight: 0.040027667
+    m_BoneIndex: 19
+  - m_Weight: 0.5285262
+    m_BoneIndex: 20
+  - m_Weight: 0.3937533
+    m_BoneIndex: 21
+  - m_Weight: 0.04150858
+    m_BoneIndex: 19
+  - m_Weight: 0.036211997
+    m_BoneIndex: 18
+  - m_Weight: 0.5062259
+    m_BoneIndex: 20
+  - m_Weight: 0.36919615
+    m_BoneIndex: 21
+  - m_Weight: 0.06505865
+    m_BoneIndex: 18
+  - m_Weight: 0.05951935
+    m_BoneIndex: 19
+  - m_Weight: 0.52520716
+    m_BoneIndex: 20
+  - m_Weight: 0.4626745
+    m_BoneIndex: 21
+  - m_Weight: 0.0072125993
+    m_BoneIndex: 19
+  - m_Weight: 0.0049058353
+    m_BoneIndex: 18
+  - m_Weight: 0.55268055
+    m_BoneIndex: 20
+  - m_Weight: 0.4158756
+    m_BoneIndex: 21
+  - m_Weight: 0.02113937
+    m_BoneIndex: 19
+  - m_Weight: 0.010304484
+    m_BoneIndex: 18
+  - m_Weight: 0.5813945
+    m_BoneIndex: 20
+  - m_Weight: 0.38518906
+    m_BoneIndex: 21
+  - m_Weight: 0.02464712
+    m_BoneIndex: 19
+  - m_Weight: 0.008769304
+    m_BoneIndex: 18
+  - m_Weight: 0.6234279
+    m_BoneIndex: 20
+  - m_Weight: 0.21408284
+    m_BoneIndex: 21
+  - m_Weight: 0.11302449
+    m_BoneIndex: 19
+  - m_Weight: 0.04946481
+    m_BoneIndex: 18
+  - m_Weight: 0.5881101
+    m_BoneIndex: 20
+  - m_Weight: 0.26921248
+    m_BoneIndex: 21
+  - m_Weight: 0.090114765
+    m_BoneIndex: 19
+  - m_Weight: 0.05256267
+    m_BoneIndex: 18
+  - m_Weight: 0.5340751
+    m_BoneIndex: 20
+  - m_Weight: 0.29086453
+    m_BoneIndex: 19
+  - m_Weight: 0.12183185
+    m_BoneIndex: 18
+  - m_Weight: 0.053228617
+    m_BoneIndex: 21
+  - m_Weight: 0.5123422
+    m_BoneIndex: 20
+  - m_Weight: 0.25284362
+    m_BoneIndex: 19
+  - m_Weight: 0.15219726
+    m_BoneIndex: 18
+  - m_Weight: 0.08261696
+    m_BoneIndex: 21
+  - m_Weight: 0.47015923
+    m_BoneIndex: 20
+  - m_Weight: 0.40491337
+    m_BoneIndex: 19
+  - m_Weight: 0.11325216
+    m_BoneIndex: 18
+  - m_Weight: 0.011675268
+    m_BoneIndex: 0
+  - m_Weight: 0.46740133
+    m_BoneIndex: 20
+  - m_Weight: 0.37997815
+    m_BoneIndex: 19
+  - m_Weight: 0.133746
+    m_BoneIndex: 18
+  - m_Weight: 0.01887456
+    m_BoneIndex: 0
+  - m_Weight: 0.42886811
+    m_BoneIndex: 19
+  - m_Weight: 0.3459861
+    m_BoneIndex: 20
+  - m_Weight: 0.1818515
+    m_BoneIndex: 18
+  - m_Weight: 0.04329428
+    m_BoneIndex: 0
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 17
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  - m_Weight: 1
+    m_BoneIndex: 16
+  boneTrs: []
+  bonePaths:
+  - Hips
+  - Hips/Spine
+  - Hips/Spine/Head
+  - Hips/Spine/Armor_L
+  - Hips/Spine/Upper_Arm_L
+  - Hips/Spine/Upper_Arm_L/Lower_Arm_L
+  - Hips/Spine/Upper_Arm_L/Lower_Arm_L/Hand_L
+  - Hips/Spine/Upper_Arm_R
+  - Hips/Spine/Upper_Arm_R/Rower_Arm_R
+  - Hips/Spine/Upper_Arm_R/Rower_Arm_R/Hand_R
+  - Hips/Spine/Upper_Arm_R/Rower_Arm_R/Hand_R/Index_Proximal_R
+  - Hips/Spine/Armor_R
+  - Hips/Upper_Leg_L
+  - Hips/Upper_Leg_L/Lower_Leg_L
+  - Hips/Upper_Leg_L/Lower_Leg_L/Foot_L
+  - Hips/Upper_Leg_L/Lower_Leg_L/Foot_L/Toes_L
+  - Hips/Shield
+  - Hips/Spear
+  - Hips/Upper_Reg_R
+  - Hips/Upper_Reg_R/Rower_Reg_R
+  - Hips/Upper_Reg_R/Rower_Reg_R/Foot_R
+  - Hips/Upper_Reg_R/Rower_Reg_R/Foot_R/Toes_R

@@ -1,0 +1,26 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel BakeBoneMatrix
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2D<float4> _ResultTex;
+uint _YStart;
+StructuredBuffer<float4x4> _BindposesBuffer;
+StructuredBuffer<float4x4> _BonesBuffer;
+float4x4 _RootWorldToLocal;
+
+[numthreads(8,8,1)]
+void BakeBoneMatrix (uint3 id : SV_DispatchThreadID)
+{
+    id.y += _YStart;
+    uint boneId = id.x;
+    float4x4 boneMat = _BonesBuffer[boneId];
+    float4x4 bindpose = _BindposesBuffer[boneId];
+    float4x4 mat = mul(_RootWorldToLocal,mul(boneMat,bindpose));
+
+    uint xStart = id.x * 3*4;// 3 float4 per bone
+    for(int i=0;i<3;i++){
+        id.x = xStart + i*4;
+        _ResultTex[id.xy] = mat[i];
+    }
+}

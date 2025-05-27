@@ -58,48 +58,12 @@
 
             Play(curIndex);
 
-            UpdateBoneInfo(r.sharedMaterial);
         }
 
-        public static void FillBones(SkinnedMeshRenderer skin, AnimTextureManifest manifest)
-        {
-            var bindPoseArr = skin.sharedMesh.GetBindposes();
-            var arr = new float3x4[skin.bones.Length];
 
-            for (int i = 0; i < skin.bones.Length; i++)
-            {
-                var bindpose = bindPoseArr[i];
-                var bone = skin.bones[i];
-
-                var localToBone = bone.localToWorldMatrix;
-                arr[i] = new float3x4(
-                    (Vector3)localToBone.GetColumn(0),
-                    (Vector3)localToBone.GetColumn(1),
-                    (Vector3)localToBone.GetColumn(2),
-                    (Vector3)localToBone.GetColumn(3)
-                    );
-            }
-            manifest.bones = arr;
-        }
-
-        void UpdateBoneInfo(Material mat)
-        {
-            mat.SetBuffer("_BindPoses", manifest.GetBindPosesBuffer());
-
-            mat.SetBuffer("_BoneInfoPerVertexBuffer", manifest.GetBoneInfoPerVertexBuffer());
-
-            mat.SetBuffer("_BoneWeight1Buffer", manifest.GetBoneWeight1Buffer());
-        }
-
-        public void UpdateBones(Material mat)
-        {
-            mat.SetBuffer("_Bones",manifest.GetBonesBuffer(transform));
-        }
         // Update is called once per frame
         void Update()
         {
-            UpdateBones(r.sharedMaterial);
-
             playTime += Time.deltaTime;
             UpdatePlayTime();
             UpdateAnimLoop();
