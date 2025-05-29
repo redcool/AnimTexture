@@ -11,7 +11,7 @@ using AnimTexture;
 /// <summary>
 /// Test vs bind quad
 /// </summary>
-public class TestShaderBind : MonoBehaviour
+public class TestGPUBind : MonoBehaviour
 {
     [EditorButton(onClickCall = "Start")]
     public bool isStart;
@@ -19,11 +19,6 @@ public class TestShaderBind : MonoBehaviour
     [EditorButton(onClickCall = "Send")]
     public bool isSend;
     public Material mat;
-
-    [EditorButton(onClickCall = "BakeBoneTex")]
-    public bool isBakeBoneTex;
-    public ComputeShader bakeBoneCS;
-
 
     public BoneWeight1[] weights;
     public Transform[] bones;
@@ -67,14 +62,6 @@ public class TestShaderBind : MonoBehaviour
             startIndex += count;
         }
         return bonesStarts;
-    }
-
-    public void BakeBoneTex()
-    {
-#if UNITY_EDITOR
-        var texPath = "Assets/TestShaderBind/boneTex.asset";
-
-#endif
     }
 
     public void Send()
