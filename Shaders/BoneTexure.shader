@@ -14,6 +14,8 @@
 		_NextStartFrame("Next Anim Start Frame",float) = 0
 		_NextEndFrame("Next Anim End Frame",float) = 0
 		_CrossLerp("Cross Lerp",range(0,1)) = 0
+
+		_BoneCount("_BoneCount",int) = 1
     }
 
 HLSLINCLUDE
@@ -30,11 +32,10 @@ HLSLINCLUDE
 			uint boneIndex;
 		};
 
-		StructuredBuffer<float3x4> _BindPoses;
 		StructuredBuffer<BoneInfoPerVertex> _BoneInfoPerVertexBuffer;
-		StructuredBuffer<BoneWeight1> _BoneWeight1Buffer;
-		StructuredBuffer<float3x4> _Bones;
-		
+		StructuredBuffer<BoneWeight1> _BoneWeightBuffer;
+		StructuredBuffer<float4x4> _Bones;
+
 		CBUFFER_START(UnityPerMaterial)
 			half _StartFrame;
 			half _EndFrame;
@@ -48,6 +49,8 @@ HLSLINCLUDE
 						
 			half4 _AnimTex_TexelSize;
 			half4 _MainTex_ST;
+
+			float _BoneCount; 
 		CBUFFER_END
 
 		struct AnimInfo {
@@ -58,6 +61,19 @@ HLSLINCLUDE
 			half playTime;
 			uint offsetPlayTime;
 		};
+
+
+		AnimInfo GetAnimInfo(){
+			AnimInfo info =(AnimInfo)0;
+
+			info.frameRate = _AnimSampleRate;
+			info.startFrame = _StartFrame;
+			info.endFrame = _EndFrame;
+			info.loop = _Loop;
+			info.playTime = _PlayTime;
+			info.offsetPlayTime = _OffsetPlayTime;
+			return info;
+		}
 
 		half GetY(AnimInfo info) {
 			// length = fps/sampleRatio
@@ -70,28 +86,59 @@ HLSLINCLUDE
 			return y;
 		}
 
-		half4 GetAnimPos(uint vertexId, AnimInfo info) {
+
+		float4 GetAnimPos(uint vid,float4 pos){
+			float4 bonePos = (float4)0;
+
+			AnimInfo info = GetAnimInfo();			
 			half y = GetY(info);
-			half x = (vertexId + 0.5) * _AnimTex_TexelSize.x;
+			half x = (vid + 0.5) * _AnimTex_TexelSize.x;
 
-			half4 animPos = tex2Dlod(_AnimTex, half4(x, y, 0, 0));
-			return animPos;
+			BoneInfoPerVertex boneInfo = _BoneInfoPerVertexBuffer[vid];
+			float bonesCount = boneInfo.bonesCount;
+			float boneStart = boneInfo.bonesStartIndex;
+
+			float4x4 boneMat = {1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1};
+
+			UNITY_UNROLLX(4)
+			for(int i=0;i<bonesCount;i++){
+				BoneWeight1 bw = _BoneWeightBuffer[boneStart + i];
+				float weight = bw.weight;
+				uint boneIndex = bw.boneIndex;
+
+				boneMat = _Bones[boneIndex];
+
+				// get float3x4 from boneTex
+				
+				x = (boneIndex/_BoneCount+0.5);
+
+				// boneMat[0] = tex2Dlod(_AnimTex,float4(x,y,0,0));
+				// boneMat[1] = tex2Dlod(_AnimTex,float4(x + _AnimTex_TexelSize.x,y,0,0));
+				// boneMat[2] = tex2Dlod(_AnimTex,float4(x + _AnimTex_TexelSize.x * 2,y,0,0));
+
+
+				bonePos += mul(boneMat,pos) * weight;
+			}
+
+			return bonePos;
 		}
-		half4 GetBlendAnimPos(uint vertexId) {
-			AnimInfo info =(AnimInfo)0;
 
-			info.frameRate = _AnimSampleRate;
-			info.startFrame = _StartFrame;
-			info.endFrame = _EndFrame;
-			info.loop = _Loop;
-			info.playTime = _PlayTime;
-			info.offsetPlayTime = _OffsetPlayTime;
+		float4 GetAnimPos(uint vid,AnimInfo info) {
+			half y = GetY(info);
+			half x = (vid + 0.5) * _AnimTex_TexelSize.x;
+
+			float4 animPos = tex2Dlod(_AnimTex, half4(x, y, 0, 0));
+			return animPos;
+		}		
+
+		float4 GetBlendAnimPos(uint vid) {
+			AnimInfo info = GetAnimInfo();
 			half crossLerp = _CrossLerp;
-			half4 curPos = GetAnimPos(vertexId, info);
+			float4 curPos = GetAnimPos(vid, info);
 
 			info.startFrame = _NextStartFrame;
 			info.endFrame = _NextEndFrame;
-			half4 nextPos = GetAnimPos(vertexId, info);
+			float4 nextPos = GetAnimPos(vid, info);
 
 			return lerp(curPos, nextPos, crossLerp);
 		}
@@ -121,43 +168,14 @@ ENDHLSL
                 half4 vertex : SV_POSITION;
                 half2 uv : TEXCOORD0;
             };
-/**
-	_BoneWeight1Buffer
-	_BoneInfoPerVertexBuffer
-	_BindPoses
-*/
 
-			float4 GetPos(uint vid,float4 pos){
-				BoneInfoPerVertex boneInfo = _BoneInfoPerVertexBuffer[vid];
-				// float3x4 mat = _Bones[vid];
-				// BoneWeight1 bw =_BoneWeight1Buffer[vid];
-				uint startIndex = asuint(boneInfo.bonesStartIndex);
-				uint bonesCount = asuint(boneInfo.bonesCount);
-				for(uint i = 0;i <bonesCount;i++) //
-				{
-					BoneWeight1 bw =_BoneWeight1Buffer[startIndex + i];
-					// float3x4 bindpose = _BindPoses[bw.boneIndex];
-					float3x4 boneMat = _Bones[bw.boneIndex];
-
-					// float3x3 mat = mul((float3x3) bindpose,(float3x3) boneMat);
-					float3x3 mat = (float3x3)boneMat;
-
-					float3 bonePos = mul(mat,pos.xyz);
-					bonePos += boneMat._14_24_34;
-// return float4(bonePos,1);
-					return mul(UNITY_MATRIX_MVP,float4(bonePos.xyz,1));
-				}
-				return pos;
-			}
 
             v2f vert (appdata v)
             {
                 v2f o;
 
-				// float4 pos = GetBlendAnimPos(v.vertexId);
-				float4 pos = GetPos(v.vertexId,v.pos);
-				o.vertex = pos;
-				// o.vertex = TransformObjectToHClip(v.pos);
+				float4 pos = GetAnimPos(v.vertexId,v.pos);
+				o.vertex = TransformObjectToHClip(pos);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
                 return o;
@@ -165,7 +183,7 @@ ENDHLSL
 
             half4 frag (v2f i) : SV_Target
             {
-				return _BindPoses[0]._11_12_13_14;
+				return float4(i.uv,0,1);
                 // sample the texture
                 half4 col = tex2D(_MainTex, i.uv);
                 return col;

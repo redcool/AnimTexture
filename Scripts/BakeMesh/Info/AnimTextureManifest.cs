@@ -11,12 +11,6 @@
 
     public class AnimTextureManifest : ScriptableObject
     {
-        [Serializable]
-        public struct BoneInfoPerVertex
-        {
-            public float bonesCountPerVertex;
-            public float bonesStartIndexPerVertex;
-        }
         /// <summary>
         /// Animation info
         /// </summary>
@@ -27,21 +21,23 @@
         public Texture2D atlas;
 
         //----------- bake bone 
-       
+        [Header("buffer")]
 
-        public GraphicsBuffer bindposesBuffer;
-        public GraphicsBuffer bonesBuffer;
-        public GraphicsBuffer boneInfoBuffer;
-        public GraphicsBuffer boneWeightsBuffer;
+         GraphicsBuffer boneInfoBuffer;
+         GraphicsBuffer boneWeightsBuffer;
 
         // original data
-        public Matrix4x4[] bindposes;
-        public Matrix4x4[] bones;
+        [ListItemDraw("count:,bonesCountPerVertex,id:,bonesStartIndexPerVertex","50,100,50,100")]
         public BoneInfoPerVertex[] boneInfoPerVertices;
+
+        [ListItemDraw("weight:,m_Weight,boneIndex:,m_BoneIndex", "50,100,50,100")]
         public BoneWeight1[] boneWeightArray;
 
         public Transform[] boneTrs;
         public string[] bonePaths;
+
+        public Matrix4x4[] bones;
+        public Matrix4x4[] bindposes;
 
         public Transform[] GetBoneTrs(Transform rootBone)
         {
@@ -57,17 +53,6 @@
             }
             return boneTrs;
         }
-
-        public GraphicsBuffer GetBindPosesBuffer()
-        {
-            if (!bindposesBuffer.IsValidSafe())
-            {
-                bindposesBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, bindposes.Length, AnimTextureUtils.BoneMatrixSize);
-            }
-            bindposesBuffer.SetData(bindposes);
-            return bindposesBuffer;
-        }
-
         public GraphicsBuffer GetBoneInfoPerVertexBuffer()
         {
             if (!boneInfoBuffer.IsValidSafe())
@@ -84,19 +69,9 @@
             if (!boneWeightsBuffer.IsValidSafe())
             {
                 boneWeightsBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneWeight1>());
+            }
                 boneWeightsBuffer.SetData(boneWeightArray);
-            }
             return boneWeightsBuffer;
-        }
-
-        public GraphicsBuffer GetBonesBuffer()
-        {
-            if (!bonesBuffer.IsValidSafe())
-            {
-                bonesBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, bones.Length, AnimTextureUtils.BoneMatrixSize);
-            }
-            bonesBuffer.SetData(bones);
-            return bonesBuffer;
         }
     }
 

@@ -4,6 +4,8 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.InteropServices;
     using Unity.Mathematics;
     using UnityEngine;
 
@@ -32,6 +34,8 @@
 
         Renderer r;
         MaterialPropertyBlock block;
+        Material mat;
+
         Coroutine crossLerpCoroutine;
         bool needUpdateBlock;
 
@@ -39,27 +43,74 @@
         public AnimTextureClipInfo curClipInfo;
 
         [EditorButton(onClickCall ="Awake")]
-        public bool isUpdateBoneInfo;
+        public bool isCallAwake;
 
         [EditorButton(onClickCall = "Update")]
-        public bool isUpdateBones;
+        public bool isCallUpdate;
 
         // Start is called before the first frame update
         void Awake()
         {
             r = GetComponent<Renderer>();
+            mat = Application.isPlaying ? r.material : r.sharedMaterial;  // new instance
 
-            if(manifest.atlas)
+            if (manifest.atlas)
                 r.sharedMaterial.SetTexture(ID_ANIM_TEX, manifest.atlas);
 
-            block = new MaterialPropertyBlock();
+            if (block == null)
+                block = new MaterialPropertyBlock();
 
             SetupDict();
 
             Play(curIndex);
 
         }
+        [Header("debug")]
+        public SkinnedMeshRenderer skinned;
+        GraphicsBuffer boneWeightBuffer,boneInfoPerVertexBuffer,bonesBuffer;
+        void UpdateBoneArray(Material mat)
+        {
 
+            var bonesPerVertex = skinned.sharedMesh.GetBonesPerVertex().ToArray();
+            var boneStartPerVertex = skinned.sharedMesh.GetBoneStartPerVertex();
+            var boneWeightArray = skinned.sharedMesh.GetAllBoneWeights().ToArray();
+            var bones = skinned.bones.Select((tr, id) => tr.localToWorldMatrix * skinned.sharedMesh.bindposes[id]).ToArray();
+
+            mat.SetFloat("_BoneCount", bones.Length);
+            //// ========================= send buffer
+            GraphicsBufferTools.TryCreateBuffer(ref boneWeightBuffer, GraphicsBuffer.Target.Structured, boneWeightArray.Length,Marshal.SizeOf<BoneWeight1>());
+            boneWeightBuffer.SetData(boneWeightArray);
+
+            var boneInfoPerVertex = bonesPerVertex.
+                Zip(boneStartPerVertex, (count, start) => new BoneInfoPerVertex { bonesCountPerVertex = count, bonesStartIndexPerVertex = start })
+                .ToArray();
+            GraphicsBufferTools.TryCreateBuffer(ref boneInfoPerVertexBuffer, GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneInfoPerVertex>());
+            boneInfoPerVertexBuffer.SetData(boneInfoPerVertex);
+
+            GraphicsBufferTools.TryCreateBuffer(ref bonesBuffer, GraphicsBuffer.Target.Structured, bones.Length, Marshal.SizeOf<Matrix4x4>());
+            bonesBuffer.SetData(bones);
+
+            mat.SetBuffer("_BoneWeightBuffer", boneWeightBuffer);
+            mat.SetBuffer("_BoneInfoPerVertexBuffer", boneInfoPerVertexBuffer);
+            mat.SetBuffer("_Bones", bonesBuffer);
+            //// ========================= send array
+            mat.SetFloatArray("_BoneCountArray", bonesPerVertex.Select(Convert.ToSingle).ToArray());
+            mat.SetFloatArray("_BoneStartArray", boneStartPerVertex.Select(Convert.ToSingle).ToArray());
+            mat.SetFloatArray("_BoneWeightArray", boneWeightArray.Select(bw => bw.weight).ToArray());
+            mat.SetFloatArray("_BoneWeightIndexArray", boneWeightArray.Select(bw => (float)bw.boneIndex).ToArray());
+
+            //var bones = skin.bones.Select((tr, id) => skin.transform.worldToLocalMatrix * tr.localToWorldMatrix * skin.sharedMesh.bindposes[id]).ToArray();
+            mat.SetMatrixArray("_BonesArray", bones);
+        }
+
+        void UpdateBoneInfo()
+        {
+            if (!manifest)
+                return;
+
+
+            UpdateBoneArray(mat);
+        }
 
         // Update is called once per frame
         void Update()
@@ -67,6 +118,7 @@
             playTime += Time.deltaTime;
             UpdatePlayTime();
             UpdateAnimLoop();
+            UpdateBoneInfo();
 
             if (crossTest)
             {
@@ -109,14 +161,14 @@
 
             curClipInfo = manifest.animInfos[index];
 
-            block.SetFloat(startNameHash, curClipInfo.startFrame);
-            block.SetFloat(endNameHash, curClipInfo.endFrame);
+            mat.SetFloat(startNameHash, curClipInfo.startFrame, block);
+            mat.SetFloat(endNameHash, curClipInfo.endFrame, block);
             needUpdateBlock = true;
         }
         void UpdatePlayTime()
         {
-            block.SetFloat(ID_PLAY_TIME, playTime);
-            block.SetFloat(ID_OFFSET_PLAY_TIME, offsetPlayTime);
+            mat.SetFloat(ID_PLAY_TIME, playTime,block);
+            mat.SetFloat(ID_OFFSET_PLAY_TIME, offsetPlayTime,block);
             needUpdateBlock = true;
         }
 
@@ -128,17 +180,17 @@
                 {
                     //var loopLerp = block.GetFloat(ID_LOOP);
                     //Debug.Log(playTime + ":" + curClipInfo.length);
-                    block.SetFloat(ID_LOOP, 1);
+                    mat.SetFloat(ID_LOOP, 1,block);
                 }
             }
             else
-                block.SetFloat(ID_LOOP, 0);
+                mat.SetFloat(ID_LOOP, 0, block);
             needUpdateBlock = true;
         }
 
         void UpdateCrossLerp(float lerp)
         {
-            block.SetFloat(ID_CROSS_LERP, lerp);
+            mat.SetFloat(ID_CROSS_LERP, lerp, block);
             needUpdateBlock = true;
         }
 

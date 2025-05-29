@@ -92,8 +92,8 @@ namespace AnimTexture
                 bonePaths[i] = bone.GetHierarchyPath(skin.transform.root);
             }
             manifest.bonePaths = bonePaths;
-            manifest.bones = skin.bones.Select(tr=>tr.localToWorldMatrix).ToArray();
-            manifest.bindposes = skin.sharedMesh.bindposes.ToArray();
+            manifest.bones = skin.bones.Select(tr => tr.localToWorldMatrix).ToArray();
+            manifest.bindposes = bindPoseArr.ToArray();
         }
 
         public static void FillBoneWeights(SkinnedMeshRenderer skin, AnimTextureManifest manifest)

@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AnimTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 68b9fa9fa855f8b47a685768fc6dd201, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -34,13 +34,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _AnimSampleRate: 30
-    - _CrossLerp: 0
-    - _EndFrame: 1
+    - _BoneCount: 22
+    - _CrossLerp: 1
+    - _EndFrame: 40
     - _Loop: 1
-    - _NextEndFrame: 0
+    - _NextEndFrame: 40
     - _NextStartFrame: 0
     - _OffsetPlayTime: 0
-    - _PlayTime: 0
+    - _PlayTime: 0.33333334
     - _StartFrame: 0
     m_Colors: []
   m_BuildTextureStacks: []
