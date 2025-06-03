@@ -148,7 +148,7 @@ namespace AnimTexture
             {
                 var yStart = yList[index];
 
-                AnimTextureUtils.BakeBonesToRT(skin, go, clip, bakeBoneCS, yStart, resultTex);
+                AnimTextureTools.BakeBonesToRT(skin, go, clip, bakeBoneCS, yStart, resultTex);
 
                 manifest.animInfos.Add(new AnimTextureClipInfo(clip.name, yStart, yList[index + 1])
                 {

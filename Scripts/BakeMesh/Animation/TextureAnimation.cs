@@ -46,8 +46,12 @@
         public bool isCallAwake;
 
         [EditorButton(onClickCall = "Update")]
-        public bool isCallUpdate;
 
+        public bool isCallUpdate;
+        
+        [Header("debug")]
+        public SkinnedMeshRenderer skinned;
+        GraphicsBuffer boneWeightBuffer, boneInfoPerVertexBuffer, bonesBuffer;
         // Start is called before the first frame update
         void Awake()
         {
@@ -65,51 +69,13 @@
             Play(curIndex);
 
         }
-        [Header("debug")]
-        public SkinnedMeshRenderer skinned;
-        GraphicsBuffer boneWeightBuffer,boneInfoPerVertexBuffer,bonesBuffer;
-        void UpdateBoneArray(Material mat)
-        {
-
-            var bonesPerVertex = skinned.sharedMesh.GetBonesPerVertex().ToArray();
-            var boneStartPerVertex = skinned.sharedMesh.GetBoneStartPerVertex();
-            var boneWeightArray = skinned.sharedMesh.GetAllBoneWeights().ToArray();
-            var bones = skinned.bones.Select((tr, id) => tr.localToWorldMatrix * skinned.sharedMesh.bindposes[id]).ToArray();
-
-            mat.SetFloat("_BoneCount", bones.Length);
-            //// ========================= send buffer
-            GraphicsBufferTools.TryCreateBuffer(ref boneWeightBuffer, GraphicsBuffer.Target.Structured, boneWeightArray.Length,Marshal.SizeOf<BoneWeight1>());
-            boneWeightBuffer.SetData(boneWeightArray);
-
-            var boneInfoPerVertex = bonesPerVertex.
-                Zip(boneStartPerVertex, (count, start) => new BoneInfoPerVertex { bonesCountPerVertex = count, bonesStartIndexPerVertex = start })
-                .ToArray();
-            GraphicsBufferTools.TryCreateBuffer(ref boneInfoPerVertexBuffer, GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneInfoPerVertex>());
-            boneInfoPerVertexBuffer.SetData(boneInfoPerVertex);
-
-            GraphicsBufferTools.TryCreateBuffer(ref bonesBuffer, GraphicsBuffer.Target.Structured, bones.Length, Marshal.SizeOf<Matrix4x4>());
-            bonesBuffer.SetData(bones);
-
-            mat.SetBuffer("_BoneWeightBuffer", boneWeightBuffer);
-            mat.SetBuffer("_BoneInfoPerVertexBuffer", boneInfoPerVertexBuffer);
-            mat.SetBuffer("_Bones", bonesBuffer);
-            //// ========================= send array
-            mat.SetFloatArray("_BoneCountArray", bonesPerVertex.Select(Convert.ToSingle).ToArray());
-            mat.SetFloatArray("_BoneStartArray", boneStartPerVertex.Select(Convert.ToSingle).ToArray());
-            mat.SetFloatArray("_BoneWeightArray", boneWeightArray.Select(bw => bw.weight).ToArray());
-            mat.SetFloatArray("_BoneWeightIndexArray", boneWeightArray.Select(bw => (float)bw.boneIndex).ToArray());
-
-            //var bones = skin.bones.Select((tr, id) => skin.transform.worldToLocalMatrix * tr.localToWorldMatrix * skin.sharedMesh.bindposes[id]).ToArray();
-            mat.SetMatrixArray("_BonesArray", bones);
-        }
 
         void UpdateBoneInfo()
         {
             if (!manifest)
                 return;
 
-
-            UpdateBoneArray(mat);
+            SkinnedTools.CalcSendBonesInfo(transform,mat, skinned.sharedMesh, skinned.bones, skinned.sharedMesh.bindposes,ref boneWeightBuffer,ref boneInfoPerVertexBuffer,ref bonesBuffer);
         }
 
         // Update is called once per frame

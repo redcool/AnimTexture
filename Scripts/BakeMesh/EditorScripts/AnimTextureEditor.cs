@@ -154,7 +154,7 @@ namespace AnimTexture
             {
                 //tex
                 var y = yList[index];
-                var tex = AnimTextureUtils.BakeMeshToTexture(skin, go, clip);
+                var tex = AnimTextureTools.BakeMeshToTexture(skin, go, clip);
                 manifest.atlas.SetPixels(0, y, tex.width, tex.height, tex.GetPixels());
                 Object.DestroyImmediate(tex);
 

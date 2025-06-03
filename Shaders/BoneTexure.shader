@@ -20,21 +20,11 @@
 
 HLSLINCLUDE
 		#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+		#include "SkinnedLib.hlsl"
+
 		sampler2D _AnimTex;
 		sampler2D _MainTex;
 
-		struct BoneInfoPerVertex{
-			uint bonesCount;
-			uint bonesStartIndex;
-		};
-		struct BoneWeight1{
-			float weight;
-			uint boneIndex;
-		};
-
-		StructuredBuffer<BoneInfoPerVertex> _BoneInfoPerVertexBuffer;
-		StructuredBuffer<BoneWeight1> _BoneWeightBuffer;
-		StructuredBuffer<float4x4> _Bones;
 
 		CBUFFER_START(UnityPerMaterial)
 			half _StartFrame;
@@ -174,7 +164,7 @@ ENDHLSL
             {
                 v2f o;
 
-				float4 pos = GetAnimPos(v.vertexId,v.pos);
+				float4 pos = GetSkinnedPos(v.vertexId,v.pos);
 				o.vertex = TransformObjectToHClip(pos);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 

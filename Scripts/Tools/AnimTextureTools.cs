@@ -8,9 +8,9 @@
     using System.Text;
     using UnityEngine;
 
-    public class AnimTextureUtils
+    public class AnimTextureTools
     {
-        public static int BoneMatrixSize => Marshal.SizeOf<Matrix4x4>();
+        public static int Matrix4x4Size => Marshal.SizeOf<Matrix4x4>();
 
         public static Texture2D BakeMeshToTexture(SkinnedMeshRenderer skin, GameObject clipGo, AnimationClip clip)
         {
@@ -91,8 +91,8 @@
         public static void BakeBonesToRT(SkinnedMeshRenderer skin, GameObject clipGo, AnimationClip clip,ComputeShader cs,int yStart,RenderTexture resultTex)
         {
             // create reusage
-            GraphicsBufferTools.TryCreateBuffer(ref bindposesBuffer, GraphicsBuffer.Target.Structured, skin.bones.Length, BoneMatrixSize);
-            GraphicsBufferTools.TryCreateBuffer(ref bonesBuffer,GraphicsBuffer.Target.Structured, skin.bones.Length, BoneMatrixSize);
+            GraphicsBufferTools.TryCreateBuffer(ref bindposesBuffer, GraphicsBuffer.Target.Structured, skin.bones.Length, Matrix4x4Size);
+            GraphicsBufferTools.TryCreateBuffer(ref bonesBuffer,GraphicsBuffer.Target.Structured, skin.bones.Length, Matrix4x4Size);
 
             // 
             var bindposes = skin.sharedMesh.bindposes;
