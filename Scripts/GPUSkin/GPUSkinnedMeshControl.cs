@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Unity.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace AnimTexture
@@ -70,6 +71,16 @@ namespace AnimTexture
 #if UNITY_EDITOR
             if (isUpdateEditorMesh)
             {
+                var bones = new Matrix4x4[bonesBuffer.count];
+                bonesBuffer.GetData(bones);
+
+                //var bones1 = boneTrs.Select((tr, id) => transform.worldToLocalMatrix * tr.localToWorldMatrix * originalSharedMesh.bindposes[id]);
+                //var results = bones1.Select((tr, id) => $"{tr} == {bones[id]} ? {tr == bones[id]}");
+                //Debug.Log(string.Join("\n",results));
+
+                //mf.mesh.vertices = SkinnedTools.GetBonedVertices_CPU(transform, skinned.bones, originalSharedMesh);
+                //mf.mesh.vertices = SkinnedTools.GetBonedVertices_CPU(bones, originalSharedMesh);
+
                 // calc gpu skinned mesh
                 GraphicsBufferTools.TryCreateBuffer(ref meshBuffer, GraphicsBuffer.Target.Structured, originalSharedMesh.vertexCount, Marshal.SizeOf<Vector3>());
                 meshBuffer.SetData(originalSharedMesh.vertices);
@@ -81,10 +92,17 @@ namespace AnimTexture
                     skinnedVertices = new Vector3[originalSharedMesh.vertexCount];
 
                 meshBuffer.GetData(skinnedVertices);
-                mf.mesh.SetVertices(skinnedVertices, 0, skinnedVertices.Length);
+                //mf.mesh.SetVertices(skinnedVertices, 0, skinnedVertices.Length);
+                mf.mesh.vertices = skinnedVertices;
                 mf.mesh.RecalculateBounds();
+            }
+            else
+            {
+                mf.mesh = originalSharedMesh;
             }
 #endif
         }
+
+
     }
 }

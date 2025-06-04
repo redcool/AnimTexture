@@ -1,5 +1,9 @@
 // Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel CalcBoneMatrix
+#pragma kernel CalcSkinnedMesh
+
+#include "CSLib.hlsl"
+
 //==================
 // 
 //==================
@@ -8,18 +12,20 @@ StructuredBuffer<float4x4> _LocalToWorldBuffer;
 StructuredBuffer<float4x4> _BindposesBuffer;
 float4x4 _RootWorldToLocal;
 
+
+
 [numthreads(8,8,1)]
-void CalcBoneMatrix (uint3 id : SV_DispatchThreadID,uint groupIndex:SV_GROUPINDEX)
+void CalcBoneMatrix (uint3 id : SV_DispatchThreadID,uint3 groupId : SV_GROUPID,uint groupThreadIndex:SV_GROUPINDEX)
 {
     // Result[id.xy] = float4(id.x & id.y, (id.x & 15)/15.0, (id.y & 15)/15.0, 0.0);
-    _Bones[groupIndex] = mul(_RootWorldToLocal,mul(_LocalToWorldBuffer[groupIndex],_BindposesBuffer[groupIndex]));
+    uint dispatchThreadIndex = GetDispatchThreadIndex(groupId,groupThreadIndex,uint3(8,8,1));
+    _Bones[dispatchThreadIndex] = mul(_RootWorldToLocal,mul(_LocalToWorldBuffer[dispatchThreadIndex],_BindposesBuffer[dispatchThreadIndex]));
 }
 
 
 //==================
 // 
 //==================
-#pragma kernel CalcSkinnedMesh
 struct BoneInfoPerVertex{
     uint bonesCount;
     uint bonesStartIndex;
@@ -38,15 +44,13 @@ float4 GetSkinnedPos(uint vid,float4 pos){
     float bonesCount = boneInfo.bonesCount;
     float boneStart = boneInfo.bonesStartIndex;
 
-    float4x4 boneMat = {1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1};
-
     [unroll(4)]
     for(int i=0;i<bonesCount;i++){
         BoneWeight1 bw = _BoneWeightBuffer[boneStart + i];
         float weight = bw.weight;
         uint boneIndex = bw.boneIndex;
 
-        boneMat = _Bones[boneIndex];
+        float4x4 boneMat = _Bones[boneIndex];
         bonePos += mul(boneMat,pos) * weight;
     }
 
@@ -54,8 +58,9 @@ float4 GetSkinnedPos(uint vid,float4 pos){
 }
 
 RWStructuredBuffer<float3> _MeshBuffer;
-[numthreads(64,1,1)]
-void CalcSkinnedMesh(uint3 id : SV_DispatchThreadID,uint groupIndex:SV_GROUPINDEX)
+[numthreads(8,8,1)]
+void CalcSkinnedMesh(uint3 id : SV_DispatchThreadID,uint3 groupId : SV_GROUPID,uint groupThreadIndex:SV_GROUPINDEX)
 {
-    _MeshBuffer[groupIndex] = GetSkinnedPos(groupIndex,float4(_MeshBuffer[groupIndex],0)).xyz;
+    uint dispatchThreadIndex = GetDispatchThreadIndex(groupId,groupThreadIndex,uint3(8,8,1));
+    _MeshBuffer[dispatchThreadIndex] = GetSkinnedPos(dispatchThreadIndex,float4(_MeshBuffer[dispatchThreadIndex],1)).xyz;
 }

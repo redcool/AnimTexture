@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace AnimTexture
@@ -11,6 +12,40 @@ namespace AnimTexture
     {
 
         static Dictionary<Mesh, BoneInfoPerVertex[]> meshBoneInfoPerVertexDict = new();
+
+
+        public static Vector3[] GetBonedVertices_CPU(Matrix4x4[] bones, Mesh originalSharedMesh)
+        {
+            var bonesPerVertex = originalSharedMesh.GetBonesPerVertex();
+            var boneStartPerVertex = originalSharedMesh.GetBoneStartPerVertex();
+            var boneWeights = originalSharedMesh.GetAllBoneWeights();
+            var vertices = originalSharedMesh.vertices;
+
+            for (int i = 0; i < bonesPerVertex.Length; i++)
+            {
+                var boneCount = bonesPerVertex[i];
+                var boneStart = boneStartPerVertex[i];
+
+                var bonePos = new Vector4();
+                var pos = new float4(vertices[i], 1);
+
+                for (int j = 0; j < boneCount; j++)
+                {
+                    var bw = boneWeights[boneStart + j];
+                    var mat = bones[bw.boneIndex];
+
+                    bonePos += mat * pos * bw.weight;
+                }
+                vertices[i] = bonePos;
+            }
+            return vertices;
+        }
+
+        public static Vector3[] GetBonedVertices_CPU(Transform rootTr, Transform[] boneTrs, Mesh originalSharedMesh)
+        {
+            Matrix4x4[] bones = boneTrs.Select((tr, id) => rootTr.worldToLocalMatrix * tr.localToWorldMatrix * originalSharedMesh.bindposes[id]).ToArray();
+            return GetBonedVertices_CPU(bones, originalSharedMesh);
+        }
 
         /// <summary>
         /// For Test
@@ -156,7 +191,7 @@ namespace AnimTexture
             skinnedMeshCS.SetBuffer(kernel, "_BoneInfoPerVertexBuffer",boneInfoPerVertexBuffer);
             skinnedMeshCS.SetBuffer(kernel, "_BoneWeightBuffer", boneWeightPerVertexBuffer);
 
-            skinnedMeshCS.DispatchKernel(kernel, meshBuffer.count, 1, 1);
+            skinnedMeshCS.DispatchKernel(kernel, 64,64, 1);
         }
     }
 }
