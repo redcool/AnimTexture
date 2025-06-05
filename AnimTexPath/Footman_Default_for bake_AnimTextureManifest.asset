@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1caed7bf0dabfcd4b9ac19f67efd45e4, type: 3}
-  m_Name: Footman_Default (1)_AnimTextureManifest
+  m_Name: Footman_Default_for bake_AnimTextureManifest
   m_EditorClassIdentifier: 
   animInfos:
   - clipName: Attack01
@@ -19,7 +19,49 @@ MonoBehaviour:
     endFrame: 40
     isLoop: 0
     length: 1.3333334
-  atlas: {fileID: 2800000, guid: 68b9fa9fa855f8b47a685768fc6dd201, type: 2}
+  - clipName: Attack02
+    clipNameHash: -699145385
+    startFrame: 40
+    endFrame: 80
+    isLoop: 0
+    length: 1.3333334
+  - clipName: Death
+    clipNameHash: 646380074
+    startFrame: 80
+    endFrame: 110
+    isLoop: 0
+    length: 1
+  - clipName: GetHit
+    clipNameHash: -1949373134
+    startFrame: 110
+    endFrame: 150
+    isLoop: 0
+    length: 1.3333334
+  - clipName: Idle
+    clipNameHash: 2081823275
+    startFrame: 150
+    endFrame: 180
+    isLoop: 1
+    length: 1
+  - clipName: Run
+    clipNameHash: 1748754976
+    startFrame: 180
+    endFrame: 200
+    isLoop: 1
+    length: 0.6666667
+  - clipName: Victory
+    clipNameHash: -1090111034
+    startFrame: 200
+    endFrame: 300
+    isLoop: 0
+    length: 3.3333335
+  - clipName: Walk
+    clipNameHash: 765711723
+    startFrame: 300
+    endFrame: 340
+    isLoop: 1
+    length: 1.3333334
+  atlas: {fileID: 2800000, guid: 80ea36a535e08de4c81afa00eb2f6964, type: 2}
   boneInfoPerVertices:
   - bonesCountPerVertex: 1
     bonesStartIndexPerVertex: 0
@@ -458,543 +500,543 @@ MonoBehaviour:
   - bonesCountPerVertex: 4
     bonesStartIndexPerVertex: 253
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 1
+    bonesStartIndexPerVertex: 257
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 5
+    bonesStartIndexPerVertex: 261
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 9
+    bonesStartIndexPerVertex: 265
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 13
+    bonesStartIndexPerVertex: 269
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 17
+    bonesStartIndexPerVertex: 273
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 21
+    bonesStartIndexPerVertex: 277
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 25
+    bonesStartIndexPerVertex: 281
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 29
+    bonesStartIndexPerVertex: 285
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 33
+    bonesStartIndexPerVertex: 289
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 37
+    bonesStartIndexPerVertex: 293
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 41
+    bonesStartIndexPerVertex: 297
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 45
+    bonesStartIndexPerVertex: 301
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 49
+    bonesStartIndexPerVertex: 305
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 53
+    bonesStartIndexPerVertex: 309
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 57
+    bonesStartIndexPerVertex: 313
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 61
+    bonesStartIndexPerVertex: 317
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 65
+    bonesStartIndexPerVertex: 321
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 69
+    bonesStartIndexPerVertex: 325
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 73
+    bonesStartIndexPerVertex: 329
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 77
+    bonesStartIndexPerVertex: 333
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 81
+    bonesStartIndexPerVertex: 337
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 85
+    bonesStartIndexPerVertex: 341
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 89
+    bonesStartIndexPerVertex: 345
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 93
+    bonesStartIndexPerVertex: 349
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 97
+    bonesStartIndexPerVertex: 353
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 101
+    bonesStartIndexPerVertex: 357
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 105
+    bonesStartIndexPerVertex: 361
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 109
+    bonesStartIndexPerVertex: 365
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 113
+    bonesStartIndexPerVertex: 369
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 117
+    bonesStartIndexPerVertex: 373
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 121
+    bonesStartIndexPerVertex: 377
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 125
+    bonesStartIndexPerVertex: 381
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 129
+    bonesStartIndexPerVertex: 385
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 133
+    bonesStartIndexPerVertex: 389
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 137
+    bonesStartIndexPerVertex: 393
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 141
+    bonesStartIndexPerVertex: 397
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 145
+    bonesStartIndexPerVertex: 401
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 149
+    bonesStartIndexPerVertex: 405
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 153
+    bonesStartIndexPerVertex: 409
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 157
+    bonesStartIndexPerVertex: 413
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 161
+    bonesStartIndexPerVertex: 417
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 165
+    bonesStartIndexPerVertex: 421
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 169
+    bonesStartIndexPerVertex: 425
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 170
+    bonesStartIndexPerVertex: 426
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 171
+    bonesStartIndexPerVertex: 427
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 172
+    bonesStartIndexPerVertex: 428
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 173
+    bonesStartIndexPerVertex: 429
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 174
+    bonesStartIndexPerVertex: 430
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 175
+    bonesStartIndexPerVertex: 431
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 176
+    bonesStartIndexPerVertex: 432
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 177
+    bonesStartIndexPerVertex: 433
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 178
+    bonesStartIndexPerVertex: 434
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 179
+    bonesStartIndexPerVertex: 435
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 180
+    bonesStartIndexPerVertex: 436
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 181
+    bonesStartIndexPerVertex: 437
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 182
+    bonesStartIndexPerVertex: 438
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 183
+    bonesStartIndexPerVertex: 439
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 184
+    bonesStartIndexPerVertex: 440
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 185
+    bonesStartIndexPerVertex: 441
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 186
+    bonesStartIndexPerVertex: 442
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 187
+    bonesStartIndexPerVertex: 443
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 188
+    bonesStartIndexPerVertex: 444
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 189
+    bonesStartIndexPerVertex: 445
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 190
+    bonesStartIndexPerVertex: 446
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 191
+    bonesStartIndexPerVertex: 447
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 192
+    bonesStartIndexPerVertex: 448
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 193
+    bonesStartIndexPerVertex: 449
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 194
+    bonesStartIndexPerVertex: 450
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 195
+    bonesStartIndexPerVertex: 451
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 196
+    bonesStartIndexPerVertex: 452
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 197
+    bonesStartIndexPerVertex: 453
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 198
+    bonesStartIndexPerVertex: 454
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 199
+    bonesStartIndexPerVertex: 455
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 200
+    bonesStartIndexPerVertex: 456
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 201
+    bonesStartIndexPerVertex: 457
   - bonesCountPerVertex: 2
-    bonesStartIndexPerVertex: 202
+    bonesStartIndexPerVertex: 458
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 204
+    bonesStartIndexPerVertex: 460
   - bonesCountPerVertex: 2
-    bonesStartIndexPerVertex: 205
+    bonesStartIndexPerVertex: 461
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 207
+    bonesStartIndexPerVertex: 463
   - bonesCountPerVertex: 2
-    bonesStartIndexPerVertex: 208
+    bonesStartIndexPerVertex: 464
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 210
+    bonesStartIndexPerVertex: 466
   - bonesCountPerVertex: 2
-    bonesStartIndexPerVertex: 211
+    bonesStartIndexPerVertex: 467
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 213
+    bonesStartIndexPerVertex: 469
   - bonesCountPerVertex: 2
-    bonesStartIndexPerVertex: 214
+    bonesStartIndexPerVertex: 470
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 216
+    bonesStartIndexPerVertex: 472
   - bonesCountPerVertex: 2
-    bonesStartIndexPerVertex: 217
+    bonesStartIndexPerVertex: 473
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 219
+    bonesStartIndexPerVertex: 475
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 220
+    bonesStartIndexPerVertex: 476
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 221
+    bonesStartIndexPerVertex: 477
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 222
+    bonesStartIndexPerVertex: 478
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 223
+    bonesStartIndexPerVertex: 479
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 224
+    bonesStartIndexPerVertex: 480
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 225
+    bonesStartIndexPerVertex: 481
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 226
+    bonesStartIndexPerVertex: 482
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 227
+    bonesStartIndexPerVertex: 483
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 228
+    bonesStartIndexPerVertex: 484
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 229
+    bonesStartIndexPerVertex: 485
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 230
+    bonesStartIndexPerVertex: 486
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 231
+    bonesStartIndexPerVertex: 487
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 232
+    bonesStartIndexPerVertex: 488
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 233
+    bonesStartIndexPerVertex: 489
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 234
+    bonesStartIndexPerVertex: 490
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 235
+    bonesStartIndexPerVertex: 491
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 236
+    bonesStartIndexPerVertex: 492
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 237
+    bonesStartIndexPerVertex: 493
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 238
+    bonesStartIndexPerVertex: 494
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 239
+    bonesStartIndexPerVertex: 495
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 240
+    bonesStartIndexPerVertex: 496
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 241
+    bonesStartIndexPerVertex: 497
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 242
+    bonesStartIndexPerVertex: 498
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 243
+    bonesStartIndexPerVertex: 499
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 244
+    bonesStartIndexPerVertex: 500
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 245
+    bonesStartIndexPerVertex: 501
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 246
+    bonesStartIndexPerVertex: 502
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 247
+    bonesStartIndexPerVertex: 503
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 248
+    bonesStartIndexPerVertex: 504
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 249
+    bonesStartIndexPerVertex: 505
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 250
+    bonesStartIndexPerVertex: 506
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 251
+    bonesStartIndexPerVertex: 507
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 252
+    bonesStartIndexPerVertex: 508
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 253
+    bonesStartIndexPerVertex: 509
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 1
+    bonesStartIndexPerVertex: 513
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 5
+    bonesStartIndexPerVertex: 517
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 9
+    bonesStartIndexPerVertex: 521
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 13
+    bonesStartIndexPerVertex: 525
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 17
+    bonesStartIndexPerVertex: 529
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 21
+    bonesStartIndexPerVertex: 533
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 25
+    bonesStartIndexPerVertex: 537
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 29
+    bonesStartIndexPerVertex: 541
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 33
+    bonesStartIndexPerVertex: 545
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 37
+    bonesStartIndexPerVertex: 549
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 41
+    bonesStartIndexPerVertex: 553
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 45
+    bonesStartIndexPerVertex: 557
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 49
+    bonesStartIndexPerVertex: 561
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 53
+    bonesStartIndexPerVertex: 565
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 57
+    bonesStartIndexPerVertex: 569
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 61
+    bonesStartIndexPerVertex: 573
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 65
+    bonesStartIndexPerVertex: 577
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 69
+    bonesStartIndexPerVertex: 581
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 73
+    bonesStartIndexPerVertex: 585
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 77
+    bonesStartIndexPerVertex: 589
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 81
+    bonesStartIndexPerVertex: 593
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 85
+    bonesStartIndexPerVertex: 597
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 89
+    bonesStartIndexPerVertex: 601
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 93
+    bonesStartIndexPerVertex: 605
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 97
+    bonesStartIndexPerVertex: 609
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 101
+    bonesStartIndexPerVertex: 613
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 105
+    bonesStartIndexPerVertex: 617
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 109
+    bonesStartIndexPerVertex: 621
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 113
+    bonesStartIndexPerVertex: 625
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 117
+    bonesStartIndexPerVertex: 629
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 121
+    bonesStartIndexPerVertex: 633
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 125
+    bonesStartIndexPerVertex: 637
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 129
+    bonesStartIndexPerVertex: 641
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 133
+    bonesStartIndexPerVertex: 645
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 137
+    bonesStartIndexPerVertex: 649
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 141
+    bonesStartIndexPerVertex: 653
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 145
+    bonesStartIndexPerVertex: 657
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 149
+    bonesStartIndexPerVertex: 661
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 153
+    bonesStartIndexPerVertex: 665
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 157
+    bonesStartIndexPerVertex: 669
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 161
+    bonesStartIndexPerVertex: 673
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 165
+    bonesStartIndexPerVertex: 677
   - bonesCountPerVertex: 4
-    bonesStartIndexPerVertex: 169
+    bonesStartIndexPerVertex: 681
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 173
+    bonesStartIndexPerVertex: 685
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 174
+    bonesStartIndexPerVertex: 686
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 175
+    bonesStartIndexPerVertex: 687
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 176
+    bonesStartIndexPerVertex: 688
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 177
+    bonesStartIndexPerVertex: 689
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 178
+    bonesStartIndexPerVertex: 690
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 179
+    bonesStartIndexPerVertex: 691
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 180
+    bonesStartIndexPerVertex: 692
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 181
+    bonesStartIndexPerVertex: 693
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 182
+    bonesStartIndexPerVertex: 694
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 183
+    bonesStartIndexPerVertex: 695
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 184
+    bonesStartIndexPerVertex: 696
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 185
+    bonesStartIndexPerVertex: 697
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 186
+    bonesStartIndexPerVertex: 698
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 187
+    bonesStartIndexPerVertex: 699
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 188
+    bonesStartIndexPerVertex: 700
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 189
+    bonesStartIndexPerVertex: 701
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 190
+    bonesStartIndexPerVertex: 702
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 191
+    bonesStartIndexPerVertex: 703
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 192
+    bonesStartIndexPerVertex: 704
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 193
+    bonesStartIndexPerVertex: 705
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 194
+    bonesStartIndexPerVertex: 706
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 195
+    bonesStartIndexPerVertex: 707
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 196
+    bonesStartIndexPerVertex: 708
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 197
+    bonesStartIndexPerVertex: 709
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 198
+    bonesStartIndexPerVertex: 710
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 199
+    bonesStartIndexPerVertex: 711
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 200
+    bonesStartIndexPerVertex: 712
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 201
+    bonesStartIndexPerVertex: 713
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 202
+    bonesStartIndexPerVertex: 714
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 203
+    bonesStartIndexPerVertex: 715
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 204
+    bonesStartIndexPerVertex: 716
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 205
+    bonesStartIndexPerVertex: 717
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 206
+    bonesStartIndexPerVertex: 718
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 207
+    bonesStartIndexPerVertex: 719
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 208
+    bonesStartIndexPerVertex: 720
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 209
+    bonesStartIndexPerVertex: 721
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 210
+    bonesStartIndexPerVertex: 722
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 211
+    bonesStartIndexPerVertex: 723
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 212
+    bonesStartIndexPerVertex: 724
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 213
+    bonesStartIndexPerVertex: 725
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 214
+    bonesStartIndexPerVertex: 726
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 215
+    bonesStartIndexPerVertex: 727
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 216
+    bonesStartIndexPerVertex: 728
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 217
+    bonesStartIndexPerVertex: 729
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 218
+    bonesStartIndexPerVertex: 730
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 219
+    bonesStartIndexPerVertex: 731
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 220
+    bonesStartIndexPerVertex: 732
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 221
+    bonesStartIndexPerVertex: 733
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 222
+    bonesStartIndexPerVertex: 734
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 223
+    bonesStartIndexPerVertex: 735
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 224
+    bonesStartIndexPerVertex: 736
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 225
+    bonesStartIndexPerVertex: 737
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 226
+    bonesStartIndexPerVertex: 738
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 227
+    bonesStartIndexPerVertex: 739
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 228
+    bonesStartIndexPerVertex: 740
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 229
+    bonesStartIndexPerVertex: 741
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 230
+    bonesStartIndexPerVertex: 742
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 231
+    bonesStartIndexPerVertex: 743
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 232
+    bonesStartIndexPerVertex: 744
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 233
+    bonesStartIndexPerVertex: 745
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 234
+    bonesStartIndexPerVertex: 746
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 235
+    bonesStartIndexPerVertex: 747
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 236
+    bonesStartIndexPerVertex: 748
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 237
+    bonesStartIndexPerVertex: 749
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 238
+    bonesStartIndexPerVertex: 750
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 239
+    bonesStartIndexPerVertex: 751
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 240
+    bonesStartIndexPerVertex: 752
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 241
+    bonesStartIndexPerVertex: 753
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 242
+    bonesStartIndexPerVertex: 754
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 243
+    bonesStartIndexPerVertex: 755
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 244
+    bonesStartIndexPerVertex: 756
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 245
+    bonesStartIndexPerVertex: 757
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 246
+    bonesStartIndexPerVertex: 758
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 247
+    bonesStartIndexPerVertex: 759
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 248
+    bonesStartIndexPerVertex: 760
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 249
+    bonesStartIndexPerVertex: 761
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 250
+    bonesStartIndexPerVertex: 762
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 251
+    bonesStartIndexPerVertex: 763
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 252
+    bonesStartIndexPerVertex: 764
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 253
+    bonesStartIndexPerVertex: 765
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 254
+    bonesStartIndexPerVertex: 766
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 255
+    bonesStartIndexPerVertex: 767
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 0
+    bonesStartIndexPerVertex: 768
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 1
+    bonesStartIndexPerVertex: 769
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 2
+    bonesStartIndexPerVertex: 770
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 3
+    bonesStartIndexPerVertex: 771
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 4
+    bonesStartIndexPerVertex: 772
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 5
+    bonesStartIndexPerVertex: 773
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 6
+    bonesStartIndexPerVertex: 774
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 7
+    bonesStartIndexPerVertex: 775
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 8
+    bonesStartIndexPerVertex: 776
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 9
+    bonesStartIndexPerVertex: 777
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 10
+    bonesStartIndexPerVertex: 778
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 11
+    bonesStartIndexPerVertex: 779
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 12
+    bonesStartIndexPerVertex: 780
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 13
+    bonesStartIndexPerVertex: 781
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 14
+    bonesStartIndexPerVertex: 782
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 15
+    bonesStartIndexPerVertex: 783
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 16
+    bonesStartIndexPerVertex: 784
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 17
+    bonesStartIndexPerVertex: 785
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 18
+    bonesStartIndexPerVertex: 786
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 19
+    bonesStartIndexPerVertex: 787
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 20
+    bonesStartIndexPerVertex: 788
   - bonesCountPerVertex: 1
-    bonesStartIndexPerVertex: 21
+    bonesStartIndexPerVertex: 789
   boneWeightArray:
   - m_Weight: 1
     m_BoneIndex: 2
@@ -2601,354 +2643,354 @@ MonoBehaviour:
   - Hips/Upper_Reg_R/Rower_Reg_R/Foot_R
   - Hips/Upper_Reg_R/Rower_Reg_R/Foot_R/Toes_R
   bones:
-  - e00: -0.0000000023841857
+  - e00: 0
     e01: 0
-    e02: 0.010000003
+    e02: 0.01
     e03: 0
-    e10: -0.009240331
-    e11: 0.0038231264
+    e10: -0.009417321
+    e11: 0.0033636414
     e12: 0
-    e13: 0.42757067
-    e20: -0.0038231283
-    e21: -0.009240331
-    e22: -0.0000000023841857
+    e13: 0.4035688
+    e20: -0.0033636414
+    e21: -0.009417321
+    e22: 0
     e23: -0.028417608
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: -0.0000000021721023
-    e01: 9.830123e-10
-    e02: -0.010000005
-    e03: 0.000000072015595
-    e10: -0.00999466
-    e11: 0.0003267934
-    e12: -5.457939e-19
-    e13: 0.7066798
-    e20: 0.00032679224
-    e21: 0.009994662
-    e22: 0.0000000023841864
-    e23: 0.087062016
+  - e00: 0.00060099724
+    e01: -0.0013452552
+    e02: -0.009890859
+    e03: 1.0060463e-16
+    e10: -0.009981405
+    e11: 0.000020103063
+    e12: -0.00060923334
+    e13: 0.688024
+    e20: 0.00010184129
+    e21: 0.009909082
+    e22: -0.0013415455
+    e23: 0.07318297
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.010000006
-    e01: 0.000000002287164
-    e02: 0.000000001865312
-    e03: 0.00000018043004
-    e10: 0.0000000011914563
-    e11: 0.009943835
-    e12: -0.0010583729
-    e13: 1.2055354
-    e20: -0.0000000024231435
-    e21: 0.0010583731
-    e22: 0.009943838
-    e23: 0.07075109
+  - e00: 0.009977525
+    e01: -0.00006425876
+    e02: -0.0006670004
+    e03: -0.029997101
+    e10: 0.0000050894305
+    e11: 0.0099608945
+    e12: -0.00088350265
+    e13: 1.186218
+    e20: 0.00067007006
+    e21: 0.00088117644
+    e22: 0.00993854
+    e23: 0.06809985
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.010000005
-    e01: 0.000000002256075
-    e02: 7.7101714e-10
-    e03: -0.50220215
-    e10: 5.457939e-19
-    e11: 0.00998017
-    e12: -0.00062948465
-    e13: 0.9484477
-    e20: -0.0000000023841864
-    e21: 0.0006294856
-    e22: 0.009980172
-    e23: -0.014561778
+  - e00: 0.009872357
+    e01: -0.0010784033
+    e02: -0.0011720081
+    e03: -0.5397978
+    e10: 0.0013357693
+    e11: 0.00961398
+    e12: 0.002405646
+    e13: 0.8982165
+    e20: 0.0008673401
+    e21: -0.002531493
+    e22: 0.009635313
+    e23: -0.017633816
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.008647342
-    e01: -0.005020234
-    e02: -0.00014442603
-    e03: -0.28749156
-    e10: 0.004873608
-    e11: 0.00831837
-    e12: 0.0026556975
-    e13: 0.83983743
-    e20: -0.0012130818
-    e21: -0.0023668597
-    e22: 0.00963984
-    e23: 0.03263905
+  - e00: 0.007200691
+    e01: -0.006896881
+    e02: 0.00076360925
+    e03: -0.28572714
+    e10: 0.005456927
+    e11: 0.0063080667
+    e12: 0.0055163633
+    e13: 0.80502266
+    e20: -0.0042862594
+    e21: -0.0035554676
+    e22: 0.008305821
+    e23: -0.016346281
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.00035713293
-    e01: -0.005020234
-    e02: 0.008641171
-    e03: -0.7062634
-    e10: -0.002534988
-    e11: 0.00831837
-    e12: 0.004937471
-    e13: 0.60381925
-    e20: -0.009666767
-    e21: -0.0023668597
-    e22: -0.0009755461
-    e23: 0.09138595
+  - e00: -0.0009471366
+    e01: -0.006896881
+    e02: 0.007178856
+    e03: -0.63444084
+    e10: -0.0056538386
+    e11: 0.0063080667
+    e12: 0.0053143604
+    e13: 0.5407556
+    e20: -0.008193721
+    e21: -0.0035554676
+    e22: -0.0044968436
+    e23: 0.19122787
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.0023120272
-    e01: -0.00007394298
-    e02: 0.009728782
-    e03: -0.71838033
-    e10: 0.0009585575
-    e11: 0.009952793
-    e12: -0.00015215
-    e13: 0.6898277
-    e20: -0.009681725
-    e21: 0.0009677352
-    e22: 0.0023082006
-    e23: 0.41936523
+  - e00: 0.0023120283
+    e01: -0.00007394608
+    e02: 0.009728775
+    e03: -0.6023058
+    e10: 0.0009585556
+    e11: 0.009952789
+    e12: -0.00015215034
+    e13: 0.7325821
+    e20: -0.009681721
+    e21: 0.00096773286
+    e22: 0.002308202
+    e23: 0.4692289
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: -0.009281774
-    e01: 0.003476136
-    e02: -0.0013286286
-    e03: 0.28749123
-    e10: 0.0036915601
-    e11: 0.008149408
-    e12: -0.004467613
-    e13: 0.8398374
-    e20: -0.00047024677
-    e21: -0.004637207
-    e22: -0.00884733
-    e23: 0.0326389
+  - e00: -0.009565758
+    e01: 0.0025197035
+    e02: -0.0014653979
+    e03: 0.28297994
+    e10: 0.0029148378
+    e11: 0.008261326
+    e12: -0.0048222663
+    e13: 0.8400525
+    e20: -0.0000044550397
+    e21: -0.005040004
+    e22: -0.008637035
+    e23: 0.060790226
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: -0.0038729405
-    e01: 0.003476136
-    e02: 0.00853914
-    e03: 0.73698795
-    e10: -0.0032560795
-    e11: 0.008149408
-    e12: -0.004794281
-    e13: 0.6610629
-    e20: -0.008625448
-    e21: -0.004637207
-    e22: -0.0020243614
-    e23: 0.055411972
+  - e00: -0.0012425464
+    e01: 0.0025197035
+    e02: 0.009597248
+    e03: 0.7462294
+    e10: -0.0048887474
+    e11: 0.008261326
+    e12: -0.0028019066
+    e13: 0.6988931
+    e20: -0.008634595
+    e21: -0.005040004
+    e22: 0.00020531082
+    e23: 0.061005957
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: -0.0016319832
-    e01: 0.009790557
-    e02: -0.0012172678
-    e03: 0.86839247
-    e10: 0.00324442
-    e11: -0.00063260586
-    e12: -0.0094378805
-    e13: 0.771538
-    e20: -0.009317211
-    e21: -0.0019351791
-    e22: -0.0030732283
-    e23: 0.34806362
+  - e00: 0.00015059536
+    e01: 0.009956035
+    e02: -0.0009245059
+    e03: 0.7883876
+    e10: 0.002595051
+    e11: -0.0009318458
+    e12: -0.009612357
+    e13: 0.86476266
+    e20: -0.009656245
+    e21: -0.00009515678
+    e22: -0.0025976729
+    e23: 0.35396793
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.0016135378
-    e01: -0.009790557
-    e02: -0.0012416136
-    e03: 0.8997921
-    e10: -0.0033856437
-    e11: 0.00063260586
-    e12: -0.009388145
-    e13: 0.7091148
-    e20: 0.009270057
-    e21: 0.0019351791
-    e22: -0.0032126599
-    e23: 0.5273283
+  - e00: -0.00016444775
+    e01: -0.009956035
+    e02: -0.00092214317
+    e03: 0.78549004
+    e10: -0.0027389647
+    e11: 0.0009318458
+    e12: -0.009572345
+    e13: 0.81483346
+    e20: 0.009616188
+    e21: 0.00009515678
+    e22: -0.0027422449
+    e23: 0.53975576
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.010000005
-    e01: -0.0000000022560753
-    e02: -7.7101714e-10
-    e03: 0.50220233
-    e10: 5.457939e-19
-    e11: -0.00998017
-    e12: 0.00062948465
-    e13: 0.94844806
-    e20: -0.0000000023841864
-    e21: -0.0006294865
-    e22: -0.009980172
-    e23: -0.014562016
+  - e00: 0.009890859
+    e01: 0.0007267602
+    e02: 0.00128169
+    e03: 0.49459976
+    e10: 0.00060923334
+    e11: -0.009937677
+    e12: 0.00093350676
+    e13: 0.96293604
+    e20: 0.0013415455
+    e21: -0.0008452337
+    e22: -0.009873494
+    e23: 0.045243755
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.0014614378
-    e01: -0.00032391955
-    e02: 0.009887332
-    e03: -0.21664147
-    e10: 0.009820838
-    e11: -0.0011544442
-    e12: -0.0014894282
-    e13: 0.37136856
-    e20: 0.0011896838
-    e21: 0.009927859
-    e22: 0.00014939962
-    e23: -0.052370228
+  - e00: 0.0013131526
+    e01: 0.00075375196
+    e02: 0.0098847095
+    e03: -0.2166414
+    e10: 0.0080894735
+    e11: 0.005682126
+    e12: -0.0015079476
+    e13: 0.34625578
+    e20: -0.005730279
+    e21: 0.008194227
+    e22: 0.00013640421
+    e23: -0.04957471
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.0013333474
-    e01: -0.00078281417
-    e02: 0.009879749
-    e03: -0.24544153
-    e10: 0.008956865
-    e11: -0.004171925
-    e12: -0.0015393544
-    e13: 0.17783266
-    e20: 0.0042422605
-    e21: 0.009054407
-    e22: 0.0001448919
-    e23: -0.07581492
+  - e00: 0.0015629814
+    e01: 0.00015332997
+    e02: 0.0098759085
+    e03: -0.24251924
+    e10: 0.009664654
+    e11: 0.002038912
+    e12: -0.0015612029
+    e13: 0.18683931
+    e20: -0.002037549
+    e21: 0.009788738
+    e22: 0.00017049012
+    e23: 0.06334991
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.0024809067
-    e01: 0.00031592
-    e02: 0.009682218
-    e03: -0.26240855
-    e10: 0.00016241311
-    e11: 0.009991921
-    e12: -0.00036763842
-    e13: 0.06385541
-    e20: -0.00968601
-    e21: 0.00024846033
-    e22: 0.0024737697
-    e23: -0.12979822
+  - e00: 0.0006761105
+    e01: 0.00035587116
+    e02: 0.009970768
+    e03: -0.26240838
+    e10: 0.00016241195
+    e11: 0.009991922
+    e12: -0.0003676387
+    e13: 0.06385535
+    e20: -0.009975798
+    e21: 0.00018679397
+    e22: 0.0006697845
+    e23: 0.08927799
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.009690914
-    e01: 0.000070231035
-    e02: -0.002466025
-    e03: -0.3374119
-    e10: -0.0003404054
-    e11: 0.0099384
-    e12: -0.0010546863
-    e13: 0.0589453
-    e20: 0.0024434254
-    e21: 0.0011060326
-    e22: 0.009633609
-    e23: 0.16303155
+  - e00: 0.009973796
+    e01: 0.0002704086
+    e02: -0.000671017
+    e03: -0.28284875
+    e10: -0.00034040568
+    e11: 0.009938399
+    e12: -0.0010546846
+    e13: 0.05894524
+    e20: 0.000638364
+    e21: 0.0010747632
+    e22: 0.009921562
+    e23: 0.39086863
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.009692998
-    e01: -0.000073943265
+  - e00: 0.009692995
+    e01: -0.00007394552
     e02: -0.0024577177
-    e03: -0.73639005
-    e10: -0.00016651262
+    e03: -0.62031555
+    e10: -0.00016651413
     e11: 0.009952791
-    e12: -0.0009561621
-    e13: 0.61531854
-    e20: 0.0024531828
-    e21: 0.000967734
-    e22: 0.009646006
-    e23: 0.4859856
+    e12: -0.0009561647
+    e13: 0.6580727
+    e20: 0.002453185
+    e21: 0.0009677345
+    e22: 0.009646003
+    e23: 0.5358493
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.0016135374
-    e01: 0.0012416078
-    e02: -0.009790557
-    e03: 0.89818966
-    e10: -0.0033856397
-    e11: 0.009388145
-    e12: 0.00063260103
-    e13: 0.8945452
-    e20: 0.009270058
-    e21: 0.00321266
-    e22: 0.0019351772
-    e23: 0.5647721
+  - e00: -0.0001644463
+    e01: 0.0009221364
+    e02: -0.009956036
+    e03: 0.7826451
+    e10: -0.0027389647
+    e11: 0.009572344
+    e12: 0.0009318389
+    e13: 1.0024712
+    e20: 0.009616186
+    e21: 0.0027422472
+    e22: 0.0000951563
+    e23: 0.5636931
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: -0.0014164987
-    e01: -0.00025040205
-    e02: 0.009896003
-    e03: 0.21664105
-    e10: 0.00952002
-    e11: 0.0027057515
-    e12: 0.0014311477
-    e13: 0.37136886
-    e20: -0.0027134458
-    e21: 0.009623735
-    e22: -0.0001448874
-    e23: -0.052370295
+  - e00: -0.0015402215
+    e01: 0.0006006312
+    e02: 0.0098624015
+    e03: 0.21664101
+    e10: 0.009491365
+    e11: -0.002684306
+    e12: 0.0016457536
+    e13: 0.34625608
+    e20: 0.0027462193
+    e21: 0.00961425
+    e22: -0.0001566385
+    e23: -0.04957469
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: -0.001403002
-    e01: 0.0006035356
-    e02: 0.009882681
-    e03: 0.24455549
-    e10: 0.009422798
-    e11: -0.0029834188
-    e12: 0.0015199138
-    e13: 0.1837612
-    e20: 0.0030401503
-    e21: 0.009525493
-    e22: -0.00015012652
-    e23: 0.0011026282
+  - e00: -0.0012114096
+    e01: 0.0012122658
+    e02: 0.00985205
+    e03: 0.24699359
+    e10: 0.0074937236
+    e11: -0.006397253
+    e12: 0.0017085923
+    e13: 0.15921307
+    e20: 0.0065097325
+    e21: 0.0075898366
+    e22: -0.00013346941
+    e23: -0.10369346
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: -0.0019149228
-    e01: -0.0003286342
-    e02: 0.009809441
-    e03: 0.2624089
-    e10: 0.00016237819
-    e11: 0.009991968
-    e12: 0.0003664496
-    e13: 0.06385437
-    e20: -0.009813602
-    e21: 0.00022945786
-    e22: -0.0019080495
-    e23: -0.037583835
+  - e00: -0.00066270534
+    e01: -0.00035493783
+    e02: 0.009971702
+    e03: 0.262409
+    e10: 0.00016236841
+    e11: 0.009991966
+    e12: 0.00036644976
+    e13: 0.0638541
+    e20: -0.009976698
+    e21: 0.0001861928
+    e22: -0.0006564098
+    e23: -0.18653098
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 0.009816321
-    e01: 0.00013426422
-    e02: -0.0019031254
-    e03: 0.32030138
-    e10: 0.0003404064
-    e11: -0.009938405
-    e12: 0.0010546548
-    e13: 0.058945358
-    e20: -0.0018772435
-    e21: -0.0011000668
-    e22: -0.0097604245
-    e23: 0.25910348
+  - e00: 0.009974644
+    e01: 0.00027185335
+    e02: -0.0006577046
+    e03: 0.2824441
+    e10: 0.00034040614
+    e11: -0.009938404
+    e12: 0.0010546444
+    e13: 0.058945328
+    e20: -0.0006249825
+    e21: -0.0010743581
+    e22: -0.009922461
+    e23: 0.11508713
     e30: 0
     e31: 0
     e32: 0

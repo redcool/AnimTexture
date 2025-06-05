@@ -14,7 +14,7 @@
         /// <summary>
         /// Animation info
         /// </summary>
-        public List<AnimTextureClipInfo> animInfos = new List<AnimTextureClipInfo>();
+        public List<AnimTextureClipInfo> animInfos = new ();
         /// <summary>
         /// BoneMesh texture atlas
         /// </summary>
@@ -53,46 +53,18 @@
             }
             return boneTrs;
         }
-        public GraphicsBuffer GetBoneInfoPerVertexBuffer()
-        {
-            if (!boneInfoBuffer.IsValidSafe())
-            {
-                boneInfoBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, boneInfoPerVertices.Length, Marshal.SizeOf<BoneInfoPerVertex>());
-            }
 
+        public void SendBoneBuffer(Material mat)
+        {
+            GraphicsBufferTools.TryCreateBuffer(ref boneInfoBuffer, GraphicsBuffer.Target.Structured, boneInfoPerVertices.Length, Marshal.SizeOf<BoneInfoPerVertex>());
             boneInfoBuffer.SetData(boneInfoPerVertices);
-            return boneInfoBuffer;
+
+            GraphicsBufferTools.TryCreateBuffer(ref boneWeightsBuffer, GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneWeight1>());
+            boneWeightsBuffer.SetData(boneWeightArray);
+
+            mat.SetBuffer("_BoneInfoPerVertexBuffer", boneInfoBuffer);
+            mat.SetBuffer("_BoneWeightBuffer", boneWeightsBuffer);
         }
 
-        public GraphicsBuffer GetBoneWeightsBuffer()
-        {
-            if (!boneWeightsBuffer.IsValidSafe())
-            {
-                boneWeightsBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneWeight1>());
-            }
-                boneWeightsBuffer.SetData(boneWeightArray);
-            return boneWeightsBuffer;
-        }
-    }
-
-    [System.Serializable]
-    public class AnimTextureClipInfo
-    {
-        public string clipName;
-        public int clipNameHash;
-        public int startFrame;
-        public int endFrame;
-        public bool isLoop;
-        public float length;
-
-        public AnimTextureClipInfo(string clipName,int startFrame,int endFrame)
-        {
-            this.clipName = clipName;
-            this.startFrame = startFrame;
-            this.endFrame = endFrame;
-
-            if(!string.IsNullOrEmpty(clipName))
-                clipNameHash = Animator.StringToHash(clipName);
-        }
     }
 }

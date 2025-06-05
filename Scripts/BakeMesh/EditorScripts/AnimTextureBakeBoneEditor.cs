@@ -62,6 +62,7 @@ namespace AnimTexture
 
             var yList = GenBoneTexture(skin, clipList, out manifest.atlas);
             BakeBoneClips(go, skin, clipList, manifest, yList, bakeBondCS);
+            manifest.atlas.Apply();
             //output infos
             AssetDatabase.CreateAsset(manifest.atlas, $"Assets/{DEFAULT_TEX_DIR}/{go.name}_BoneTexture.asset");
             AssetDatabase.CreateAsset(manifest, $"Assets/{DEFAULT_TEX_DIR}/{go.name}_{typeof(AnimTextureManifest).Name}.asset");
@@ -109,10 +110,6 @@ namespace AnimTexture
                     .ToArray();
 
             manifest.boneWeightArray = weights.ToArray();
-
-            return;
-            var boneWeightBuffer = skin.sharedMesh.GetBoneWeightBuffer(skin.sharedMesh.skinWeightBufferLayout);
-            Debug.Log(boneWeightBuffer.target + " " + boneWeightBuffer.stride);
         }
 
         public static List<int> GenBoneTexture(SkinnedMeshRenderer skin, List<AnimationClip> clipList, out Texture2D atlas)
@@ -129,7 +126,7 @@ namespace AnimTexture
                 yStartList.Add(yStart);
 
             }
-            atlas = new Texture2D(width, yStart, TextureFormat.RGBA32, false, true);
+            atlas = new Texture2D(width, yStart, TextureFormat.RGBAHalf, false, true);
             atlas.filterMode = FilterMode.Point;
 
             return yStartList;
@@ -138,7 +135,7 @@ namespace AnimTexture
 
         public static int BakeBoneClips(GameObject go, SkinnedMeshRenderer skin, List<AnimationClip> animClipList, AnimTextureManifest manifest, List<int> yList,ComputeShader bakeBoneCS)
         {
-            var desc = new RenderTextureDescriptor(manifest.atlas.width, manifest.atlas.height, GraphicsFormatTools.GetColorTextureFormat(), 0);
+            var desc = new RenderTextureDescriptor(manifest.atlas.width, manifest.atlas.height,RenderTextureFormat.ARGBHalf, 0);
             desc.enableRandomWrite = true;
             desc.sRGB = false;
             var resultTex = new RenderTexture(desc);
@@ -148,7 +145,12 @@ namespace AnimTexture
             {
                 var yStart = yList[index];
 
-                AnimTextureTools.BakeBonesToRT(skin, go, clip, bakeBoneCS, yStart, resultTex);
+                //AnimTextureTools.BakeBonesToRT(skin, go, clip, bakeBoneCS, yStart, resultTex);
+
+                var boneTex = AnimTextureTools.BakeBonesToTexture(skin, go, clip);
+                var colors = boneTex.GetPixels(0, 0, boneTex.width, boneTex.height);
+                
+                manifest.atlas.SetPixels(0, yStart, boneTex.width, boneTex.height, colors);
 
                 manifest.animInfos.Add(new AnimTextureClipInfo(clip.name, yStart, yList[index + 1])
                 {
@@ -156,11 +158,10 @@ namespace AnimTexture
                     length = clip.length
                 });
                 index++;
-
-
-                break;// test 1 clip
             }
-            GPUTools.ReadRenderTexture(resultTex, ref manifest.atlas);
+
+            //resultTex.ReadRenderTexture(ref manifest.atlas);
+
             return index;
         }
     }

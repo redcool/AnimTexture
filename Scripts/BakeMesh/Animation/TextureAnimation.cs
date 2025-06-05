@@ -40,7 +40,7 @@
         bool needUpdateBlock;
 
         Dictionary<int, int> clipNameHashDict = new Dictionary<int, int>();
-        public AnimTextureClipInfo curClipInfo;
+        public AnimTextureClipInfo curClipInfo,nextClipInfo;
 
         [EditorButton(onClickCall ="Awake")]
         public bool isCallAwake;
@@ -74,8 +74,10 @@
         {
             if (!manifest)
                 return;
+            manifest.SendBoneBuffer(mat);
 
-            SkinnedTools.ApplyBoneMatrixSendToMat(transform,mat, skinned.sharedMesh, skinned.bones, skinned.sharedMesh.bindposes,ref boneWeightBuffer,ref boneInfoPerVertexBuffer,ref bonesBuffer);
+            // SkinnedTools.ApplyBoneBufferSend(transform, mat, skinned.sharedMesh, skinned.bones, skinned.sharedMesh.bindposes, ref boneWeightBuffer, ref boneInfoPerVertexBuffer, ref bonesBuffer);
+
         }
 
         // Update is called once per frame

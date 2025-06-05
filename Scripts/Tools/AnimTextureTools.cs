@@ -39,6 +39,7 @@
             tex.Apply();
             return tex;
         }
+
         /// <summary>
         /// row : matrix
         /// col : frame
@@ -51,41 +52,40 @@
         /// <param name="clipGo"></param>
         /// <param name="clip"></param>
         /// <returns></returns>
-        //public static Texture2D BakeBonesToTexture(SkinnedMeshRenderer skin,GameObject clipGo,AnimationClip clip)
-        //{
-        //    var bones = skin.bones;
-        //    var bindposes = skin.sharedMesh.bindposes;
-        //    var boneCount = bones.Length;
+        public static Texture2D BakeBonesToTexture(SkinnedMeshRenderer skin, GameObject clipGo, AnimationClip clip)
+        {
+            var bones = skin.bones;
+            var bindposes = skin.sharedMesh.bindposes;
+            var boneCount = bones.Length;
 
-        //    var frameCount = (int)(clip.length * clip.frameRate);
-        //    var timePerFrame = clip.length / frameCount;
-        //    var width = boneCount * 3;
+            var frameCount = (int)(clip.length * clip.frameRate);
+            var timePerFrame = clip.length / frameCount;
+            var width = boneCount * 3;
 
-        //    var tex = new Texture2D(width, frameCount, TextureFormat.RGBA32, false, true);
-        //    tex.name = clip.name;
+            var tex = new Texture2D(width, frameCount, TextureFormat.RGBAHalf, false, true);
+            tex.name = clip.name;
 
-        //    float time = 0;
-        //    for (int y = 0; y < frameCount; y++)
-        //    {
-        //        clip.SampleAnimation(clipGo, time += timePerFrame);
+            float time = 0;
+            for (int y = 0; y < frameCount; y++)
+            {
+                clip.SampleAnimation(clipGo, time += timePerFrame);
 
-        //        var colors = new Color[bones.Length * 3];
+                var colors = new Color[bones.Length * 3];
 
-        //        for (int x = 0; x < boneCount; x++)
-        //        {
-        //            var boneTr = bones[x];
-        //            var boneMat = skin.transform.worldToLocalMatrix * boneTr.localToWorldMatrix * bindposes[x];
-        //            for(int m = 0; m < 3; m++)
-        //            {
-        //                // colorId = x*3+m
-        //                colors[x * 3 + m] = boneMat.GetRow(m);
-        //            }
-        //        }
-        //        tex.SetPixels(0, y, width, 1, colors);
-        //    }
-        //    tex.Apply();
-        //    return tex;
-        //}
+                for (int x = 0; x < boneCount; x++)
+                {
+                    var boneTr = bones[x];
+                    var boneMat = boneTr.localToWorldMatrix * bindposes[x];
+                    for (int m = 0; m < 3; m++)
+                    {
+                        // colorId = x*3+m
+                        colors[x * 3 + m] = boneMat.GetRow(m);
+                    }
+                }
+                tex.SetPixels(0, y, width, 1, colors);
+            }
+            return tex;
+        }
         static GraphicsBuffer bindposesBuffer, bonesBuffer;
 
         public static void BakeBonesToRT(SkinnedMeshRenderer skin, GameObject clipGo, AnimationClip clip,ComputeShader cs,int yStart,RenderTexture resultTex)
@@ -132,6 +132,7 @@
 
                 // dispatch a row 
                 cs.DispatchKernel(bakeBoneMatrixKernel, width, 1, 1);
+
             }
 
             Debug.Log(sb.ToString());

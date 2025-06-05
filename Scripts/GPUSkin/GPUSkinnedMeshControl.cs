@@ -66,7 +66,7 @@ namespace AnimTexture
 
         public void Update()
         {
-            SkinnedTools.ApplyBoneMatrixSendToMat(transform, gpuSkinnedMat, originalSharedMesh, boneTrs, originalSharedMesh.bindposes,
+            SkinnedTools.ApplyBoneBufferSend(transform, gpuSkinnedMat, originalSharedMesh, boneTrs, originalSharedMesh.bindposes,
                 ref boneWeightPerVertexBuffer, ref boneInfoPerVertexBuffer, ref bonesBuffer, calcBoneMatrixCS, localToWorldBuffer, bindPosesBuffer, false);
 #if UNITY_EDITOR
             if (isUpdateEditorMesh)

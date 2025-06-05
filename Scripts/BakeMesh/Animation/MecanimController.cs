@@ -15,6 +15,7 @@
         [HideInInspector] public Animator animator;
         [HideInInspector] public TextureAnimation texAnim;
         public int layerIndex = 0;
+        public bool isCrossFading;
 
         int lastTransitionNameHash;
         // Start is called before the first frame update
@@ -51,8 +52,10 @@
 
                 var nextStateInfo = animator.GetNextAnimatorStateInfo(layerIndex);
                 var nextIndex = texAnim.GetClipIndex(nextStateInfo.shortNameHash);
-                texAnim.CrossFade(curIndex, nextIndex, trans.duration);
-                //texAnim.Play(nextIndex);
+                if (isCrossFading)
+                    texAnim.CrossFade(curIndex, nextIndex, trans.duration);
+                else
+                    texAnim.Play(nextIndex);
             }
 
         }

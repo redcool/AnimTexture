@@ -116,7 +116,7 @@ namespace AnimTexture
         /// <param name="localToWorldBuffer"></param>
         /// <param name="bindposesBuffer"></param>
         /// <param name="isSendArray"></param>
-        public static void ApplyBoneMatrixSendToMat(Transform rootTr, Material mat, Mesh mesh, Transform[] boneTrs, Matrix4x4[] meshBindposes,
+        public static void ApplyBoneBufferSend(Transform rootTr, Material mat, Mesh mesh, Transform[] boneTrs, Matrix4x4[] meshBindposes,
             ref GraphicsBuffer boneWeightPerVertexBuffer,ref GraphicsBuffer boneInfoPerVertexBuffer, ref GraphicsBuffer bonesBuffer
             , ComputeShader calcBondMatrixCS = null, GraphicsBuffer localToWorldBuffer = null, GraphicsBuffer bindposesBuffer = null, bool isSendArray = false)
         {
@@ -151,8 +151,8 @@ namespace AnimTexture
             {
                 var bones = boneTrs.Select((boneTr, id) => rootTr.worldToLocalMatrix * boneTr.localToWorldMatrix * meshBindposes[id]).ToArray();
                 bonesBuffer.SetData(bones);
-                mat.SetFloat("_BoneCount", bones.Length);
                 mat.SetMatrixArray("_BonesArray", bones);
+
             }
 
             mat.SetBuffer("_BoneWeightBuffer", boneWeightPerVertexBuffer);

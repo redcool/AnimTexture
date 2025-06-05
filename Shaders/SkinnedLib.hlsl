@@ -17,7 +17,7 @@ StructuredBuffer<BoneWeight1> _BoneWeightBuffer;
 StructuredBuffer<float4x4> _Bones;
 
 /**
-    Get vertex skinned local position
+    Get vertex skinned local position from _Bones sbuffer
     vid : vertexId
     pos : vertex local position
 */
@@ -41,6 +41,16 @@ float4 GetSkinnedPos(uint vid,float4 pos){
     }
 
     return bonePos;
+}
+
+/**
+    Get float3x4 from boneTex
+*/
+void GetFloat3x4FromTexture(inout float4x4 boneMat,sampler2D boneTex,float4 pixelSize,float boneIndex,float y){
+    float x = (boneIndex*3+0.5) * pixelSize.x;
+    boneMat[0] = tex2Dlod(boneTex,float4(x,y,0,0));
+    boneMat[1] = tex2Dlod(boneTex,float4(x + pixelSize.x,y,0,0));
+    boneMat[2] = tex2Dlod(boneTex,float4(x + pixelSize.x * 2,y,0,0));
 }
 
 #endif //SKINNED_LIB_HLSL
