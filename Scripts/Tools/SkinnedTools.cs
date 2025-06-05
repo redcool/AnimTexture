@@ -100,8 +100,23 @@ namespace AnimTexture
                 mat.SetMatrixArray("_BonesArray", bones);
             }
         }
-
-        public static void CalcSendBonesInfo(Transform rootTr, Material mat, Mesh mesh, Transform[] boneTrs, Matrix4x4[] meshBindposes,
+        /// <summary>
+        /// Calc bone matrix (cs or cpu) then send material
+        /// 
+        /// </summary>
+        /// <param name="rootTr"></param>
+        /// <param name="mat"></param>
+        /// <param name="mesh"></param>
+        /// <param name="boneTrs"></param>
+        /// <param name="meshBindposes"></param>
+        /// <param name="boneWeightPerVertexBuffer"></param>
+        /// <param name="boneInfoPerVertexBuffer"></param>
+        /// <param name="bonesBuffer"></param>
+        /// <param name="calcBondMatrixCS"></param>
+        /// <param name="localToWorldBuffer"></param>
+        /// <param name="bindposesBuffer"></param>
+        /// <param name="isSendArray"></param>
+        public static void ApplyBoneMatrixSendToMat(Transform rootTr, Material mat, Mesh mesh, Transform[] boneTrs, Matrix4x4[] meshBindposes,
             ref GraphicsBuffer boneWeightPerVertexBuffer,ref GraphicsBuffer boneInfoPerVertexBuffer, ref GraphicsBuffer bonesBuffer
             , ComputeShader calcBondMatrixCS = null, GraphicsBuffer localToWorldBuffer = null, GraphicsBuffer bindposesBuffer = null, bool isSendArray = false)
         {

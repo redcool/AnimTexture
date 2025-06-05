@@ -75,7 +75,7 @@
             if (!manifest)
                 return;
 
-            SkinnedTools.CalcSendBonesInfo(transform,mat, skinned.sharedMesh, skinned.bones, skinned.sharedMesh.bindposes,ref boneWeightBuffer,ref boneInfoPerVertexBuffer,ref bonesBuffer);
+            SkinnedTools.ApplyBoneMatrixSendToMat(transform,mat, skinned.sharedMesh, skinned.bones, skinned.sharedMesh.bindposes,ref boneWeightBuffer,ref boneInfoPerVertexBuffer,ref bonesBuffer);
         }
 
         // Update is called once per frame

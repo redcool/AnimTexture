@@ -18,7 +18,7 @@ float4x4 _RootWorldToLocal;
 void CalcBoneMatrix (uint3 id : SV_DispatchThreadID,uint3 groupId : SV_GROUPID,uint groupThreadIndex:SV_GROUPINDEX)
 {
     // Result[id.xy] = float4(id.x & id.y, (id.x & 15)/15.0, (id.y & 15)/15.0, 0.0);
-    uint dispatchThreadIndex = GetDispatchThreadIndex(groupId,groupThreadIndex,uint3(8,8,1));
+    uint dispatchThreadIndex = GetDispatchThreadIndex(groupId,groupThreadIndex);
     _Bones[dispatchThreadIndex] = mul(_RootWorldToLocal,mul(_LocalToWorldBuffer[dispatchThreadIndex],_BindposesBuffer[dispatchThreadIndex]));
 }
 
@@ -61,6 +61,6 @@ RWStructuredBuffer<float3> _MeshBuffer;
 [numthreads(8,8,1)]
 void CalcSkinnedMesh(uint3 id : SV_DispatchThreadID,uint3 groupId : SV_GROUPID,uint groupThreadIndex:SV_GROUPINDEX)
 {
-    uint dispatchThreadIndex = GetDispatchThreadIndex(groupId,groupThreadIndex,uint3(8,8,1));
+    uint dispatchThreadIndex = GetDispatchThreadIndex(groupId,groupThreadIndex);
     _MeshBuffer[dispatchThreadIndex] = GetSkinnedPos(dispatchThreadIndex,float4(_MeshBuffer[dispatchThreadIndex],1)).xyz;
 }
