@@ -87,23 +87,20 @@
             return tex;
         }
 
-        public static void BakeBonesToRT(SkinnedMeshRenderer skin, GameObject clipGo, AnimationClip clip,ComputeShader cs,int yStart,RenderTexture resultTex)
+        public static void BakeBonesToRT(SkinnedMeshRenderer skin, GameObject clipGo, AnimationClip clip, ComputeShader cs, int yStart, RenderTexture resultTex)
         {
-            var bindposesBuffer = GraphicsBufferTools.GetGlobalBuffer($"{nameof(AnimTextureTools)}_bindposesBuffer", GraphicsBuffer.Target.Structured, skin.bones.Length, Matrix4x4Size);
-            var bonesBuffer= GraphicsBufferTools.GetGlobalBuffer($"{nameof(AnimTextureTools)}_bonesBuffer", GraphicsBuffer.Target.Structured, skin.bones.Length, Matrix4x4Size);
-
-            // 
             var bindposes = skin.sharedMesh.bindposes;
-            bindposesBuffer.SetData(bindposes);
 
             // get cs
             var bakeBoneMatrixKernel = cs.FindKernel("BakeBoneMatrix");
-            cs.SetTexture(bakeBoneMatrixKernel,"_ResultTex", resultTex);
+            cs.SetTexture(bakeBoneMatrixKernel, "_ResultTex", resultTex);
 
 
             var frameCount = (int)(clip.length * clip.frameRate); // pixels height, a row per clip frame
             var timePerFrame = clip.length / frameCount;
             var time = 0f;
+
+            var bonesList = new List<Matrix4x4>(); // frames matrix list
 
             for (int y = 0; y < frameCount; y++)
             {
@@ -112,21 +109,24 @@
                 var boneTrs = skin.bones;
                 var boneCount = boneTrs.Length;
                 var bones = boneTrs.Select(tr => tr.localToWorldMatrix).ToArray();
+                bonesList.AddRange(bones);
 
-                var width = boneCount * 3; // a bone 3 pixel
-
-                bonesBuffer.SetData(bones);
-
-                cs.SetInt("_YStart", yStart + y);
-                cs.SetBuffer(bakeBoneMatrixKernel,"_BindposesBuffer", bindposesBuffer);
-                cs.SetBuffer(bakeBoneMatrixKernel, "_BonesBuffer", bonesBuffer);
                 //cs.SetMatrix("_RootWorldToLocal",skin.transform.worldToLocalMatrix);
-
-                // dispatch a row 
-                cs.DispatchKernel(bakeBoneMatrixKernel, bones.Length, 1, 1);
-
             }
 
+            var bindposesBuffer = GraphicsBufferTools.GetGlobalBuffer($"{nameof(AnimTextureTools)}_bindposesBuffer", GraphicsBuffer.Target.Structured, bindposes.Length, Matrix4x4Size);
+            bindposesBuffer.SetData(bindposes);
+            cs.SetBuffer(bakeBoneMatrixKernel, "_BindposesBuffer", bindposesBuffer);
+
+            var bonesBuffer = GraphicsBufferTools.GetGlobalBuffer($"{nameof(AnimTextureTools)}_bonesBuffer", GraphicsBuffer.Target.Structured, bonesList.Count, Matrix4x4Size);
+            bonesBuffer.SetData(bonesList);
+            cs.SetBuffer(bakeBoneMatrixKernel, "_BonesBuffer", bonesBuffer);
+
+            cs.SetInt("_YStart", yStart);
+            cs.SetInts("_YStartEnd", yStart, yStart + frameCount);
+
+
+            cs.DispatchKernel(bakeBoneMatrixKernel, bonesList.Count, bindposes.Length, 1);
         }
     }
 }
