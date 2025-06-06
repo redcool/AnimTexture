@@ -20,9 +20,6 @@
         /// </summary>
         public Texture2D atlas;
 
-        //----------- bake bone 
-        [Header("buffer")]
-
          GraphicsBuffer boneInfoBuffer;
          GraphicsBuffer boneWeightsBuffer;
 
@@ -38,6 +35,8 @@
 
         public Matrix4x4[] bones;
         public Matrix4x4[] bindposes;
+
+        public bool isSendArray;
 
         public Transform[] GetBoneTrs(Transform rootBone)
         {
@@ -68,6 +67,17 @@
 
             mat.SetBuffer("_BoneInfoPerVertexBuffer", boneInfoBuffer);
             mat.SetBuffer("_BoneWeightBuffer", boneWeightsBuffer);
+        }
+
+        public void SendBoneArray(Material mat)
+        {
+            if (!isSendArray)
+                return;
+
+            mat.SetFloatArray("_BoneCountPerVertex", boneInfoPerVertices.Select(info => (float)info.bonesCountPerVertex).ToArray());
+            mat.SetFloatArray("_BoneStartPerVertex", boneInfoPerVertices.Select(info => (float)info.bonesStartIndexPerVertex).ToArray());
+            mat.SetFloatArray("_BoneWeights", boneWeightArray.Select(info => (float)info.weight).ToArray());
+            mat.SetFloatArray("_BoneIndices", boneWeightArray.Select(info => (float)info.boneIndex).ToArray());
         }
 
     }

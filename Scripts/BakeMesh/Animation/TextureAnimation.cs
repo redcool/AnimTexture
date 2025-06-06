@@ -23,14 +23,9 @@
         readonly int ID_OFFSET_PLAY_TIME = Shader.PropertyToID("_OffsetPlayTime");
 
         public AnimTextureManifest manifest;
-
-        public int curIndex;
-        public int nextIndex;
-        public float crossFadeTime = 1;
-
-        public bool crossTest;
         public float playTime;
         public float offsetPlayTime;
+        public bool isUpdateBlock;
 
         Renderer r;
         MaterialPropertyBlock block;
@@ -50,9 +45,13 @@
 
         public bool isCallUpdate;
         
-        [Header("debug")]
-        public SkinnedMeshRenderer skinned;
-        GraphicsBuffer boneWeightBuffer, boneInfoPerVertexBuffer, bonesBuffer;
+        
+        [Header("Test")]
+        public int curIndex;
+        public int nextIndex;
+        public float crossFadeTime = 1;
+        public bool crossTest;
+
         // Start is called before the first frame update
         void Awake()
         {
@@ -76,9 +75,7 @@
             if (!manifest)
                 return;
             manifest.SendBoneBuffer(mat);
-
-            // SkinnedTools.ApplyBoneBufferSend(transform, mat, skinned.sharedMesh, skinned.bones, skinned.sharedMesh.bindposes, ref boneWeightBuffer, ref boneInfoPerVertexBuffer, ref bonesBuffer);
-
+            manifest.SendBoneArray(mat);
         }
 
         // Update is called once per frame
@@ -97,7 +94,7 @@
                 CrossFade(curIndex, nextIndex, crossFadeTime);
             }
 
-            if (needUpdateBlock)
+            if (isUpdateBlock && needUpdateBlock)
             {
                 needUpdateBlock = false;
                 r.SetPropertyBlock(block);

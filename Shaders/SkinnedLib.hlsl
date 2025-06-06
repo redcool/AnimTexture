@@ -1,4 +1,6 @@
-
+/**
+    
+*/
 
 #if !defined(SKINNED_LIB_HLSL)
 #define SKINNED_LIB_HLSL
@@ -44,7 +46,7 @@ float4 GetSkinnedPos(uint vid,float4 pos){
 }
 
 /**
-    Get float3x4 from boneTex
+    Get float3x4 from boneTex(a bone matrix = 3 x float4)
 */
 void GetFloat3x4FromTexture(inout float4x4 boneMat,sampler2D boneTex,float4 pixelSize,float boneIndex,float y){
     float x = (boneIndex*3+0.5) * pixelSize.x;
