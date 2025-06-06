@@ -40,7 +40,8 @@
         bool needUpdateBlock;
 
         Dictionary<int, int> clipNameHashDict = new Dictionary<int, int>();
-        public AnimTextureClipInfo curClipInfo,nextClipInfo;
+        public AnimTextureClipInfo curClipInfo;
+        public AnimTextureClipInfo nextClipInfo;
 
         [EditorButton(onClickCall ="Awake")]
         public bool isCallAwake;
@@ -122,16 +123,17 @@
             return GetClipIndex(Animator.StringToHash(stateName));
         }
 
-        void UpdateAnimTime(int index, int startNameHash,int endNameHash)
+        AnimTextureClipInfo UpdateAnimTime(int index, int startNameHash,int endNameHash)
         {
             if (index >= manifest.animInfos.Count)
-                return;
+                return default;
 
-            curClipInfo = manifest.animInfos[index];
+            var clipInfo = manifest.animInfos[index];
 
-            mat.SetFloat(startNameHash, curClipInfo.startFrame, block);
-            mat.SetFloat(endNameHash, curClipInfo.endFrame, block);
+            mat.SetFloat(startNameHash, clipInfo.startFrame, block);
+            mat.SetFloat(endNameHash, clipInfo.endFrame, block);
             needUpdateBlock = true;
+            return clipInfo;
         }
         void UpdatePlayTime()
         {
@@ -167,8 +169,8 @@
             playTime = 0;
             offsetPlayTime = 0;
 
-            UpdateAnimTime(index, ID_START_FRAME, ID_END_FRAME);
-            UpdateAnimTime(index, ID_NEXT_START_FRAME, ID_NEXT_END_FRAME);
+            curClipInfo = UpdateAnimTime(index, ID_START_FRAME, ID_END_FRAME);
+            nextClipInfo = UpdateAnimTime(index, ID_NEXT_START_FRAME, ID_NEXT_END_FRAME);
             UpdateCrossLerp(1);
         }
 
@@ -188,8 +190,8 @@
             var animInfo = manifest.animInfos[index];
             offsetPlayTime = animInfo.length - fadeTime;
 
-            UpdateAnimTime(index, ID_START_FRAME, ID_END_FRAME);
-            UpdateAnimTime(nextIndex, ID_NEXT_START_FRAME, ID_NEXT_END_FRAME);
+            curClipInfo = UpdateAnimTime(index, ID_START_FRAME, ID_END_FRAME);
+            nextClipInfo = UpdateAnimTime(nextIndex, ID_NEXT_START_FRAME, ID_NEXT_END_FRAME);
 
             if(crossLerpCoroutine != null)
                 StopCoroutine(crossLerpCoroutine);

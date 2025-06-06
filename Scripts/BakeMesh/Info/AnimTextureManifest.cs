@@ -54,6 +54,10 @@
             return boneTrs;
         }
 
+        /// <summary>
+        /// _BoneInfoPerVertexBuffer,_BoneWeightBuffer
+        /// </summary>
+        /// <param name="mat"></param>
         public void SendBoneBuffer(Material mat)
         {
             GraphicsBufferTools.TryCreateBuffer(ref boneInfoBuffer, GraphicsBuffer.Target.Structured, boneInfoPerVertices.Length, Marshal.SizeOf<BoneInfoPerVertex>());

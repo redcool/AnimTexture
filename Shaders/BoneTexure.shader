@@ -61,7 +61,12 @@ HLSLINCLUDE
 			info.offsetPlayTime = _OffsetPlayTime;
 			return info;
 		}
-
+		/**
+			Get animation frame y position in _AnimTex
+			
+			x : per bone matrix(3 float4)
+			y : animation frames
+		*/
 		half GetY(AnimInfo info) {
 			// length = fps/sampleRatio
 			half totalLen = _AnimTex_TexelSize.w / info.frameRate;
@@ -72,12 +77,11 @@ HLSLINCLUDE
 			y = lerp(y, end, info.loop);
 			return y;
 		}
-
-		float4 GetAnimPos(uint vid,float4 pos){
+		/**
+			Play animation 
+		*/
+		float4 GetAnimPos(uint vid,float4 pos,AnimInfo info){
 			float4 bonePos = (float4)0;
-
-			AnimInfo info = GetAnimInfo();
-			// info.endFrame = 1;
 			half y = GetY(info);
 
 			BoneInfoPerVertex boneInfo = _BoneInfoPerVertexBuffer[vid];
@@ -98,23 +102,25 @@ HLSLINCLUDE
 
 			return bonePos;
 		}
+		/**
+			Play animation 
+		*/
+		float4 GetAnimPos(uint vid,float4 pos){
+			AnimInfo info = GetAnimInfo();
+			return GetAnimPos(vid,pos,info);
+		}
 
-		float4 GetAnimPos(uint vid,AnimInfo info) {
-			half y = GetY(info);
-			half x = (vid + 0.5) * _AnimTex_TexelSize.x;
-
-			float4 animPos = tex2Dlod(_AnimTex, half4(x, y, 0, 0));
-			return animPos;
-		}		
-
-		float4 GetBlendAnimPos(uint vid) {
+		/**
+		play animation with crossFade
+		*/
+		float4 GetBlendAnimPos(uint vid,float4 pos) {
 			AnimInfo info = GetAnimInfo();
 			half crossLerp = _CrossLerp;
-			float4 curPos = GetAnimPos(vid, info);
+			float4 curPos = GetAnimPos(vid,pos,info);
 
 			info.startFrame = _NextStartFrame;
 			info.endFrame = _NextEndFrame;
-			float4 nextPos = GetAnimPos(vid, info);
+			float4 nextPos = GetAnimPos(vid,pos,info);
 
 			return lerp(curPos, nextPos, crossLerp);
 		}
@@ -151,7 +157,9 @@ ENDHLSL
                 v2f o;
 
 				// float4 pos = GetSkinnedPos(v.vertexId,v.pos); // get from buffer
-				float4 pos = GetAnimPos(v.vertexId,v.pos);
+				// float4 pos = GetAnimPos(v.vertexId,v.pos);
+				float4 pos = GetBlendAnimPos(v.vertexId,v.pos);
+
 				o.vertex = TransformObjectToHClip(pos);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
