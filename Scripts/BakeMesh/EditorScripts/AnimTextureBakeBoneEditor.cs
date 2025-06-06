@@ -41,12 +41,12 @@ namespace AnimTexture
             if (!bakeBoneCS)
                 throw new FileNotFoundException("cannot found compute shader : BakeBone");
 
-            var clipCount = BakeBoneAllClips(skinnedMeshGo, clipList, bakeBoneCS);
+            var clipCount = BakeBoneAllClips(skinnedMeshGo, clipList, bakeBoneCS,true);
             ShowResult(skinnedMeshGo, clipCount);
             EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>($"Assets/{DEFAULT_TEX_DIR}"));
         }
 
-        public static int BakeBoneAllClips(GameObject go, List<AnimationClip> clipList, ComputeShader bakeBondCS)
+        public static int BakeBoneAllClips(GameObject go, List<AnimationClip> clipList, ComputeShader bakeBondCS,bool isUseCS)
         {
             var skin = go.GetComponentInChildren<SkinnedMeshRenderer>();
 
@@ -61,7 +61,7 @@ namespace AnimTexture
             FillBones(skin, manifest);
 
             var yList = GenBoneTexture(skin, clipList, out manifest.atlas);
-            BakeBoneClips(go, skin, clipList, manifest, yList, bakeBondCS);
+            BakeBoneClips(go, skin, clipList, manifest, yList, bakeBondCS, isUseCS);
             manifest.atlas.Apply();
             //output infos
             AssetDatabase.CreateAsset(manifest.atlas, $"Assets/{DEFAULT_TEX_DIR}/{go.name}_BoneTexture.asset");
@@ -133,34 +133,43 @@ namespace AnimTexture
         }
 
 
-        public static int BakeBoneClips(GameObject go, SkinnedMeshRenderer skin, List<AnimationClip> animClipList, AnimTextureManifest manifest, List<int> yList,ComputeShader bakeBoneCS)
+        public static int BakeBoneClips(GameObject go, SkinnedMeshRenderer skin, List<AnimationClip> animClipList, AnimTextureManifest manifest, List<int> yList, ComputeShader bakeBoneCS, bool isUseCS)
         {
-            var desc = new RenderTextureDescriptor(manifest.atlas.width, manifest.atlas.height,RenderTextureFormat.ARGBHalf, 0);
+            var desc = new RenderTextureDescriptor(manifest.atlas.width, manifest.atlas.height, RenderTextureFormat.ARGBHalf, 0);
             desc.enableRandomWrite = true;
             desc.sRGB = false;
-            var resultTex = new RenderTexture(desc);
+            var resultRT = new RenderTexture(desc);
 
             var index = 0;
             foreach (AnimationClip clip in animClipList)
             {
                 var yStart = yList[index];
+                if (isUseCS)
+                {
+                    AnimTextureTools.BakeBonesToRT(skin, go, clip, bakeBoneCS, yStart, resultRT);
+                }
+                else
+                {
+                    // bake a clip to texture, write it to manifest.atlas block
+                    var boneTex = AnimTextureTools.BakeBonesToTexture(skin, go, clip);
+                    var colors = boneTex.GetPixels(0, 0, boneTex.width, boneTex.height);
+                    manifest.atlas.SetPixels(0, yStart, boneTex.width, boneTex.height, colors);
+                }
 
-                //AnimTextureTools.BakeBonesToRT(skin, go, clip, bakeBoneCS, yStart, resultTex);
-
-                var boneTex = AnimTextureTools.BakeBonesToTexture(skin, go, clip);
-                var colors = boneTex.GetPixels(0, 0, boneTex.width, boneTex.height);
-                
-                manifest.atlas.SetPixels(0, yStart, boneTex.width, boneTex.height, colors);
-
+                // record clip info
                 manifest.animInfos.Add(new AnimTextureClipInfo(clip.name, yStart, yList[index + 1])
                 {
                     isLoop = clip.isLooping,
                     length = clip.length
                 });
+
                 index++;
             }
 
-            //resultTex.ReadRenderTexture(ref manifest.atlas);
+            if (isUseCS)
+            {
+                resultRT.ReadRenderTexture(ref manifest.atlas);
+            }
 
             return index;
         }

@@ -1,4 +1,8 @@
-// Each #kernel tells which function to compile; you can have many kernels
+/**
+    Bone matrix write to _ResultTex(1 matrix = 3 pixels)
+
+    Dispatch 1 time when AnimationClip.SampleAnition 
+*/
 #pragma kernel BakeBoneMatrix
 
 // Create a RenderTexture with enableRandomWrite flag and set it
@@ -12,14 +16,16 @@ float4x4 _RootWorldToLocal;
 [numthreads(8,8,1)]
 void BakeBoneMatrix (uint3 id : SV_DispatchThreadID)
 {
-    id.y += _YStart;
     uint boneId = id.x;
     float4x4 boneMat = _BonesBuffer[boneId];
     float4x4 bindpose = _BindposesBuffer[boneId];
-    float4x4 mat = mul(_RootWorldToLocal,mul(boneMat,bindpose));
+    // float4x4 mat = mul(_RootWorldToLocal,mul(boneMat,bindpose));
+    float4x4 mat = mul(boneMat,bindpose);
 
-    uint xStart = id.x * 3; // a matrix 3 pixel
-    uint2 uvId = id.xy;
+    uint xStart = boneId * 3; // a matrix 3 pixel
+    uint2 uvId = {0,_YStart};
+    
+    [unroll(3)]
     for(int i=0;i<3;i++){
         uvId.x = xStart + i;
         _ResultTex[uvId.xy] = mat[i];
