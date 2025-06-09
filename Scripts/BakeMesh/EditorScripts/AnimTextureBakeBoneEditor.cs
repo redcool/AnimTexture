@@ -19,10 +19,17 @@ namespace AnimTexture
     /// </summary>
     public partial class AnimTextureEditor
     {
-        [MenuItem(POWER_UTILS_MENU + "/BakeBoneTexAtlas_From_GenericAnimType")]
+
+        public const string BAKE_BONE_CS_FILENAME = "BakeBoneMatrix";
+
+        [MenuItem(POWER_UTILS_MENU + "/BakeBoneTexAtlas")]
         public static void BakeBoneTexFromSelected()
         {
             var objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
+            BakeBoneTexture(objs);
+        }
+        public static void BakeBoneTexture(GameObject[] objs)
+        {
             var skinnedMeshGo = objs.Where(obj => obj.GetComponentInChildren<SkinnedMeshRenderer>()).FirstOrDefault();
             if (!skinnedMeshGo)
             {
@@ -37,11 +44,11 @@ namespace AnimTexture
                 clipList = GetAnimstionClipFromAnimation(objs);
             }
 
-            var bakeBoneCS = AssetDatabaseTools.FindAssetPathAndLoad<ComputeShader>(out _, "BakeBoneMatrix", ".compute");
+            var bakeBoneCS = AssetDatabaseTools.FindAssetPathAndLoad<ComputeShader>(out _, BAKE_BONE_CS_FILENAME, ".compute");
             if (!bakeBoneCS)
                 throw new FileNotFoundException("cannot found compute shader : BakeBone");
 
-            var clipCount = BakeBoneAllClips(skinnedMeshGo, clipList, bakeBoneCS,true);
+            var clipCount = BakeBoneAllClips(skinnedMeshGo, clipList, bakeBoneCS, bakeBoneCS.CanExecute());
             ShowResult(skinnedMeshGo, clipCount);
             EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>($"Assets/{DEFAULT_TEX_DIR}"));
         }

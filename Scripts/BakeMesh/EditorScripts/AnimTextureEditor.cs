@@ -19,7 +19,7 @@ namespace AnimTexture
         /// <summary>
         /// Bake animTex from a gameObject
         /// (contains SkinnedMeshRenderer, 
-        /// Animation(get animClips)
+        /// Animation(get animClips from animationState)
         /// </summary>
         [MenuItem(POWER_UTILS_MENU + "/BakeAnimTexAtlas_From_LegacyAnimType")]
         static void BakeAllInOne()
@@ -54,26 +54,38 @@ namespace AnimTexture
         public static void BakeAnimTexFromSelected()
         {
             var objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
+
+            BakeAnimTexFromObjs(objs);
+        }
+
+        public static void BakeAnimTexFromObjs(GameObject[] objs)
+        {
             var skinnedMeshGo = objs.Where(obj => obj.GetComponentInChildren<SkinnedMeshRenderer>()).FirstOrDefault();
             if (!skinnedMeshGo)
             {
                 EditorUtility.DisplayDialog("Warning", $" not found SkinnedMeshRenderer from selected objects", "ok");
                 return;
             }
-
             //1 check animationClip
-            var clipList = GetAnimationClipsFromAssets(objs);
-            if (clipList.Count() == 0)
-            {
-                clipList = GetAnimstionClipFromAnimation(objs);
-            }
+            List<AnimationClip> clipList = GetAnimationClipsFromAssetOrAnimation(objs);
 
             var clipCount = BakeAllClips(skinnedMeshGo, clipList);
             ShowResult(skinnedMeshGo, clipCount);
             EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>($"Assets/{DEFAULT_TEX_DIR}"));
         }
 
-        private static List<AnimationClip> GetAnimstionClipFromAnimation(GameObject[] objs)
+        public static List<AnimationClip> GetAnimationClipsFromAssetOrAnimation(GameObject[] objs)
+        {
+            var clipList = GetAnimationClipsFromAssets(objs);
+            if (clipList.Count() == 0)
+            {
+                clipList = GetAnimstionClipFromAnimation(objs);
+            }
+
+            return clipList;
+        }
+
+        public static List<AnimationClip> GetAnimstionClipFromAnimation(GameObject[] objs)
         {
             var list = new List<AnimationClip>();
             foreach (var item in objs)
@@ -85,7 +97,7 @@ namespace AnimTexture
             return list;
         }
 
-        private static List<AnimationClip> GetAnimationClipsFromAssets(GameObject[] objs)
+        public static List<AnimationClip> GetAnimationClipsFromAssets(GameObject[] objs)
         {
             return objs.SelectMany(obj => AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(obj)))
                 .Where(a => a is AnimationClip c && !c.name.StartsWith("__preview__"))

@@ -59,6 +59,9 @@
         /// <param name="mat"></param>
         public void SendBoneBuffer(Material mat)
         {
+            if (boneInfoPerVertices.Length == 0)
+                return;
+
             GraphicsBufferTools.TryCreateBuffer(ref boneInfoBuffer, GraphicsBuffer.Target.Structured, boneInfoPerVertices.Length, Marshal.SizeOf<BoneInfoPerVertex>());
             boneInfoBuffer.SetData(boneInfoPerVertices);
 
@@ -71,7 +74,7 @@
 
         public void SendBoneArray(Material mat)
         {
-            if (!isSendArray)
+            if (!isSendArray || boneInfoPerVertices.Length == 0)
                 return;
 
             mat.SetFloatArray("_BoneCountPerVertex", boneInfoPerVertices.Select(info => (float)info.bonesCountPerVertex).ToArray());
