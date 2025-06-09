@@ -25,6 +25,8 @@
         public AnimTextureManifest manifest;
         public float playTime;
         public float offsetPlayTime;
+
+        [Tooltip("srp batch will failed, when use block")]
         public bool isUpdateBlock;
 
         Renderer r;

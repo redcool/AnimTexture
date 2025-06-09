@@ -2,16 +2,16 @@
 #pragma kernel CalcBoneMatrix
 #pragma kernel CalcSkinnedMesh
 
-#include "CSLib.hlsl"
+#include "../../PowerShaderLib/Lib/CSLib.hlsl"
+#include "../../PowerShaderLib/Lib/Skinned/SkinnedLib.hlsl"
 
 //==================
 // 
 //==================
-RWStructuredBuffer<float4x4> _Bones;
+// RWStructuredBuffer<float4x4> _Bones; // SkinnedLib
 StructuredBuffer<float4x4> _LocalToWorldBuffer;
 StructuredBuffer<float4x4> _BindposesBuffer;
 float4x4 _RootWorldToLocal;
-
 
 
 [numthreads(8,8,1)]
@@ -26,36 +26,6 @@ void CalcBoneMatrix (uint3 id : SV_DispatchThreadID,uint3 groupId : SV_GROUPID,u
 //==================
 // 
 //==================
-struct BoneInfoPerVertex{
-    uint bonesCount;
-    uint bonesStartIndex;
-};
-struct BoneWeight1{
-    float weight;
-    uint boneIndex;
-};
-
-StructuredBuffer<BoneInfoPerVertex> _BoneInfoPerVertexBuffer;
-StructuredBuffer<BoneWeight1> _BoneWeightBuffer;
-float4 GetSkinnedPos(uint vid,float4 pos){
-    float4 bonePos = (float4)0;
-
-    BoneInfoPerVertex boneInfo = _BoneInfoPerVertexBuffer[vid];
-    float bonesCount = boneInfo.bonesCount;
-    float boneStart = boneInfo.bonesStartIndex;
-
-    [unroll(4)]
-    for(int i=0;i<bonesCount;i++){
-        BoneWeight1 bw = _BoneWeightBuffer[boneStart + i];
-        float weight = bw.weight;
-        uint boneIndex = bw.boneIndex;
-
-        float4x4 boneMat = _Bones[boneIndex];
-        bonePos += mul(boneMat,pos) * weight;
-    }
-
-    return bonePos;
-}
 
 RWStructuredBuffer<float3> _MeshBuffer;
 [numthreads(8,8,1)]

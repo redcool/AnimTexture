@@ -1142,7 +1142,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 10e43e8a3884d4345ad0202607b78f88, type: 2}
+  - {fileID: 2100000, guid: e11cebd15a2b66848a5fcf82c4ccfd17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1222,8 +1222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eca2d4b2d333ac41a57799b96ce5cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manifest: {fileID: 11400000, guid: 0a32024576ca97d44814b0b7598a0c5c, type: 2}
-  playTime: 0.019999992
+  manifest: {fileID: 11400000, guid: 1f1d3b5deebe1cd45ac5c1b8d4229b6b, type: 2}
+  playTime: 0.33333334
   offsetPlayTime: 0
   isUpdateBlock: 0
   curClipInfo:

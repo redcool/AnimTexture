@@ -39,7 +39,7 @@ HLSLINCLUDE
 		CBUFFER_END
 
 		#define _ANIMTEX_TEXELSIZE _AnimTex_TexelSize
-		#include "AnimTextureLib.hlsl"
+		#include "../../PowerShaderLib/Lib/Skinned/AnimTextureLib.hlsl"
 ENDHLSL
     SubShader
     {
