@@ -10,6 +10,7 @@
     using UnityEngine;
 
     //[ExecuteAlways]
+    
     public class TextureAnimation : MonoBehaviour
     {
         readonly int ID_ANIM_TEX = Shader.PropertyToID("_AnimTex");
@@ -40,20 +41,74 @@
         public AnimTextureClipInfo curClipInfo;
         public AnimTextureClipInfo nextClipInfo;
 
+        //==================FastSetup
+        [EditorGroup("FastSetup",true)]
+        [Tooltip("setup AnimTexture")]
+        public AnimTextureManifest animTextureManifest;
+
+        [EditorGroup("FastSetup")]
+        public Material boneTextureMat;
+
+        [EditorGroup("FastSetup")]
+        [LoadAsset("AnimTexSimpleController_noClip")]
+        public RuntimeAnimatorController animatorController;
+
+        [EditorGroup("FastSetup")]
+        [EditorButton(onClickCall = "SetupAnimTexture")]
+        public bool isSetupAnimTex;
+
+        //==================Debug
+        [EditorGroup("Debug",true)]
         [EditorButton(onClickCall ="Awake")]
         public bool isCallAwake;
 
+        [EditorGroup("Debug")]
         [EditorButton(onClickCall = "Update")]
-
         public bool isCallUpdate;
-        
-        
-        [Header("Test")]
+
+        [EditorGroup("Debug")]
         public int curIndex;
+
+        [EditorGroup("Debug")]
         public int nextIndex;
+
+        [EditorGroup("Debug")]
         public float crossFadeTime = 0.5f;
+
+        [EditorGroup("Debug")]
         [EditorButton(onClickCall = "TestCrossFade")]
         public bool crossTest;
+
+        public void SetupAnimTexture()
+        {
+            manifest = animTextureManifest;
+
+            var skinned = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+            if (!skinned)
+            {
+                Debug.Log("SkinnedMeshRenderer not found");
+                return;
+            }
+
+            skinned.Destroy();
+            transform.localScale = Vector3.one;
+
+            var mr = gameObject.GetOrAddComponent<MeshRenderer>();
+            if (boneTextureMat)
+                mr.sharedMaterial = boneTextureMat;
+            else
+                mr.sharedMaterials = skinned.sharedMaterials;
+
+            var mf = gameObject.GetOrAddComponent<MeshFilter>();
+            mf.sharedMesh = skinned.sharedMesh;
+
+            var anim = gameObject.GetOrAddComponent<Animator>();
+            anim.runtimeAnimatorController = animatorController;
+
+            gameObject.GetOrAddComponent<AnimatorControl>();
+
+
+        }
 
         public void TestCrossFade()
         {
@@ -63,11 +118,22 @@
         // Start is called before the first frame update
         void Awake()
         {
-            r = GetComponent<Renderer>();
-            mat = Application.isPlaying ? r.material : r.sharedMaterial;  // new instance
+            // 1 check FastSetup 
+            if (!manifest)
+                manifest = animTextureManifest;
 
+            //2 no manifest, disable self
+            if (!manifest)
+            {
+                enabled = false;
+                return;
+            }
+
+            r = GetComponent<Renderer>();
             if (manifest.atlas)
                 r.sharedMaterial.SetTexture(ID_ANIM_TEX, manifest.atlas);
+
+            mat = Application.isPlaying ? r.material : r.sharedMaterial;  // new instance
 
             if (block == null)
                 block = new MaterialPropertyBlock();
@@ -80,8 +146,6 @@
 
         void UpdateBoneInfo()
         {
-            if (!manifest)
-                return;
             manifest.SendBoneBuffer(mat);
             manifest.SendBoneArray(mat);
         }
@@ -89,6 +153,9 @@
         // Update is called once per frame
         void Update()
         {
+            if (!manifest)
+                return;
+
             playTime += Time.deltaTime;
             UpdatePlayTime();
             UpdateAnimLoop();

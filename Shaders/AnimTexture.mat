@@ -72,7 +72,7 @@ Material:
     - _AnimLen: 1.333
     - _AnimSampleRate: 30
     - _BumpScale: 1
-    - _CrossLerp: 1
+    - _CrossLerp: 0.32
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0

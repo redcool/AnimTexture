@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SimpleAnimationController : MonoBehaviour
+public class SimpleAnimationControl : MonoBehaviour
 {
     public TextureAnimation texAnim;
     public enum AnimationType

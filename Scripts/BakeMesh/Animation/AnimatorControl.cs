@@ -6,22 +6,28 @@
     using UnityEngine;
 
     /// <summary>
-    /// AnimatorController controlTextureAnimation .
+    /// read Animator control TextureAnimation .
     /// controller' StateName need equals AnimationClip's Name.
     /// </summary>
     [RequireComponent(typeof(Animator), typeof(TextureAnimation))]
-    public class MecanimController : MonoBehaviour
+    public class AnimatorControl : MonoBehaviour
     {
         [HideInInspector] public Animator animator;
         [HideInInspector] public TextureAnimation texAnim;
         public int layerIndex = 0;
-        public bool isCrossFading;
+        public bool isCrossFading = true;
 
         int lastTransitionNameHash;
         // Start is called before the first frame update
         void Start()
         {
             animator = GetComponent<Animator>();
+            if (!animator)
+            {
+                enabled = false;
+                return;
+            }
+
             texAnim = GetComponent<TextureAnimation>();
 
             var stateInfo = animator.GetCurrentAnimatorStateInfo(layerIndex);
@@ -32,8 +38,7 @@
         // Update is called once per frame
         void Update()
         {
-            if (!animator)
-                return;
+
 
             var trans = animator.GetAnimatorTransitionInfo(layerIndex);
             if (trans.nameHash == 0)

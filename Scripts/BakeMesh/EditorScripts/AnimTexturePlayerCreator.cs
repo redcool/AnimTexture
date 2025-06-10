@@ -12,34 +12,46 @@ namespace AnimTexture
         [MenuItem(AnimTextureEditor.POWER_UTILS_MENU+"/CreatePlayer_FromSelected")]
         static void CreatePlayer()
         {
-            var prefabs = Selection.GetFiltered<GameObject>(SelectionMode.Assets);
-            foreach (var p in prefabs)
+            var objs = Selection.GetFiltered<GameObject>(SelectionMode.Assets);
+            CreatePlayer(objs);
+            Debug.Log("Create player done.");
+        }
+
+        public static void CreatePlayer(GameObject[] objs)
+        {
+            foreach (var obj in objs)
             {
-                var parentGo = new GameObject(p.name);
+                if (! obj.GetComponentInChildren<SkinnedMeshRenderer>())
+                    continue;
+
+                var parentGo = new GameObject(obj.name);
                 AddAgent(parentGo);
 
-                var go = Object.Instantiate(p);
+                var go = Object.Instantiate(obj);
 
-                go.name = p.name+"_Animator";
+                go.name = obj.name + "_Animator";
                 go.transform.SetParent(parentGo.transform);
-                SetupAnimTexture(go,p.name);
+                SetupAnimTexture(go, obj.name);
 
                 SetupAnimator(go);
-                SetupRenderer(go);
+                SetupMeshRenderer(go);
             }
-            Debug.Log("Create player done.");
+
         }
 
         static void SetupAnimTexture(GameObject go,string goName)
         {
-            Object.DestroyImmediate(go.GetComponentInChildren<Animation>());
+            var anim = go.GetComponentInChildren<Animation>();
+            if (anim)
+                anim.enabled = false;
+
 
             var manifest = AssetDatabase.LoadAssetAtPath<AnimTextureManifest>(AnimTextureEditor.GetManifestPath(goName));
-            var anim = GetOrAdd<TextureAnimation>(go);
-            anim.manifest = manifest;
+            var texAnim = GetOrAdd<TextureAnimation>(go);
+            texAnim.manifest = manifest;
         }
 
-        private static void SetupRenderer(GameObject go)
+        private static void SetupMeshRenderer(GameObject go)
         {
             var skin = go.GetComponentInChildren<SkinnedMeshRenderer>();
             var mf = GetOrAdd<MeshFilter>(go);
@@ -55,7 +67,7 @@ namespace AnimTexture
             var animator = GetOrAdd<Animator>(go);
             animator.runtimeAnimatorController = AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>($"Assets/{AnimTextureEditor.ANIM_TEXTURE_PATH}/OtherRes/SimpleController.controller");
 
-            GetOrAdd<MecanimController>(go);
+            GetOrAdd<AnimatorControl>(go);
         }
 
         static void AddAgent(GameObject go)
