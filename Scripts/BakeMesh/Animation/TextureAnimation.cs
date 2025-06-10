@@ -51,8 +51,14 @@
         [Header("Test")]
         public int curIndex;
         public int nextIndex;
-        public float crossFadeTime = 1;
+        public float crossFadeTime = 0.5f;
+        [EditorButton(onClickCall = "TestCrossFade")]
         public bool crossTest;
+
+        public void TestCrossFade()
+        {
+            CrossFade(curIndex, nextIndex, crossFadeTime);
+        }
 
         // Start is called before the first frame update
         void Awake()
@@ -87,14 +93,6 @@
             UpdatePlayTime();
             UpdateAnimLoop();
             UpdateBoneInfo();
-
-            if (crossTest)
-            {
-                crossTest = false;
-
-                //Play(animIndex);
-                CrossFade(curIndex, nextIndex, crossFadeTime);
-            }
 
             if (isUpdateBlock && needUpdateBlock)
             {
@@ -181,7 +179,12 @@
 
             Play(index);
         }
-
+        /// <summary>
+        /// crossFade play,
+        /// </summary>
+        /// <param name="index">fade out clip index</param>
+        /// <param name="nextIndex">fade in clip index</param>
+        /// <param name="fadeTime">crassFading time</param>
         public void CrossFade(int index,int nextIndex,float fadeTime)
         {
             playTime = 0;
@@ -196,6 +199,21 @@
                 StopCoroutine(crossLerpCoroutine);
 
             crossLerpCoroutine = StartCoroutine(WaitForUpdateCrossLerp(nextIndex,fadeTime));
+        }
+        /// <summary>
+        /// crossFade play,
+        /// </summary>
+        /// <param name="clipName">fade out clipName</param>
+        /// <param name="nextClipName">fade in clipName</param>
+        /// <param name="fadeTime">crassFading time</param>
+        public void CrossFade(string clipName, string nextClipName, float fadeTime)
+        {
+            var index = GetClipIndex(clipName);
+            var nextIndex = GetClipIndex(nextClipName);
+            if (index < 0 || nextIndex < 0)
+                return;
+
+            CrossFade(index, nextIndex, fadeTime);
         }
 
         IEnumerator WaitForUpdateCrossLerp(int index,float fadeTime)

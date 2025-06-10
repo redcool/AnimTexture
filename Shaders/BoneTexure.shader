@@ -3,6 +3,8 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+
+		[GroupHeader(,AnimTex)]
 		_AnimTex("Anim Tex",2d) = ""{}
 		_AnimSampleRate("Anim Sample Rate",float) = 30
 		_StartFrame("Start Frame",float) = 0
@@ -20,7 +22,6 @@
 HLSLINCLUDE
 		#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-		sampler2D _AnimTex;
 		sampler2D _MainTex;
 
 		CBUFFER_START(UnityPerMaterial)
@@ -38,7 +39,6 @@ HLSLINCLUDE
 			half4 _MainTex_ST;
 		CBUFFER_END
 
-		#define _ANIMTEX_TEXELSIZE _AnimTex_TexelSize
 		#include "../../PowerShaderLib/Lib/Skinned/AnimTextureLib.hlsl"
 ENDHLSL
     SubShader
