@@ -13,6 +13,7 @@
     
     public class TextureAnimation : MonoBehaviour
     {
+        // anim tex material's variables
         readonly int ID_ANIM_TEX = Shader.PropertyToID("_AnimTex");
         readonly int ID_LOOP = Shader.PropertyToID("_Loop");
         readonly int ID_CROSS_LERP = Shader.PropertyToID("_CrossLerp");
@@ -23,14 +24,18 @@
         readonly int ID_PLAY_TIME = Shader.PropertyToID("_PlayTime");
         readonly int ID_OFFSET_PLAY_TIME = Shader.PropertyToID("_OffsetPlayTime");
 
+        [Tooltip("include animation info,bone info per vertex")]
         public AnimTextureManifest manifest;
         public float playTime;
         public float offsetPlayTime;
 
+        [Tooltip("unchecked use meshRenderer sharedMaterial when playing")]
+        public bool isUseMaterialInst = true;
+
         [Tooltip("srp batch will failed, when use block")]
         public bool isUpdateBlock;
 
-        Renderer r;
+        MeshRenderer mr;
         MaterialPropertyBlock block;
         Material mat;
 
@@ -38,7 +43,9 @@
         bool needUpdateBlock;
 
         Dictionary<int, int> clipNameHashDict = new Dictionary<int, int>();
+        [Tooltip("fading out clip info")]
         public AnimTextureClipInfo curClipInfo;
+        [Tooltip("fading in clip info")]
         public AnimTextureClipInfo nextClipInfo;
 
         //==================FastSetup
@@ -47,10 +54,12 @@
         public AnimTextureManifest animTextureManifest;
 
         [EditorGroup("FastSetup")]
+        [Tooltip("material for mesh renderer")]
         public Material boneTextureMat;
 
         [EditorGroup("FastSetup")]
         [LoadAsset("AnimTexSimpleController_noClip")]
+        [Tooltip("for Animator play animation states")]
         public RuntimeAnimatorController animatorController;
 
         [EditorGroup("FastSetup")]
@@ -129,11 +138,11 @@
                 return;
             }
 
-            r = GetComponent<Renderer>();
+            mr = GetComponent<MeshRenderer>();
             if (manifest.atlas)
-                r.sharedMaterial.SetTexture(ID_ANIM_TEX, manifest.atlas);
+                mr.sharedMaterial.SetTexture(ID_ANIM_TEX, manifest.atlas);
 
-            mat = Application.isPlaying ? r.material : r.sharedMaterial;  // new instance
+            mat = Application.isPlaying ? mr.material : mr.sharedMaterial;  // new instance
 
             if (block == null)
                 block = new MaterialPropertyBlock();
@@ -164,7 +173,7 @@
             if (isUpdateBlock && needUpdateBlock)
             {
                 needUpdateBlock = false;
-                r.SetPropertyBlock(block);
+                mr.SetPropertyBlock(block);
             }
         }
 

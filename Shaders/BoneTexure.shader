@@ -55,6 +55,7 @@ ENDHLSL
             #pragma vertex vert
             #pragma fragment frag
 			#pragma shader_feature _ANIM_TEX_ON
+			#pragma target 3.0
 
             struct appdata
             {
@@ -62,6 +63,8 @@ ENDHLSL
 				float4 pos:POSITION;
                 float2 uv : TEXCOORD0;
 				float3 normal:NORMAL;
+				float4 weights:BLENDWEIGHTS;
+				uint4 indices:BLENDINDICES;
             };
 
             struct v2f
@@ -69,7 +72,7 @@ ENDHLSL
                 half4 vertex : SV_POSITION;
                 half2 uv : TEXCOORD0;
 				float3 normal:TEXCOORD1;
-				float3 worldPos:TEXCOORD2;
+				float4 weights:TECOORD2;
             };
 
 
@@ -80,10 +83,10 @@ ENDHLSL
 				#if defined(_ANIM_TEX_ON)
 				// float4 pos = GetSkinnedPos(v.vertexId,v.pos); // get from buffer
 				// float4 pos = GetAnimPos(v.vertexId,v.pos);
-				float4 pos = GetBlendAnimPos(v.vertexId,v.pos);
+				float4 pos = GetBlendAnimPos(v.vertexId,v.pos,v.weights,v.indices);
 				v.pos = pos;
 
-				float3 normal = GetBlendAnimPos(v.vertexId,float4(v.normal,0));
+				float3 normal = GetBlendAnimPos(v.vertexId,float4(v.normal,0),v.weights,v.indices);
 				v.normal = normal;
 				#endif
 
@@ -91,24 +94,21 @@ ENDHLSL
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
 				o.normal = TransformObjectToWorldNormal(v.normal);
-				// float3 worldPos = TransformObjectToWorld(pos);
-				// o.worldPos = worldPos;
+				o.weights = v.weights;
                 return o;
             }
 
             half4 frag (v2f i) : SV_Target
             {
-				// return float4(i.uv,0,1);
+				// return i.weights.x;
 				
 				float3 n = normalize(i.normal);
-				float3 worldPos = i.worldPos;
-				// n = normalize(cross(ddy(worldPos),ddx(worldPos)));
 				
 				float nl = saturate(dot(n,_MainLightPosition.xyz));
-				return nl;
+				
                 // sample the texture
                 half4 col = tex2D(_MainTex, i.uv);
-                return col;
+                return col * nl;
             }
             ENDHLSL
         }

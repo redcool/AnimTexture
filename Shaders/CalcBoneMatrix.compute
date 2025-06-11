@@ -3,6 +3,8 @@
 #pragma kernel CalcSkinnedMesh
 
 #include "../../PowerShaderLib/Lib/CSLib.hlsl"
+
+#define USE_BUFFER
 #include "../../PowerShaderLib/Lib/Skinned/SkinnedLib.hlsl"
 
 //==================

@@ -53,7 +53,7 @@ namespace AnimTexture
             EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>($"Assets/{DEFAULT_TEX_DIR}"));
         }
 
-        public static int BakeBoneAllClips(GameObject go, List<AnimationClip> clipList, ComputeShader bakeBondCS,bool isUseCS)
+        public static int BakeBoneAllClips(GameObject go, List<AnimationClip> clipList, ComputeShader bakeBondCS, bool isUseCS)
         {
             var skin = go.GetComponentInChildren<SkinnedMeshRenderer>();
 
@@ -70,13 +70,17 @@ namespace AnimTexture
             var yList = GenBoneTexture(skin, clipList, out manifest.atlas);
             BakeBoneClips(go, skin, clipList, manifest, yList, bakeBondCS, isUseCS);
             manifest.atlas.Apply();
+
             //output infos
-            AssetDatabase.CreateAsset(manifest.atlas, $"Assets/{DEFAULT_TEX_DIR}/{go.name}_BoneTexture.asset");
+            if (manifest.atlas)
+                AssetDatabase.CreateAsset(manifest.atlas, $"Assets/{DEFAULT_TEX_DIR}/{go.name}_BoneTexture.asset");
+
             AssetDatabase.CreateAsset(manifest, $"Assets/{DEFAULT_TEX_DIR}/{go.name}_{typeof(AnimTextureManifest).Name}.asset");
 
             AssetDatabase.Refresh();
             return 1;
         }
+
 
         public static void FillBones(SkinnedMeshRenderer skin, AnimTextureManifest manifest)
         {

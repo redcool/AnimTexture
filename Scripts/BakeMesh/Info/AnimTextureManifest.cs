@@ -36,7 +36,11 @@
         public Matrix4x4[] bones;
         public Matrix4x4[] bindposes;
 
+        [Tooltip("set array for material")]
         public bool isSendArray;
+
+        [Tooltip("set buffer for material,broken srp batch")]
+        public bool isSendBuffer;
 
         public Transform[] GetBoneTrs(Transform rootBone)
         {
@@ -59,7 +63,7 @@
         /// <param name="mat"></param>
         public void SendBoneBuffer(Material mat)
         {
-            if (boneInfoPerVertices.Length == 0)
+            if (!isSendBuffer || boneInfoPerVertices.Length == 0)
                 return;
 
             GraphicsBufferTools.TryCreateBuffer(ref boneInfoBuffer, GraphicsBuffer.Target.Structured, boneInfoPerVertices.Length, Marshal.SizeOf<BoneInfoPerVertex>());
