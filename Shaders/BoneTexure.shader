@@ -4,23 +4,25 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
 
-		[GroupHeader(,AnimTex)]
-		_AnimTex("Anim Tex",2d) = ""{}
-		_AnimSampleRate("Anim Sample Rate",float) = 30
-		_StartFrame("Start Frame",float) = 0
-		_EndFrame("End Frame",float) = 1
-		_Loop("Loop[0:Loop,1:Clamp]",range(0,1)) = 1
-		_PlayTime("Play Time",float) = 0
-		_OffsetPlayTime("Offset Play Time",float) = 0
+//================================================= AnimTex
+		[Group(AnimTex)]
+        [GroupToggle(AnimTex,_ANIM_TEX_ON)] _AnimTexOn("Anim Tex",float) = 0
+		[GroupItem(AnimTex)] _AnimTex("Anim Tex",2d) = ""{}
+		[GroupItem(AnimTex)] _AnimSampleRate("Anim Sample Rate",float) = 30
+		[GroupItem(AnimTex)] _StartFrame("Start Frame",float) = 0
+		[GroupItem(AnimTex)] _EndFrame("End Frame",float) = 1
+		[GroupItem(AnimTex)] _Loop("Loop[0:Loop,1:Clamp]",range(0,1)) = 1
+		[GroupItem(AnimTex)] _PlayTime("Play Time",float) = 0
+		[GroupItem(AnimTex)] _OffsetPlayTime("Offset Play Time",float) = 0
 
-		_NextStartFrame("Next Anim Start Frame",float) = 0
-		_NextEndFrame("Next Anim End Frame",float) = 0
-		_CrossLerp("Cross Lerp",range(0,1)) = 0
+		[GroupItem(AnimTex)] _NextStartFrame("Next Anim Start Frame",float) = 0
+		[GroupItem(AnimTex)] _NextEndFrame("Next Anim End Frame",float) = 0
+		[GroupItem(AnimTex)] _CrossLerp("Cross Lerp",range(0,1)) = 0
 
     }
 
 HLSLINCLUDE
-		#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+	#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
 
 		sampler2D _MainTex;
 
@@ -36,6 +38,7 @@ HLSLINCLUDE
 			half _OffsetPlayTime;
 						
 			half4 _AnimTex_TexelSize;
+
 			half4 _MainTex_ST;
 		CBUFFER_END
 
@@ -51,6 +54,7 @@ ENDHLSL
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+			#pragma shader_feature _ANIM_TEX_ON
 
             struct appdata
             {
@@ -71,18 +75,22 @@ ENDHLSL
 
             v2f vert (appdata v)
             {
-                v2f o;
+                v2f o = (v2f)0;
 
+				#if defined(_ANIM_TEX_ON)
 				// float4 pos = GetSkinnedPos(v.vertexId,v.pos); // get from buffer
 				// float4 pos = GetAnimPos(v.vertexId,v.pos);
 				float4 pos = GetBlendAnimPos(v.vertexId,v.pos);
+				v.pos = pos;
 
-				o.vertex = TransformObjectToHClip(pos);
+				float3 normal = GetBlendAnimPos(v.vertexId,float4(v.normal,0));
+				v.normal = normal;
+				#endif
+
+				o.vertex = TransformObjectToHClip(v.pos);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
-				
-				// float3 normal = GetBlendAnimPos(v.vertexId,float4(v.normal,0));
-				// o.normal = TransformObjectToWorldNormal(normal);
+				o.normal = TransformObjectToWorldNormal(v.normal);
 				// float3 worldPos = TransformObjectToWorld(pos);
 				// o.worldPos = worldPos;
                 return o;
@@ -90,7 +98,7 @@ ENDHLSL
 
             half4 frag (v2f i) : SV_Target
             {
-				return float4(i.uv,0,1);
+				// return float4(i.uv,0,1);
 				
 				float3 n = normalize(i.normal);
 				float3 worldPos = i.worldPos;
