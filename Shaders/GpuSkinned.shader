@@ -1,23 +1,12 @@
-﻿Shader "AnimTexture/BoneTexture"
+﻿Shader "AnimTexture/GpuSkinned"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
 
 //================================================= AnimTex
-		[Group(AnimTex)]
-        [GroupToggle(AnimTex,_ANIM_TEX_ON)] _AnimTexOn("Anim Tex ON",float) = 0
-		[GroupItem(AnimTex)] _AnimTex("Anim Tex",2d) = ""{}
-		[GroupItem(AnimTex)] _AnimSampleRate("Anim Sample Rate",float) = 30
-		[GroupItem(AnimTex)] _StartFrame("Start Frame",float) = 0
-		[GroupItem(AnimTex)] _EndFrame("End Frame",float) = 1
-		[GroupItem(AnimTex)] _Loop("Loop[0:Loop,1:Clamp]",range(0,1)) = 1
-		[GroupItem(AnimTex)] _PlayTime("Play Time",float) = 0
-		[GroupItem(AnimTex)] _OffsetPlayTime("Offset Play Time",float) = 0
-
-		[GroupItem(AnimTex)] _NextStartFrame("Next Anim Start Frame",float) = 0
-		[GroupItem(AnimTex)] _NextEndFrame("Next Anim End Frame",float) = 0
-		[GroupItem(AnimTex)] _CrossLerp("Cross Lerp",range(0,1)) = 0
+		[Group(GPUSkin)]
+        [GroupToggle(GPUSkin,_GPU_SKINNED_ON)] _GpuSkinnedOn("_GpuSkinOn",float) = 0
 
     }
 
@@ -42,7 +31,8 @@ HLSLINCLUDE
 			half4 _MainTex_ST;
 		CBUFFER_END
 
-		#include "../../PowerShaderLib/Lib/Skinned/AnimTextureLib.hlsl"
+        #define USE_BUFFER
+		#include "../../PowerShaderLib/Lib/Skinned/SkinnedLib.hlsl"
 ENDHLSL
     SubShader
     {
@@ -54,7 +44,7 @@ ENDHLSL
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-			#pragma shader_feature _ANIM_TEX_ON
+			#pragma shader_feature _GPU_SKINNED_ON
 			#pragma target 3.0
 
             struct appdata
@@ -81,10 +71,9 @@ ENDHLSL
             {
                 v2f o = (v2f)0;
 
-				#if defined(_ANIM_TEX_ON)
-					CalcBlendAnimPos(v.vertexId,v.pos/**/,v.normal/**/,v.tangent/**/,v.weights,v.indices);
-				#endif
-
+				#if defined(_GPU_SKINNED_ON)
+				v.pos = GetSkinnedPos(v.vertexId,v.pos); // get from buffer
+				#endif 
 				o.vertex = TransformObjectToHClip(v.pos);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 

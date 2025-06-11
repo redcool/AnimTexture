@@ -134,7 +134,7 @@
             //2 no manifest, disable self
             if (!manifest)
             {
-                enabled = false;
+                Debug.Log("manifest is missing");
                 return;
             }
 

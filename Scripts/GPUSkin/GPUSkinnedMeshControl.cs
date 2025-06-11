@@ -15,6 +15,7 @@ namespace AnimTexture
     {
         public SkinnedMeshRenderer skinned;
         public Material gpuSkinnedMat;
+        [LoadAsset("CalcBoneMatrix.compute")]
         public ComputeShader calcBoneMatrixCS;
         public bool isUpdateEditorMesh;
 
@@ -28,6 +29,9 @@ namespace AnimTexture
         GraphicsBuffer boneWeightPerVertexBuffer, boneInfoPerVertexBuffer, bonesBuffer;
         GraphicsBuffer localToWorldBuffer,bindPosesBuffer;
         GraphicsBuffer meshBuffer;
+
+        [EditorButton(onClickCall = "OnEnable")]
+        public bool isCallEnable;
 
         public void OnEnable()
         {

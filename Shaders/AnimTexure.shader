@@ -1,4 +1,4 @@
-﻿Shader "Unlit/AnimTexture"
+﻿Shader "AnimTexture/AnimTexture"
 {
     Properties
     {

@@ -5,12 +5,12 @@
 #include "../../PowerShaderLib/Lib/CSLib.hlsl"
 
 #define USE_BUFFER
+#define ENABLE_RW_BUFFER
 #include "../../PowerShaderLib/Lib/Skinned/SkinnedLib.hlsl"
 
 //==================
 // 
 //==================
-// RWStructuredBuffer<float4x4> _Bones; // SkinnedLib
 StructuredBuffer<float4x4> _LocalToWorldBuffer;
 StructuredBuffer<float4x4> _BindposesBuffer;
 float4x4 _RootWorldToLocal;

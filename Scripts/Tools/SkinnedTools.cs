@@ -151,8 +151,10 @@ namespace AnimTexture
             {
                 var bones = boneTrs.Select((boneTr, id) => rootTr.worldToLocalMatrix * boneTr.localToWorldMatrix * meshBindposes[id]).ToArray();
                 bonesBuffer.SetData(bones);
-                mat.SetMatrixArray("_BonesArray", bones);
-
+                if (isSendArray)
+                {
+                    mat.SetMatrixArray("_BonesArray", bones);
+                }
             }
 
             mat.SetBuffer("_BoneWeightBuffer", boneWeightPerVertexBuffer);
