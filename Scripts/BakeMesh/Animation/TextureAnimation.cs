@@ -99,7 +99,6 @@
                 return;
             }
 
-            skinned.Destroy();
             transform.localScale = Vector3.one;
 
             var mr = gameObject.GetOrAddComponent<MeshRenderer>();
@@ -116,6 +115,7 @@
 
             gameObject.GetOrAddComponent<AnimatorControl>();
 
+            skinned.Destroy();
 
         }
 
@@ -153,12 +153,6 @@
 
         }
 
-        void UpdateBoneInfo()
-        {
-            manifest.SendBoneBuffer(mat);
-            manifest.SendBoneArray(mat);
-        }
-
         // Update is called once per frame
         void Update()
         {
@@ -168,7 +162,6 @@
             playTime += Time.deltaTime;
             UpdatePlayTime();
             UpdateAnimLoop();
-            UpdateBoneInfo();
 
             if (isUpdateBlock && needUpdateBlock)
             {

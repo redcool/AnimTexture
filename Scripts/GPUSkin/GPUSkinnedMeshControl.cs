@@ -14,7 +14,10 @@ namespace AnimTexture
     public class GPUSkinnedMeshControl : MonoBehaviour
     {
         public SkinnedMeshRenderer skinned;
+
+        [LoadAsset("AnimTexture_GpuSkinned.mat")]
         public Material gpuSkinnedMat;
+
         [LoadAsset("CalcBoneMatrix.compute")]
         public ComputeShader calcBoneMatrixCS;
         public bool isUpdateEditorMesh;
@@ -32,6 +35,9 @@ namespace AnimTexture
 
         [EditorButton(onClickCall = "OnEnable")]
         public bool isCallEnable;
+
+        [EditorButton(onClickCall = "Update")]
+        public bool isCallUpdate;
 
         public void OnEnable()
         {

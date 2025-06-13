@@ -112,54 +112,61 @@ namespace AnimTexture
         /// <param name="boneWeightPerVertexBuffer"></param>
         /// <param name="boneInfoPerVertexBuffer"></param>
         /// <param name="bonesBuffer"></param>
-        /// <param name="calcBondMatrixCS"></param>
+        /// <param name="calcBoneMatrixCS"></param>
         /// <param name="localToWorldBuffer"></param>
         /// <param name="bindposesBuffer"></param>
         /// <param name="isSendArray"></param>
-        public static void ApplyBoneBufferSend(Transform rootTr, Material mat, Mesh mesh, Transform[] boneTrs, Matrix4x4[] meshBindposes,
-            ref GraphicsBuffer boneWeightPerVertexBuffer,ref GraphicsBuffer boneInfoPerVertexBuffer, ref GraphicsBuffer bonesBuffer
-            , ComputeShader calcBondMatrixCS = null, GraphicsBuffer localToWorldBuffer = null, GraphicsBuffer bindposesBuffer = null, bool isSendArray = false)
+        public static void ApplyBoneBufferSend(Transform rootTr, Material mat, Mesh mesh, Transform[] boneTrs, Matrix4x4[] meshBindposes
+            , ref GraphicsBuffer boneWeightPerVertexBuffer, ref GraphicsBuffer boneInfoPerVertexBuffer, ref GraphicsBuffer bonesBuffer
+            , ComputeShader calcBoneMatrixCS = null, GraphicsBuffer localToWorldBuffer = null, GraphicsBuffer bindposesBuffer = null
+            , bool isSendArray = false, bool isSendWeightBuffer = false)
         {
             var bonesPerVertex = mesh.GetBonesPerVertex();
             var boneStartPerVertex = mesh.GetBoneStartPerVertex();
             var boneWeightArray = mesh.GetAllBoneWeights();
 
             //// ========================= send buffer
-            GraphicsBufferTools.TryCreateBuffer(ref boneWeightPerVertexBuffer, GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneWeight1>());
-            boneWeightPerVertexBuffer.SetData(boneWeightArray);
 
-            var boneInfoPerVertex = DictionaryTools.Get(meshBoneInfoPerVertexDict, mesh, (mesh) =>
+            if (isSendWeightBuffer)
             {
-                var boneInfoPerVertex = bonesPerVertex
-                    .Zip(boneStartPerVertex, (count, start) => new BoneInfoPerVertex { bonesCountPerVertex = count, bonesStartIndexPerVertex = start })
-                    .ToArray();
-                return boneInfoPerVertex;
+                GraphicsBufferTools.TryCreateBuffer(ref boneWeightPerVertexBuffer, GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneWeight1>());
+                boneWeightPerVertexBuffer.SetData(boneWeightArray);
+
+                var boneInfoPerVertex = DictionaryTools.Get(meshBoneInfoPerVertexDict, mesh, (mesh) =>
+                {
+                    var boneInfoPerVertex = bonesPerVertex
+                        .Zip(boneStartPerVertex, (count, start) => new BoneInfoPerVertex { bonesCountPerVertex = count, bonesStartIndexPerVertex = start })
+                        .ToArray();
+                    return boneInfoPerVertex;
+                }
+                );
+
+                GraphicsBufferTools.TryCreateBuffer(ref boneInfoPerVertexBuffer, GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneInfoPerVertex>());
+                boneInfoPerVertexBuffer.SetData(boneInfoPerVertex);
+
+                mat.SetBuffer("_BoneWeightBuffer", boneWeightPerVertexBuffer);
+                mat.SetBuffer("_BoneInfoPerVertexBuffer", boneInfoPerVertexBuffer);
             }
-            );
-
-            GraphicsBufferTools.TryCreateBuffer(ref boneInfoPerVertexBuffer, GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneInfoPerVertex>());
-            boneInfoPerVertexBuffer.SetData(boneInfoPerVertex);
-
+            
             GraphicsBufferTools.TryCreateBuffer(ref bonesBuffer, GraphicsBuffer.Target.Structured, boneTrs.Length, Marshal.SizeOf<Matrix4x4>());
+            mat.SetBuffer("_Bones", bonesBuffer);
 
             // calc matrix in cs
-            if (calcBondMatrixCS.CanExecute())
+            if (calcBoneMatrixCS.CanExecute())
             {
-                CalcSkinnedBonesMatrix(calcBondMatrixCS, bonesBuffer, rootTr, boneTrs, meshBindposes, localToWorldBuffer, bindposesBuffer);
+                CalcSkinnedBonesMatrix(calcBoneMatrixCS, bonesBuffer, rootTr, boneTrs, meshBindposes, localToWorldBuffer, bindposesBuffer);
             }
             else
-            {
+            {   // calc matrix 
                 var bones = boneTrs.Select((boneTr, id) => rootTr.worldToLocalMatrix * boneTr.localToWorldMatrix * meshBindposes[id]).ToArray();
                 bonesBuffer.SetData(bones);
+
                 if (isSendArray)
                 {
                     mat.SetMatrixArray("_BonesArray", bones);
                 }
             }
 
-            mat.SetBuffer("_BoneWeightBuffer", boneWeightPerVertexBuffer);
-            mat.SetBuffer("_BoneInfoPerVertexBuffer", boneInfoPerVertexBuffer);
-            mat.SetBuffer("_Bones", bonesBuffer);
 
             //// ========================= send array
             if (isSendArray)
@@ -185,19 +192,10 @@ namespace AnimTexture
             calcBoneMatrixCS.SetBuffer(kernel, "_LocalToWorldBuffer", localToWorldBuffer);
             calcBoneMatrixCS.SetBuffer(kernel, "_BindposesBuffer", bindposesBuffer);
             calcBoneMatrixCS.SetMatrix("_RootWorldToLocal", rootTr.worldToLocalMatrix);
-            calcBoneMatrixCS.DispatchKernel(kernel, 64, 64, 1);
+            calcBoneMatrixCS.DispatchKernel(kernel, boneTrs.Length, 1, 1);
 
-            // test buffer read back 
-            /*
-            var bones1 = new Matrix4x4[boneTrs.Length];
-            resultBonesBuffer.GetData(bones1);
-            var bones = boneTrs.Select((tr, id) => tr.localToWorldMatrix * meshBindposes[id]).ToArray();
-
-            bones1.ForEach((bone, id) =>
-            {
-                Debug.Log($"{bone} , {bones[id]} ,is equals: {bone == bones[id]}");
-            });
-            */
+            //var fence = Graphics.CreateGraphicsFence(UnityEngine.Rendering.GraphicsFenceType.CPUSynchronisation, UnityEngine.Rendering.SynchronisationStageFlags.ComputeProcessing);
+            //Debug.Log(fence.passed);
         }
 
         public static void CalcSkinnedMesh(ComputeShader skinnedMeshCS,GraphicsBuffer meshBuffer, GraphicsBuffer resultBonesBuffer, GraphicsBuffer boneWeightPerVertexBuffer, GraphicsBuffer boneInfoPerVertexBuffer)

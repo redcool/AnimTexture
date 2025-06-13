@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AnimTexture_GpuSkinned
-  m_Shader: {fileID: 4800000, guid: 47d89ac28573b2949bd8bd7f192a5a45, type: 3}
+  m_Name: AnimTexture_BonesBuffer
+  m_Shader: {fileID: 4800000, guid: e13778f1ede34a940af11197c4826e21, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -24,13 +24,26 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AnimTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AnimSampleRate: 30
+    - _AnimTexOn: 0
+    - _CrossLerp: 0
+    - _EndFrame: 1
     - _GpuSkinnedOn: 1
+    - _Loop: 1
+    - _NextEndFrame: 0
+    - _NextStartFrame: 0
+    - _OffsetPlayTime: 0
+    - _PlayTime: 0
+    - _StartFrame: 0
     m_Colors: []
   m_BuildTextureStacks: []
-  m_AllowLocking: 1

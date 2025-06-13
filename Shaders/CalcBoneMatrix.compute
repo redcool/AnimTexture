@@ -4,7 +4,6 @@
 
 #include "../../PowerShaderLib/Lib/CSLib.hlsl"
 
-#define USE_BUFFER
 #define ENABLE_RW_BUFFER
 #include "../../PowerShaderLib/Lib/Skinned/SkinnedLib.hlsl"
 
@@ -19,7 +18,6 @@ float4x4 _RootWorldToLocal;
 [numthreads(8,8,1)]
 void CalcBoneMatrix (uint3 id : SV_DispatchThreadID,uint3 groupId : SV_GROUPID,uint groupThreadIndex:SV_GROUPINDEX)
 {
-    // Result[id.xy] = float4(id.x & id.y, (id.x & 15)/15.0, (id.y & 15)/15.0, 0.0);
     uint dispatchThreadIndex = GetDispatchThreadIndex(groupId,groupThreadIndex);
     _Bones[dispatchThreadIndex] = mul(_RootWorldToLocal,mul(_LocalToWorldBuffer[dispatchThreadIndex],_BindposesBuffer[dispatchThreadIndex]));
 }

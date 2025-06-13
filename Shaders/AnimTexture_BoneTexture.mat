@@ -7,11 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Unlit_BoneTexture
+  m_Name: AnimTexture_BoneTexture
   m_Shader: {fileID: 4800000, guid: e13778f1ede34a940af11197c4826e21, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _ANIM_TEX_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -34,15 +35,16 @@ Material:
     m_Ints: []
     m_Floats:
     - _AnimSampleRate: 30
+    - _AnimTexOn: 1
     - _BoneCount: 22
     - _CrossLerp: 1
-    - _EndFrame: 0
+    - _EndFrame: 40
+    - _GpuSkinnedOn: 0
     - _Loop: 1
-    - _NextEndFrame: 0
+    - _NextEndFrame: 40
     - _NextStartFrame: 0
     - _OffsetPlayTime: 0
-    - _PlayTime: 0.20046471
+    - _PlayTime: 0.33333334
     - _StartFrame: 0
     m_Colors: []
   m_BuildTextureStacks: []
-  m_AllowLocking: 1

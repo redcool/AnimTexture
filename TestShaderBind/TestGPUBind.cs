@@ -1,13 +1,10 @@
-using UnityEngine;
-using System.Collections;
 using PowerUtilities;
-using Unity.Collections;
-using System.Runtime.InteropServices;
-using UnityEditor;
-using System.Linq;
 using System;
+using System.Linq;
+using System.Runtime.InteropServices;
+using Unity.Collections;
 using Unity.Mathematics;
-using AnimTexture;
+using UnityEngine;
 /// <summary>
 /// Test vs bind quad
 /// </summary>

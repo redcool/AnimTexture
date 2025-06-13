@@ -4,7 +4,7 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
 
-//================================================= AnimTex
+		//================================================= AnimTex,get matrix from _AnimTexture
 		[Group(AnimTex)]
         [GroupToggle(AnimTex,_ANIM_TEX_ON)] _AnimTexOn("Anim Tex ON",float) = 0
 		[GroupItem(AnimTex)] _AnimTex("Anim Tex",2d) = ""{}
@@ -18,6 +18,10 @@
 		[GroupItem(AnimTex)] _NextStartFrame("Next Anim Start Frame",float) = 0
 		[GroupItem(AnimTex)] _NextEndFrame("Next Anim End Frame",float) = 0
 		[GroupItem(AnimTex)] _CrossLerp("Cross Lerp",range(0,1)) = 0
+
+		//================================================= get matrix from _Bones
+		[Group(GPUSkin)]
+        [GroupToggle(GPUSkin,_GPU_SKINNED_ON)] _GpuSkinnedOn("_GpuSkinOn",float) = 0
 
     }
 
@@ -55,7 +59,8 @@ ENDHLSL
             #pragma vertex vert
             #pragma fragment frag
 			#pragma shader_feature _ANIM_TEX_ON
-			#pragma target 3.0
+			#pragma shader_feature _GPU_SKINNED_ON
+			#pragma target 4.0
 
             struct appdata
             {
@@ -80,21 +85,35 @@ ENDHLSL
             v2f vert (appdata v)
             {
                 v2f o = (v2f)0;
+				// #if !UNITY_PLATFORM_WEBGL
+				// uint4 indices = asuint(v.indices);
+				// #else
+				// float4 indices = v.indices;
+				// #endif
 
 				#if defined(_ANIM_TEX_ON)
 					CalcBlendAnimPos(v.vertexId,v.pos/**/,v.normal/**/,v.tangent/**/,v.weights,v.indices);
 				#endif
 
+				#if defined(_GPU_SKINNED_ON)
+				// v.pos = GetSkinnedPos(v.vertexId,v.pos); // get from buffer
+                    CalcSkinnedPos(v.vertexId,v.pos/**/,v.normal/**/,v.tangent/**/,v.weights,v.indices);
+				#endif 
+
 				o.vertex = TransformObjectToHClip(v.pos);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
 				o.normal = TransformObjectToWorldNormal(v.normal);
-				o.weights = v.weights;
+				o.weights = v.indices;
                 return o;
             }
 
             half4 frag (v2f i) : SV_Target
             {
+				// #if (UNITY_PLATFORM_WEBGL && !SHADER_API_WEBGPU)
+				#if defined(UNITY_PLATFORM_WINDOWS)
+				return float4(1,0,0,1);
+				#endif
 				// return i.weights.x;
 				
 				float3 n = normalize(i.normal);
