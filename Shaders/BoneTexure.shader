@@ -6,7 +6,7 @@
 
 		//================================================= AnimTex,get matrix from _AnimTexture
 		[Group(GPUSkin)]
-        [GroupEnum(GPUSkin,_ANIM_TEX_ON _GPU_SKINNED_ON,true,use AnimTex or GpuSkin)] _GpuSkinnedOn("_GpuSkinOn",float) = 0
+        [GroupEnum(GPUSkin,_None _ANIM_TEX_ON _GPU_SKINNED_ON,true,use AnimTex or GpuSkin)] _GpuSkinnedOn("_GpuSkinOn",float) = 0
 
 		[Group(AnimTex)]
 		[GroupItem(AnimTex)] _AnimTex("Anim Tex",2d) = ""{}
@@ -56,7 +56,7 @@ ENDHLSL
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-			#pragma shader_feature_vertex _ANIM_TEX_ON _GPU_SKINNED_ON
+			#pragma shader_feature_vertex _ _ANIM_TEX_ON _GPU_SKINNED_ON
 			#pragma target 4.0
 
             struct appdata
