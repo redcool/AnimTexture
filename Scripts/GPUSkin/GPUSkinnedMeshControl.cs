@@ -18,8 +18,14 @@ namespace AnimTexture
         public Material gpuSkinnedMat;
 
         [LoadAsset("CalcBoneMatrix.compute")]
+        [Tooltip("use a compute shader calculate bones transform")]
         public ComputeShader calcBoneMatrixCS;
+        
+        [Tooltip("readback sbuffer update current editor mesh")]
         public bool isUpdateEditorMesh;
+
+        [Tooltip("remove SkinnedMeshRenderer when OnEnable done")]
+        public bool isRemoveSkinnedMeshRenderer;
 
         [Header("Cur State")]
         public bool isInited;
@@ -72,6 +78,9 @@ namespace AnimTexture
             var anim = GetComponent<Animator>();
             //anim.cullingMode = AnimatorCullingMode.AlwaysAnimate;
             // can remove SkinnedMeshRenderer
+
+            if (isRemoveSkinnedMeshRenderer)
+                skinned.Destroy();
         }
 
 

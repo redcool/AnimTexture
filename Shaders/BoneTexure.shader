@@ -5,8 +5,10 @@
         _MainTex ("Texture", 2D) = "white" {}
 
 		//================================================= AnimTex,get matrix from _AnimTexture
+		[Group(GPUSkin)]
+        [GroupEnum(GPUSkin,_ANIM_TEX_ON _GPU_SKINNED_ON,true,use AnimTex or GpuSkin)] _GpuSkinnedOn("_GpuSkinOn",float) = 0
+
 		[Group(AnimTex)]
-        [GroupToggle(AnimTex,_ANIM_TEX_ON)] _AnimTexOn("Anim Tex ON",float) = 0
 		[GroupItem(AnimTex)] _AnimTex("Anim Tex",2d) = ""{}
 		[GroupItem(AnimTex)] _AnimSampleRate("Anim Sample Rate",float) = 30
 		[GroupItem(AnimTex)] _StartFrame("Start Frame",float) = 0
@@ -18,10 +20,6 @@
 		[GroupItem(AnimTex)] _NextStartFrame("Next Anim Start Frame",float) = 0
 		[GroupItem(AnimTex)] _NextEndFrame("Next Anim End Frame",float) = 0
 		[GroupItem(AnimTex)] _CrossLerp("Cross Lerp",range(0,1)) = 0
-
-		//================================================= get matrix from _Bones
-		[Group(GPUSkin)]
-        [GroupToggle(GPUSkin,_GPU_SKINNED_ON)] _GpuSkinnedOn("_GpuSkinOn",float) = 0
 
     }
 
@@ -58,8 +56,7 @@ ENDHLSL
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-			#pragma shader_feature _ANIM_TEX_ON
-			#pragma shader_feature _GPU_SKINNED_ON
+			#pragma shader_feature_vertex _ANIM_TEX_ON _GPU_SKINNED_ON
 			#pragma target 4.0
 
             struct appdata
@@ -93,12 +90,10 @@ ENDHLSL
 
 				#if defined(_ANIM_TEX_ON)
 					CalcBlendAnimPos(v.vertexId,v.pos/**/,v.normal/**/,v.tangent/**/,v.weights,v.indices);
-				#endif
-
-				#if defined(_GPU_SKINNED_ON)
+				#elif defined(_GPU_SKINNED_ON)
 				// v.pos = GetSkinnedPos(v.vertexId,v.pos); // get from buffer
                     CalcSkinnedPos(v.vertexId,v.pos/**/,v.normal/**/,v.tangent/**/,v.weights,v.indices);
-				#endif 
+				#endif
 
 				o.vertex = TransformObjectToHClip(v.pos);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
@@ -110,11 +105,6 @@ ENDHLSL
 
             half4 frag (v2f i) : SV_Target
             {
-				// #if (UNITY_PLATFORM_WEBGL && !SHADER_API_WEBGPU)
-				#if defined(UNITY_PLATFORM_WINDOWS)
-				return float4(1,0,0,1);
-				#endif
-				// return i.weights.x;
 				
 				float3 n = normalize(i.normal);
 				
