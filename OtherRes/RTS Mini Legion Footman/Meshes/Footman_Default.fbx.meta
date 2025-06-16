@@ -1,12 +1,5 @@
 fileFormatVersion: 2
 guid: d06688f72e50aaa48b0dea3435bfe092
-AssetOrigin:
-  serializedVersion: 1
-  productId: 137587
-  packageName: AnimTexture-GPU Animation
-  packageVersion: 0.1
-  assetPath: Assets/AnimTexture/OtherRes/RTS Mini Legion Footman/Meshes/Footman_Default.fbx
-  uploadId: 289903
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable:
@@ -185,6 +178,8 @@ ModelImporter:
     optimizeGameObjects: 1
     removeConstantScaleCurves: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 

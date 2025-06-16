@@ -34,6 +34,10 @@
 
         private void Spawn()
         {
+            if (prefabs == null || prefabs.Length == 0)
+                return;
+
+
             for (int i = 0; i < count; i++)
             {
                 var p = Instantiate(prefabs[Random.Range(0, prefabs.Length)], transform);

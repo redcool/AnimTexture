@@ -105,8 +105,8 @@ namespace AnimTexture
         /// 
         /// </summary>
         /// <param name="rootTr"></param>
-        /// <param name="mat"></param>
-        /// <param name="mesh"></param>
+        /// <param name="skinnedMat"></param>
+        /// <param name="bonedMesh"></param>
         /// <param name="boneTrs"></param>
         /// <param name="meshBindposes"></param>
         /// <param name="boneWeightPerVertexBuffer"></param>
@@ -115,24 +115,28 @@ namespace AnimTexture
         /// <param name="calcBoneMatrixCS"></param>
         /// <param name="localToWorldBuffer"></param>
         /// <param name="bindposesBuffer"></param>
-        /// <param name="isSendArray"></param>
-        public static void ApplyBoneBufferSend(Transform rootTr, Material mat, Mesh mesh, Transform[] boneTrs, Matrix4x4[] meshBindposes
+        /// <param name="isSendWeightBuffer">use _BoneWeightBuffer</param>
+        public static void ApplySkinnedTransform(Transform rootTr, Material skinnedMat, Mesh bonedMesh, Transform[] boneTrs, Matrix4x4[] meshBindposes
             , ref GraphicsBuffer boneWeightPerVertexBuffer, ref GraphicsBuffer boneInfoPerVertexBuffer, ref GraphicsBuffer bonesBuffer
-            , ComputeShader calcBoneMatrixCS = null, GraphicsBuffer localToWorldBuffer = null, GraphicsBuffer bindposesBuffer = null
-            , bool isSendArray = false, bool isSendWeightBuffer = false)
+            , ComputeShader calcBoneMatrixCS, ref GraphicsBuffer localToWorldBuffer, ref GraphicsBuffer bindposesBuffer
+            , bool isSendWeightBuffer = false)
         {
-            var bonesPerVertex = mesh.GetBonesPerVertex();
-            var boneStartPerVertex = mesh.GetBoneStartPerVertex();
-            var boneWeightArray = mesh.GetAllBoneWeights();
+            GraphicsBufferTools.TryCreateBuffer(ref bonesBuffer, GraphicsBuffer.Target.Structured, boneTrs.Length, Marshal.SizeOf<Matrix4x4>());
 
-            //// ========================= send buffer
+            var bonesPerVertex = bonedMesh.GetBonesPerVertex();
+            var boneStartPerVertex = bonedMesh.GetBoneStartPerVertex();
+            var boneWeightArray = bonedMesh.GetAllBoneWeights();
+
+            //// ========================= send weight buffer
 
             if (isSendWeightBuffer)
             {
                 GraphicsBufferTools.TryCreateBuffer(ref boneWeightPerVertexBuffer, GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneWeight1>());
+                GraphicsBufferTools.TryCreateBuffer(ref boneInfoPerVertexBuffer, GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneInfoPerVertex>());
+
                 boneWeightPerVertexBuffer.SetData(boneWeightArray);
 
-                var boneInfoPerVertex = DictionaryTools.Get(meshBoneInfoPerVertexDict, mesh, (mesh) =>
+                var boneInfoPerVertex = DictionaryTools.Get(meshBoneInfoPerVertexDict, bonedMesh, (mesh) =>
                 {
                     var boneInfoPerVertex = bonesPerVertex
                         .Zip(boneStartPerVertex, (count, start) => new BoneInfoPerVertex { bonesCountPerVertex = count, bonesStartIndexPerVertex = start })
@@ -141,45 +145,29 @@ namespace AnimTexture
                 }
                 );
 
-                GraphicsBufferTools.TryCreateBuffer(ref boneInfoPerVertexBuffer, GraphicsBuffer.Target.Structured, boneWeightArray.Length, Marshal.SizeOf<BoneInfoPerVertex>());
                 boneInfoPerVertexBuffer.SetData(boneInfoPerVertex);
 
-                mat.SetBuffer("_BoneWeightBuffer", boneWeightPerVertexBuffer);
-                mat.SetBuffer("_BoneInfoPerVertexBuffer", boneInfoPerVertexBuffer);
+                skinnedMat.SetBuffer("_BoneWeightBuffer", boneWeightPerVertexBuffer);
+                skinnedMat.SetBuffer("_BoneInfoPerVertexBuffer", boneInfoPerVertexBuffer);
             }
-            
-            GraphicsBufferTools.TryCreateBuffer(ref bonesBuffer, GraphicsBuffer.Target.Structured, boneTrs.Length, Marshal.SizeOf<Matrix4x4>());
-            mat.SetBuffer("_Bones", bonesBuffer);
+
 
             // calc matrix in cs
             if (calcBoneMatrixCS.CanExecute())
             {
-                CalcSkinnedBonesMatrix(calcBoneMatrixCS, bonesBuffer, rootTr, boneTrs, meshBindposes, localToWorldBuffer, bindposesBuffer);
+                CalcSkinnedBonesMatrix(calcBoneMatrixCS,ref bonesBuffer, rootTr, boneTrs, meshBindposes,ref localToWorldBuffer,ref bindposesBuffer);
             }
             else
             {   // calc matrix 
                 var bones = boneTrs.Select((boneTr, id) => rootTr.worldToLocalMatrix * boneTr.localToWorldMatrix * meshBindposes[id]).ToArray();
                 bonesBuffer.SetData(bones);
-
-                if (isSendArray)
-                {
-                    mat.SetMatrixArray("_BonesArray", bones);
-                }
             }
 
-
-            //// ========================= send array
-            if (isSendArray)
-            {
-                mat.SetFloatArray("_BoneCountArray", bonesPerVertex.Select(Convert.ToSingle).ToArray());
-                mat.SetFloatArray("_BoneStartArray", boneStartPerVertex.Select(Convert.ToSingle).ToArray());
-                mat.SetFloatArray("_BoneWeightArray", boneWeightArray.Select(bw => bw.weight).ToArray());
-                mat.SetFloatArray("_BoneWeightIndexArray", boneWeightArray.Select(bw => (float)bw.boneIndex).ToArray());
-            }
+            skinnedMat.SetBuffer("_Bones", bonesBuffer);
         }
 
-        public static void CalcSkinnedBonesMatrix(ComputeShader calcBoneMatrixCS, GraphicsBuffer resultBonesBuffer, Transform rootTr, Transform[] boneTrs, Matrix4x4[] meshBindposes
-            , GraphicsBuffer localToWorldBuffer, GraphicsBuffer bindposesBuffer)
+        public static void CalcSkinnedBonesMatrix(ComputeShader calcBoneMatrixCS, ref GraphicsBuffer bonesBuffer, Transform rootTr, Transform[] boneTrs, Matrix4x4[] meshBindposes
+            , ref GraphicsBuffer localToWorldBuffer, ref GraphicsBuffer bindposesBuffer)
         {
             GraphicsBufferTools.TryCreateBuffer(ref localToWorldBuffer, GraphicsBuffer.Target.Structured, boneTrs.Length, Marshal.SizeOf<Matrix4x4>());
             GraphicsBufferTools.TryCreateBuffer(ref bindposesBuffer, GraphicsBuffer.Target.Structured, boneTrs.Length, Marshal.SizeOf<Matrix4x4>());
@@ -188,14 +176,11 @@ namespace AnimTexture
             bindposesBuffer.SetData(meshBindposes);
 
             var kernel = calcBoneMatrixCS.FindKernel("CalcBoneMatrix");
-            calcBoneMatrixCS.SetBuffer(kernel, "_Bones", resultBonesBuffer);
+            calcBoneMatrixCS.SetBuffer(kernel, "_Bones", bonesBuffer);
             calcBoneMatrixCS.SetBuffer(kernel, "_LocalToWorldBuffer", localToWorldBuffer);
             calcBoneMatrixCS.SetBuffer(kernel, "_BindposesBuffer", bindposesBuffer);
             calcBoneMatrixCS.SetMatrix("_RootWorldToLocal", rootTr.worldToLocalMatrix);
             calcBoneMatrixCS.DispatchKernel(kernel, boneTrs.Length, 1, 1);
-
-            //var fence = Graphics.CreateGraphicsFence(UnityEngine.Rendering.GraphicsFenceType.CPUSynchronisation, UnityEngine.Rendering.SynchronisationStageFlags.ComputeProcessing);
-            //Debug.Log(fence.passed);
         }
 
         public static void CalcSkinnedMesh(ComputeShader skinnedMeshCS,GraphicsBuffer meshBuffer, GraphicsBuffer resultBonesBuffer, GraphicsBuffer boneWeightPerVertexBuffer, GraphicsBuffer boneInfoPerVertexBuffer)

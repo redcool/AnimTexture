@@ -1,16 +1,15 @@
 ﻿using PowerUtilities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-using Unity.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace AnimTexture
 {
+    /// <summary>
+    /// Support SRPBatch
+    /// use MeshRenderer MeshFilter render SkinnedMeshRenderer
+    /// </summary>
     public class GPUSkinnedMeshControl : MonoBehaviour
     {
         public SkinnedMeshRenderer skinned;
@@ -39,11 +38,13 @@ namespace AnimTexture
         [EditorButton(onClickCall = "Update")]
         public bool isCallUpdate;
 
+        Vector3[] skinnedVertices;
+
         public void OnEnable()
         {
             if (!skinned)
                 skinned = GetComponentInChildren<SkinnedMeshRenderer>();
-            
+
             isInited = skinned && gpuSkinnedMat;
 
             if (!isInited)
@@ -51,7 +52,7 @@ namespace AnimTexture
                 enabled = false;
                 return;
             }
-            // save 
+            // save bones
             boneTrs = skinned.bones;
             //update skinned
             skinned.transform.localScale = Vector3.one;
@@ -61,10 +62,11 @@ namespace AnimTexture
             mr = gameObject.GetOrAddComponent<MeshRenderer>();
             mr.sharedMaterial = gpuSkinnedMat;
             mr.bounds = skinned.bounds;
+            
 
+            // mesh filter
             mf = gameObject.GetOrAddComponent<MeshFilter>();
             originalSharedMesh = mf.sharedMesh = skinned.sharedMesh;
-
 
             // update anim
             var anim = GetComponent<Animator>();
@@ -72,12 +74,18 @@ namespace AnimTexture
             // can remove SkinnedMeshRenderer
         }
 
-        Vector3[] skinnedVertices;
 
         public void Update()
         {
-            SkinnedTools.ApplyBoneBufferSend(transform, gpuSkinnedMat, originalSharedMesh, boneTrs, originalSharedMesh.bindposes,
-                ref boneWeightPerVertexBuffer, ref boneInfoPerVertexBuffer, ref bonesBuffer, calcBoneMatrixCS, localToWorldBuffer, bindPosesBuffer, false);
+            var skinnedMat = Application.isPlaying ? mr.material : mr.sharedMaterial;
+            SkinnedTools.ApplySkinnedTransform(transform,
+                skinnedMat, 
+                originalSharedMesh,
+                boneTrs,
+                originalSharedMesh.bindposes,
+                ref boneWeightPerVertexBuffer, ref boneInfoPerVertexBuffer, ref bonesBuffer,
+                calcBoneMatrixCS, ref localToWorldBuffer, ref bindPosesBuffer);
+
 #if UNITY_EDITOR
             if (isUpdateEditorMesh)
             {
