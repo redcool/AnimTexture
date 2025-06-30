@@ -13,11 +13,10 @@ namespace AnimTexture
         static void CreatePlayer()
         {
             var objs = Selection.GetFiltered<GameObject>(SelectionMode.Assets);
-            CreatePlayer(objs);
-            Debug.Log("Create player done.");
+            CreatePlayer(objs,true);
         }
 
-        public static void CreatePlayer(GameObject[] objs)
+        public static void CreatePlayer(GameObject[] objs, bool destroySkinnedMeshRenderer)
         {
             foreach (var obj in objs)
             {
@@ -34,7 +33,7 @@ namespace AnimTexture
                 SetupAnimTexture(go, obj.name);
 
                 SetupAnimator(go);
-                SetupMeshRenderer(go);
+                SetupMeshRenderer(go, destroySkinnedMeshRenderer);
             }
 
         }
@@ -51,15 +50,16 @@ namespace AnimTexture
             texAnim.manifest = manifest;
         }
 
-        private static void SetupMeshRenderer(GameObject go)
+        private static void SetupMeshRenderer(GameObject go,bool destroySkinnedMeshRenderer)
         {
             var skin = go.GetComponentInChildren<SkinnedMeshRenderer>();
             var mf = GetOrAdd<MeshFilter>(go);
             mf.sharedMesh = skin.sharedMesh;
-            Object.DestroyImmediate(skin);
+            if(destroySkinnedMeshRenderer)
+                Object.DestroyImmediate(skin);
 
             var mr = GetOrAdd<MeshRenderer>(go);
-            mr.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>($"Assets/{AnimTextureEditor.ANIM_TEXTURE_PATH}/Shaders/AnimTexture.mat");
+            mr.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>($"Assets/{AnimTextureEditor.ANIM_TEXTURE_PATH}/Shaders/AnimTexture_MeshTexture.mat");
         }
 
         private static void SetupAnimator(GameObject go)

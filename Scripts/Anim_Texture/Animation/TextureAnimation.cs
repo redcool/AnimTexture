@@ -53,7 +53,7 @@
 
         //=============================================================== Debug
         [EditorGroup("Components", true)]
-        [EditorButton(onClickCall = "AddSetup")]
+        [EditorButton(onClickCall = "AddTextureAnimationSetup")]
         public bool isAddTextureAnimationSetup;
 
         [EditorGroup("Debug",true)]
@@ -77,7 +77,7 @@
         [EditorButton(onClickCall = "TestCrossFade")]
         public bool crossTest;
 
-        void AddSetup()
+        void AddTextureAnimationSetup()
         {
             gameObject.GetOrAddComponent<TextureAnimationSetup>();
         }
@@ -106,7 +106,7 @@
 
         }
 
-        private void SetupMeshRenderer()
+        public void SetupMeshRenderer()
         {
             mrs = GetComponentsInChildren<MeshRenderer>();
             mats = new Material[mrs.Length];

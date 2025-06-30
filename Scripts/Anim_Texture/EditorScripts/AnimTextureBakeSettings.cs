@@ -31,7 +31,11 @@ namespace AnimTexture
         [HideInInspector]
         public bool isBakeBones;
 
-        [EditorBox("AnimTexPlayer", "isCreateAnimTexPlayer", boxType = EditorBoxAttribute.BoxType.HBox)]
+        [EditorBox("AnimTexPlayer", "isDestroySkinned,isCreateAnimTexPlayer", boxType = EditorBoxAttribute.BoxType.VBox)]
+        [Tooltip("destroy skinnedMeshRenderer when CreateAnimTexPlayer done ")]
+        public bool isDestroySkinned;
+
+        [HideInInspector]
         [Tooltip("create new TextureAnimation player from selected object")]
         [EditorButton(onClickCall = "CreateAnimTexPlayer")]
         public bool isCreateAnimTexPlayer;
@@ -60,7 +64,7 @@ namespace AnimTexture
         public void CreateAnimTexPlayer()
         {
             var objs = Selection.GetFiltered<GameObject>(SelectionMode.Assets);
-            AnimTexturePlayerCreator.CreatePlayer(objs);
+            AnimTexturePlayerCreator.CreatePlayer(objs, isDestroySkinned);
         }
     }
 }

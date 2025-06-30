@@ -52,6 +52,10 @@ namespace AnimTexture
 
         public void SetupAnimTexture()
         {
+            // remove old components
+            gameObject.DestroyComponent<MeshRenderer>();
+            gameObject.DestroyComponent<MeshFilter>();
+            //
             texAnim = gameObject.GetOrAddComponent<TextureAnimation>();
 
             texAnim.manifest = animTextureManifest;
@@ -68,8 +72,9 @@ namespace AnimTexture
                 return;
             }
 
-            SetupChildMeshRenderers(skinnedMeshes);
 
+            SetupChildMeshRenderers(skinnedMeshes);
+            texAnim.SetupMeshRenderer();
             transform.localScale = Vector3.one;
 
             var anim = gameObject.GetOrAddComponent<Animator>();
@@ -108,8 +113,8 @@ namespace AnimTexture
                 mf.sharedMesh = skinned.sharedMesh;
 
                 skinned.enabled = false;
-
             }
+            
         }
     }
 }
