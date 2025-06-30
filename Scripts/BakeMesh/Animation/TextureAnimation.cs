@@ -24,6 +24,8 @@
         readonly int ID_PLAY_TIME = Shader.PropertyToID("_PlayTime");
         readonly int ID_OFFSET_PLAY_TIME = Shader.PropertyToID("_OffsetPlayTime");
 
+        [Header("AnimTexture Playing Info")]
+        //=============================================================== info
         [Tooltip("include animation info,bone info per vertex")]
         public AnimTextureManifest manifest;
         public float playTime;
@@ -35,9 +37,9 @@
         [Tooltip("srp batch will failed, when use block")]
         public bool isUpdateBlock;
 
-        MeshRenderer mr;
         MaterialPropertyBlock block;
-        Material mat;
+        public MeshRenderer[] mrs;
+        public Material[] mats;
 
         Coroutine crossLerpCoroutine;
         bool needUpdateBlock;
@@ -48,25 +50,12 @@
         [Tooltip("fading in clip info")]
         public AnimTextureClipInfo nextClipInfo;
 
-        //==================FastSetup
-        [EditorGroup("FastSetup",true)]
-        [Tooltip("setup AnimTexture")]
-        public AnimTextureManifest animTextureManifest;
 
-        [EditorGroup("FastSetup")]
-        [Tooltip("material for mesh renderer")]
-        public Material boneTextureMat;
+        //=============================================================== Debug
+        [EditorGroup("Components", true)]
+        [EditorButton(onClickCall = "AddSetup")]
+        public bool isAddTextureAnimationSetup;
 
-        [EditorGroup("FastSetup")]
-        [LoadAsset("AnimTexSimpleController_noClip")]
-        [Tooltip("for Animator play animation states")]
-        public RuntimeAnimatorController animatorController;
-
-        [EditorGroup("FastSetup")]
-        [EditorButton(onClickCall = "SetupAnimTexture")]
-        public bool isSetupAnimTex;
-
-        //==================Debug
         [EditorGroup("Debug",true)]
         [EditorButton(onClickCall ="Awake")]
         public bool isCallAwake;
@@ -88,37 +77,10 @@
         [EditorButton(onClickCall = "TestCrossFade")]
         public bool crossTest;
 
-        public void SetupAnimTexture()
+        void AddSetup()
         {
-            manifest = animTextureManifest;
-
-            var skinned = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
-            if (!skinned)
-            {
-                Debug.Log("SkinnedMeshRenderer not found");
-                return;
-            }
-
-            transform.localScale = Vector3.one;
-
-            var mr = gameObject.GetOrAddComponent<MeshRenderer>();
-            if (boneTextureMat)
-                mr.sharedMaterial = boneTextureMat;
-            else
-                mr.sharedMaterials = skinned.sharedMaterials;
-
-            var mf = gameObject.GetOrAddComponent<MeshFilter>();
-            mf.sharedMesh = skinned.sharedMesh;
-
-            var anim = gameObject.GetOrAddComponent<Animator>();
-            anim.runtimeAnimatorController = animatorController;
-
-            gameObject.GetOrAddComponent<AnimatorControl>();
-
-            skinned.Destroy();
-
+            gameObject.GetOrAddComponent<TextureAnimationSetup>();
         }
-
         public void TestCrossFade()
         {
             CrossFade(curIndex, nextIndex, crossFadeTime);
@@ -127,22 +89,13 @@
         // Start is called before the first frame update
         void Awake()
         {
-            // 1 check FastSetup 
-            if (!manifest)
-                manifest = animTextureManifest;
-
-            //2 no manifest, disable self
             if (!manifest)
             {
                 Debug.Log("manifest is missing");
                 return;
             }
 
-            mr = GetComponent<MeshRenderer>();
-            if (manifest.atlas)
-                mr.sharedMaterial.SetTexture(ID_ANIM_TEX, manifest.atlas);
-
-            mat = Application.isPlaying ? mr.material : mr.sharedMaterial;  // new instance
+            SetupMeshRenderer();
 
             if (block == null)
                 block = new MaterialPropertyBlock();
@@ -151,6 +104,19 @@
 
             Play(curIndex);
 
+        }
+
+        private void SetupMeshRenderer()
+        {
+            mrs = GetComponentsInChildren<MeshRenderer>();
+            mats = new Material[mrs.Length];
+            for (int i = 0; i < mrs.Length; i++)
+            {
+                var mr = mrs[i];
+                mats[i] = Application.isPlaying ? mr.material : mr.sharedMaterial;  // new instance
+                if (manifest.atlas)
+                    mats[i].SetTexture(ID_ANIM_TEX, manifest.atlas);
+            }
         }
 
         // Update is called once per frame
@@ -166,7 +132,9 @@
             if (isUpdateBlock && needUpdateBlock)
             {
                 needUpdateBlock = false;
-                mr.SetPropertyBlock(block);
+
+                foreach (var mr in mrs)
+                    mr.SetPropertyBlock(block);
             }
         }
 
@@ -196,15 +164,22 @@
 
             var clipInfo = manifest.animInfos[index];
 
-            mat.SetFloat(startNameHash, clipInfo.startFrame, block);
-            mat.SetFloat(endNameHash, clipInfo.endFrame, block);
+            foreach (var mat in mats)
+            {
+                mat.SetFloat(startNameHash, clipInfo.startFrame, block);
+                mat.SetFloat(endNameHash, clipInfo.endFrame, block);
+
+            }
             needUpdateBlock = true;
             return clipInfo;
         }
         void UpdatePlayTime()
         {
-            mat.SetFloat(ID_PLAY_TIME, playTime,block);
-            mat.SetFloat(ID_OFFSET_PLAY_TIME, offsetPlayTime,block);
+            foreach (var mat in mats)
+            {
+                mat.SetFloat(ID_PLAY_TIME, playTime, block);
+                mat.SetFloat(ID_OFFSET_PLAY_TIME, offsetPlayTime, block);
+            }
             needUpdateBlock = true;
         }
 
@@ -216,17 +191,25 @@
                 {
                     //var loopLerp = block.GetFloat(ID_LOOP);
                     //Debug.Log(playTime + ":" + curClipInfo.length);
-                    mat.SetFloat(ID_LOOP, 1,block);
+
+                    foreach (var mat in mats)
+                        mat.SetFloat(ID_LOOP, 1, block);
                 }
             }
             else
-                mat.SetFloat(ID_LOOP, 0, block);
+            {
+                foreach (var mat in mats)
+                    mat.SetFloat(ID_LOOP, 0, block);
+
+            }
             needUpdateBlock = true;
         }
 
         void UpdateCrossLerp(float lerp)
         {
-            mat.SetFloat(ID_CROSS_LERP, lerp, block);
+            foreach (var mat in mats)
+                mat.SetFloat(ID_CROSS_LERP, lerp, block);
+
             needUpdateBlock = true;
         }
 

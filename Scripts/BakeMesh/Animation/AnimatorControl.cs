@@ -14,7 +14,9 @@
     {
         [HideInInspector] public Animator animator;
         [HideInInspector] public TextureAnimation texAnim;
+        [Tooltip("Animator's layer")]
         public int layerIndex = 0;
+        [Tooltip("play 2 animation one time")]
         public bool isCrossFading = true;
 
         int lastTransitionNameHash;
@@ -38,8 +40,6 @@
         // Update is called once per frame
         void Update()
         {
-
-
             var trans = animator.GetAnimatorTransitionInfo(layerIndex);
             if (trans.nameHash == 0)
                 return;
