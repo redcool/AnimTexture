@@ -53,15 +53,15 @@
 
         //=============================================================== Debug
         [EditorGroup("Components", true)]
-        [EditorButton(onClickCall = "AddTextureAnimationSetup")]
+        [EditorButton(onClickCall = "AddTextureAnimationSetup",tooltip = "add TextureAnimationSetup for setup AnimTexture components")]
         public bool isAddTextureAnimationSetup;
 
         [EditorGroup("Debug",true)]
-        [EditorButton(onClickCall ="Awake")]
+        [EditorButton(onClickCall ="Awake",tooltip ="call Awake")]
         public bool isCallAwake;
 
         [EditorGroup("Debug")]
-        [EditorButton(onClickCall = "Update")]
+        [EditorButton(onClickCall = "Update",tooltip ="call Update")]
         public bool isCallUpdate;
 
         [EditorGroup("Debug")]

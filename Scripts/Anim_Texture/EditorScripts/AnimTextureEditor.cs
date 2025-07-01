@@ -21,27 +21,27 @@ namespace AnimTexture
         /// (contains SkinnedMeshRenderer, 
         /// Animation(get animClips from animationState)
         /// </summary>
-        [MenuItem(POWER_UTILS_MENU + "/BakeAnimTexAtlas_From_LegacyAnimType")]
-        static void BakeAllInOne()
-        {
-            var objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
-            if(objs.Length == 0)
-            {
-                EditorUtility.DisplayDialog("Warning", $" selected nothing", "ok");
-                return;
-            }
+        //[MenuItem(POWER_UTILS_MENU + "/BakeAnimTexAtlas_From_LegacyAnimType")]
+        //static void BakeAllInOne()
+        //{
+        //    var objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
+        //    if(objs.Length == 0)
+        //    {
+        //        EditorUtility.DisplayDialog("Warning", $" selected nothing", "ok");
+        //        return;
+        //    }
 
-            foreach (var go in objs)
-            {
-                var newInst = Object.Instantiate(go);
-                newInst.name = go.name;
+        //    foreach (var go in objs)
+        //    {
+        //        var newInst = Object.Instantiate(go);
+        //        newInst.name = go.name;
 
-                int clipCount = BakeAllClipsFromAnimation(newInst);
-                Object.DestroyImmediate(newInst);
-                ShowResult(go, clipCount);
-            }
-            EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>($"Assets/{DEFAULT_TEX_DIR}"));
-        }
+        //        int clipCount = BakeAllClipsFromAnimation(newInst);
+        //        Object.DestroyImmediate(newInst);
+        //        ShowResult(go, clipCount);
+        //    }
+        //    EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>($"Assets/{DEFAULT_TEX_DIR}"));
+        //}
 
         /// <summary>
         /// Bake animTex from selected objects,
