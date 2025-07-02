@@ -13,7 +13,7 @@ namespace AnimTexture
         static void CreatePlayer()
         {
             var objs = Selection.GetFiltered<GameObject>(SelectionMode.Assets);
-            CreatePlayer(objs,true);
+            CreatePlayer(objs,false);
         }
 
         public static void CreatePlayer(GameObject[] objs, bool destroySkinnedMeshRenderer)
@@ -34,6 +34,7 @@ namespace AnimTexture
 
                 SetupAnimator(go);
                 SetupMeshRenderer(go, destroySkinnedMeshRenderer);
+
             }
 
         }
@@ -48,6 +49,8 @@ namespace AnimTexture
             var manifest = AssetDatabase.LoadAssetAtPath<AnimTextureManifest>(AnimTextureEditor.GetManifestPath(goName));
             var texAnim = GetOrAdd<TextureAnimation>(go);
             texAnim.manifest = manifest;
+
+            GetOrAdd<TextureAnimationSetup>(go);
         }
 
         private static void SetupMeshRenderer(GameObject go,bool destroySkinnedMeshRenderer)
@@ -55,6 +58,7 @@ namespace AnimTexture
             var skin = go.GetComponentInChildren<SkinnedMeshRenderer>();
             var mf = GetOrAdd<MeshFilter>(go);
             mf.sharedMesh = skin.sharedMesh;
+            skin.enabled = false;
             if(destroySkinnedMeshRenderer)
                 Object.DestroyImmediate(skin);
 

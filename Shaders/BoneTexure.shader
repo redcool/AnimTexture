@@ -31,9 +31,9 @@
         // [GroupHeader(Alpha,Premultiply)]
         // [GroupToggle(Alpha)]_AlphaPremultiply("_AlphaPremultiply",int) = 0
 
-        // [GroupHeader(Alpha,AlphaTest)]
-        // [GroupToggle(Alpha,ALPHA_TEST)]_AlphaTestOn("_AlphaTestOn",int) = 0
-        // [GroupSlider(Alpha)]_Cutoff("_Cutoff",range(0,1)) = 0.5
+        [GroupHeader(Alpha,AlphaTest)]
+        [GroupToggle(Alpha,ALPHA_TEST)]_AlphaTestOn("_AlphaTestOn",int) = 0
+        [GroupSlider(Alpha)]_Cutoff("_Cutoff",range(0,1)) = 0.5
 // ================================================== Settings
         [Group(Settings)]
         [GroupEnum(Settings,UnityEngine.Rendering.CullMode)]_CullMode("_CullMode",int) = 2
@@ -76,6 +76,7 @@ HLSLINCLUDE
 			half4 _AnimTex_TexelSize;
 
 			half4 _MainTex_ST;
+			half _Cutoff;
 		CBUFFER_END
 
 		#include "../../PowerShaderLib/Lib/Skinned/AnimTextureLib.hlsl"
@@ -107,6 +108,7 @@ ENDHLSL
             #pragma vertex vert
             #pragma fragment frag
 			#pragma shader_feature_vertex _ _ANIM_TEX_ON _GPU_SKINNED_ON
+			#pragma shader_feature_fragment ALPHA_TEST
 			#pragma target 4.0
 
             struct appdata
@@ -162,7 +164,10 @@ ENDHLSL
 				
                 // sample the texture
                 half4 col = tex2D(_MainTex, i.uv);
-                return col * nl;
+				#if defined(ALPHA_TEST)
+				clip(col.a - _Cutoff);
+				#endif
+                return col ;
             }
             ENDHLSL
         }

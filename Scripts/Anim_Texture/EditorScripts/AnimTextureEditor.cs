@@ -87,14 +87,7 @@ namespace AnimTexture
 
         public static List<AnimationClip> GetAnimstionClipFromAnimation(GameObject[] objs)
         {
-            var list = new List<AnimationClip>();
-            foreach (var item in objs)
-            {
-                var anim = item.GetComponentInChildren<Animation>();
-                var clips = AnimationUtility.GetAnimationClips(item);
-                list.AddRange(clips);
-            }
-            return list;
+            return objs.SelectMany(obj => AnimationUtility.GetAnimationClips(obj)).ToList();
         }
 
         public static List<AnimationClip> GetAnimationClipsFromAssets(GameObject[] objs)
@@ -172,6 +165,7 @@ namespace AnimTexture
 
                 manifest.animInfos.Add(new AnimTextureClipInfo(clip.name, y, yList[index + 1])
                 {
+                    frameRate = clip.frameRate,
                     isLoop = clip.isLooping,
                     length = clip.length
                 });

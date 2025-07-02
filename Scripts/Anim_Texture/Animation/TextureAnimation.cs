@@ -23,6 +23,7 @@
         readonly int ID_NEXT_END_FRAME = Shader.PropertyToID("_NextEndFrame");
         readonly int ID_PLAY_TIME = Shader.PropertyToID("_PlayTime");
         readonly int ID_OFFSET_PLAY_TIME = Shader.PropertyToID("_OffsetPlayTime");
+        readonly int ID_ANIM_SAMPLE_RATE = Shader.PropertyToID("_AnimSampleRate");
 
         [Header("AnimTexture Playing Info")]
         //=============================================================== info
@@ -37,8 +38,13 @@
         [Tooltip("srp batch will failed, when use block")]
         public bool isUpdateBlock;
 
+        [Tooltip("animTexture play speed")]
+        public float speed = 1;
+
         MaterialPropertyBlock block;
+        [Tooltip("children mesh renderers")]
         public MeshRenderer[] mrs;
+        [Tooltip("Children renderer's material ")]
         public Material[] mats;
 
         Coroutine crossLerpCoroutine;
@@ -119,13 +125,15 @@
             }
         }
 
+        public float GetPlayTime() => Time.deltaTime * speed;
+
         // Update is called once per frame
         void Update()
         {
             if (!manifest)
                 return;
 
-            playTime += Time.deltaTime;
+            playTime += GetPlayTime();
             UpdatePlayTime();
             UpdateAnimLoop();
 
@@ -168,7 +176,7 @@
             {
                 mat.SetFloat(startNameHash, clipInfo.startFrame, block);
                 mat.SetFloat(endNameHash, clipInfo.endFrame, block);
-
+                mat.SetFloat(ID_ANIM_SAMPLE_RATE, clipInfo.frameRate);
             }
             needUpdateBlock = true;
             return clipInfo;
@@ -282,7 +290,7 @@
             while (crossLerp < 1)
             {
                 UpdateCrossLerp(crossLerp);
-                crossLerp += speed * Time.deltaTime;
+                crossLerp += speed * GetPlayTime();
                 yield return 0;
             }
             UpdateCrossLerp(1);

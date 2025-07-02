@@ -11,6 +11,7 @@
         public int endFrame;
         public bool isLoop;
         public float length;
+        public float frameRate;
 
         public AnimTextureClipInfo(string clipName,int startFrame,int endFrame)
         {

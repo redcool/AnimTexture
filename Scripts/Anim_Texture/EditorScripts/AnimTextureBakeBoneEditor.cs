@@ -55,6 +55,7 @@ namespace AnimTexture
 
         public static int BakeBoneAllClips(GameObject go, List<AnimationClip> clipList, ComputeShader bakeBondCS, bool isUseCS)
         {
+            var couunt = 0;
             var skin = go.GetComponentInChildren<SkinnedMeshRenderer>();
 
             var dir = $"{Application.dataPath}/{DEFAULT_TEX_DIR}/";
@@ -68,7 +69,7 @@ namespace AnimTexture
             FillBones(skin, manifest);
 
             var yList = GenBoneTexture(skin, clipList, out manifest.atlas);
-            BakeBoneClips(go, skin, clipList, manifest, yList, bakeBondCS, isUseCS);
+            couunt += BakeBoneClips(go, skin, clipList, manifest, yList, bakeBondCS, isUseCS);
             manifest.atlas.Apply();
 
             //output infos
@@ -78,7 +79,7 @@ namespace AnimTexture
             AssetDatabase.CreateAsset(manifest, $"Assets/{DEFAULT_TEX_DIR}/{go.name}_{typeof(AnimTextureManifest).Name}.asset");
 
             AssetDatabase.Refresh();
-            return 1;
+            return couunt;
         }
 
 
@@ -170,6 +171,7 @@ namespace AnimTexture
                 // record clip info
                 manifest.animInfos.Add(new AnimTextureClipInfo(clip.name, yStart, yList[index + 1])
                 {
+                    frameRate = clip.frameRate,
                     isLoop = clip.isLooping,
                     length = clip.length
                 });
