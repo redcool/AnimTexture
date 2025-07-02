@@ -113,6 +113,7 @@
 
                 //cs.SetMatrix("_RootWorldToLocal",skin.transform.worldToLocalMatrix);
             }
+            clip.SampleAnimation(clipGo, 0);
 
             var bindposesBuffer = GraphicsBufferTools.GetGlobalBuffer($"{nameof(AnimTextureTools)}_bindposesBuffer", GraphicsBuffer.Target.Structured, bindposes.Length, Matrix4x4Size);
             bindposesBuffer.SetData(bindposes);

@@ -167,7 +167,7 @@
 
         AnimTextureClipInfo UpdateAnimTime(int index, int startNameHash,int endNameHash)
         {
-            if (index >= manifest.animInfos.Count)
+            if (index<0 || index >= manifest.animInfos.Count)
                 return default;
 
             var clipInfo = manifest.animInfos[index];
