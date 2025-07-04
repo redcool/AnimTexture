@@ -34,7 +34,8 @@ namespace AnimTexture
         [Tooltip("mat for each SkinnedMeshRenderer(AnimTex or BoneTexture)")]
         [EditorNotNull]
         public Material[] animTextureMats;
-
+        [Tooltip("open material's keyword")]
+        public string animTexKeyword = "_ANIM_TEX_ON";
 
         [EditorButton(onClickCall = "SetupAnimTexture")]
         public bool isSetupAnimTex;
@@ -100,6 +101,9 @@ namespace AnimTexture
             {
                 var skinned = skinnedMeshes[i];
                 var animTexMat = i < animTextureMats.Length ? animTextureMats[i] : default;
+
+                if (animTexMat)
+                    animTexMat.EnableKeyword(animTexKeyword);
 
                 var childTr = new GameObject(skinned.name).transform;
                 childTr.parent = parentTr.transform;
