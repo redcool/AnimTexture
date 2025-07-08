@@ -23,7 +23,6 @@
         readonly int ID_NEXT_END_FRAME = Shader.PropertyToID("_NextEndFrame");
         readonly int ID_PLAY_TIME = Shader.PropertyToID("_PlayTime");
         readonly int ID_OFFSET_PLAY_TIME = Shader.PropertyToID("_OffsetPlayTime");
-        readonly int ID_ANIM_SAMPLE_RATE = Shader.PropertyToID("_AnimSampleRate");
 
         [Header("AnimTexture Playing Info")]
         //=============================================================== info
@@ -37,14 +36,11 @@
 
         [Tooltip("srp batch will failed, when use block")]
         public bool isUpdateBlock;
-
-        [Tooltip("animTexture play speed")]
+        bool isLastUpdateBlock;
         public float speed = 1;
 
         MaterialPropertyBlock block;
-        [Tooltip("children mesh renderers")]
         public MeshRenderer[] mrs;
-        [Tooltip("Children renderer's material ")]
         public Material[] mats;
 
         Coroutine crossLerpCoroutine;
@@ -58,29 +54,29 @@
 
 
         //=============================================================== Debug
-        [EditorGroup("Components", true)]
-        [EditorButton(onClickCall = "AddTextureAnimationSetup",tooltip = "add TextureAnimationSetup for setup AnimTexture components")]
+        //[EditorGroup("Components", true)]
+        [EditorButton(onClickCall = "AddTextureAnimationSetup", tooltip = "add TextureAnimationSetup for setup AnimTexture components")]
         public bool isAddTextureAnimationSetup;
 
-        [EditorGroup("Debug",true)]
-        [EditorButton(onClickCall ="Awake",tooltip ="call Awake")]
+        //[EditorGroup("Debug",true)]
+        [EditorButton(onClickCall = "Awake", tooltip = "call Awake")]
         public bool isCallAwake;
 
-        [EditorGroup("Debug")]
-        [EditorButton(onClickCall = "Update",tooltip ="call Update")]
+        //[EditorGroup("Debug")]
+        [EditorButton(onClickCall = "Update", tooltip = "call Update")]
         public bool isCallUpdate;
 
-        [EditorGroup("Debug")]
+        //[EditorGroup("Debug")]
         public int curIndex;
 
-        [EditorGroup("Debug")]
+        //[EditorGroup("Debug")]
         public int nextIndex;
 
-        [EditorGroup("Debug")]
+        //[EditorGroup("Debug")]
         public float crossFadeTime = 0.5f;
 
-        [EditorGroup("Debug")]
-        [EditorButton(onClickCall = "TestCrossFade")]
+        //[EditorGroup("Debug")]
+        //[EditorButton(onClickCall = "TestCrossFade")]
         public bool crossTest;
 
         void AddTextureAnimationSetup()
@@ -119,7 +115,7 @@
             for (int i = 0; i < mrs.Length; i++)
             {
                 var mr = mrs[i];
-                mats[i] = Application.isPlaying ? mr.material : mr.sharedMaterial;  // new instance
+                mats[i] = (Application.isPlaying && !isUpdateBlock )? mr.material : mr.sharedMaterial;  // new instance
                 if (manifest.atlas)
                     mats[i].SetTexture(ID_ANIM_TEX, manifest.atlas);
             }
@@ -144,6 +140,18 @@
                 foreach (var mr in mrs)
                     mr.SetPropertyBlock(block);
             }
+            if(isUpdateBlock != isLastUpdateBlock)
+            {
+                isLastUpdateBlock = isUpdateBlock;
+
+                if(!isUpdateBlock)
+                {
+                    foreach (var mr in mrs)
+                    {
+                        mr.SetPropertyBlock(null);
+                    }
+                }
+            }
         }
 
         void SetupDict()
@@ -167,7 +175,7 @@
 
         AnimTextureClipInfo UpdateAnimTime(int index, int startNameHash,int endNameHash)
         {
-            if (index<0 || index >= manifest.animInfos.Count)
+            if (index >= manifest.animInfos.Count)
                 return default;
 
             var clipInfo = manifest.animInfos[index];
@@ -176,7 +184,7 @@
             {
                 mat.SetFloat(startNameHash, clipInfo.startFrame, block);
                 mat.SetFloat(endNameHash, clipInfo.endFrame, block);
-                mat.SetFloat(ID_ANIM_SAMPLE_RATE, clipInfo.frameRate);
+
             }
             needUpdateBlock = true;
             return clipInfo;

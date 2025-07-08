@@ -4,10 +4,6 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
 
-		//================================================= AnimTex,get matrix from _AnimTexture
-		[Group(GPUSkin)]
-        [GroupEnum(GPUSkin,_None _ANIM_TEX_ON _GPU_SKINNED_ON,true,use AnimTex or GpuSkin)] _GpuSkinnedOn("_GpuSkinOn",float) = 0
-
 		[Group(AnimTex)]
 		[GroupItem(AnimTex)] _AnimTex("Anim Tex",2d) = ""{}
 		[GroupItem(AnimTex)] _AnimSampleRate("Anim Sample Rate",float) = 30
@@ -61,7 +57,7 @@ HLSLINCLUDE
 	// #include "../../../PowerShaderLib/Lib/UnityLib.hlsl"
 	#include "UnityCG.cginc"
 	#define TransformObjectToHClip(pos) UnityObjectToClipPos(pos)
-	#define TransformObjectToWorldNormal(normal) mul(normal,(float3x3)unity_WorldToObject)
+	#define TransformObjectToWorldNormal(normal) mul(normal,(float3x3)unity_WorldToObject)	
 	#define _MainLightPosition _WorldSpaceLightPos0
 	sampler2D _MainTex;
 
@@ -124,9 +120,7 @@ ENDHLSL
             #pragma vertex vert
             #pragma fragment frag
 			#pragma multi_compile_instancing
-			#pragma shader_feature_vertex _ _ANIM_TEX_ON _GPU_SKINNED_ON
 			#pragma shader_feature ALPHA_TEST
-			#pragma target 4.0
 
             struct appdata
             {
@@ -137,6 +131,8 @@ ENDHLSL
 				float4 tangent:TANGENT;
 				float4 weights:BLENDWEIGHTS;
 				uint4 indices:BLENDINDICES;
+
+				UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct v2f
@@ -145,26 +141,20 @@ ENDHLSL
                 half2 uv : TEXCOORD0;
 				float3 normal:TEXCOORD1;
 				float4 weights:TECOORD2;
+
+				UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
 
             v2f vert (appdata v)
             {
                 v2f o = (v2f)0;
-				// #if !UNITY_PLATFORM_WEBGL
-				// uint4 indices = asuint(v.indices);
-				// #else
-				// float4 indices = v.indices;
-				// #endif
+				UNITY_SETUP_INSTANCE_ID(v);
+				UNITY_TRANSFER_INSTANCE_ID(v, o);
 
-				#if defined(_ANIM_TEX_ON)
-					CalcBlendAnimPos(v.vertexId,v.pos/**/,v.normal/**/,v.tangent/**/,v.weights,v.indices);
-				#elif defined(_GPU_SKINNED_ON)
-				// v.pos = GetSkinnedPos(v.vertexId,v.pos); // get from buffer
-                    CalcSkinnedPos(v.vertexId,v.pos/**/,v.normal/**/,v.tangent/**/,v.weights,v.indices);
-				#endif
+				CalcBlendAnimPos(v.vertexId,v.pos/**/,v.normal/**/,v.tangent/**/,v.weights,v.indices);
 
-				o.vertex = TransformObjectToHClip(v.pos);
+				o.vertex = UnityObjectToClipPos(v.pos);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
 				o.normal = TransformObjectToWorldNormal(v.normal);
@@ -174,7 +164,8 @@ ENDHLSL
 
             half4 frag (v2f i) : SV_Target
             {
-				
+				UNITY_SETUP_INSTANCE_ID(i);
+
 				float3 n = normalize(i.normal);
 				
 				float nl = saturate(dot(n,_MainLightPosition.xyz));
