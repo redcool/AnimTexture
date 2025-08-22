@@ -1,4 +1,7 @@
 # AnimTexture
+
+中文文档: https://ti4z0mosnbo.feishu.cn/wiki/VTjGw5s4Ji7O1bkWXPScjV5znvf
+
 bake unity animation to texture, and play from vs
 
 Reference package
