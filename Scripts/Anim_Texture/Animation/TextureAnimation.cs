@@ -201,12 +201,12 @@
 
         void UpdateAnimLoop()
         {
-            if (!curClipInfo.isLoop)
+            if (!nextClipInfo.isLoop)
             {
-                if (playTime > curClipInfo.length)
+                if (playTime > nextClipInfo.length)
                 {
                     //var loopLerp = block.GetFloat(ID_LOOP);
-                    //Debug.Log(playTime + ":" + curClipInfo.length);
+                    //Debug.Log(playTime + ":" + nextClipInfo.length);
 
                     foreach (var mat in mats)
                         mat.SetFloat(ID_LOOP, 1, block);

@@ -42,6 +42,9 @@
             if (Input.GetKeyDown(KeyCode.Z))
                 animator.SetTrigger("IsAttack");
 
+            if (Input.GetKeyDown(KeyCode.R))
+                animator.SetTrigger("IsResume");
+
             animator.SetFloat(ID_MOVE_SPEED, agent.velocity.magnitude);
         }
 
