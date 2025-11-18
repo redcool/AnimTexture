@@ -78,10 +78,13 @@ namespace AnimTexture
             texAnim.SetupMeshRenderer();
             transform.localScale = Vector3.one;
 
-            var anim = gameObject.GetOrAddComponent<Animator>();
-            anim.runtimeAnimatorController = animatorController;
-
-            gameObject.GetOrAddComponent<AnimatorControl>();
+            var anim = gameObject.GetComponent<Animator>();
+            // use Animator
+            if (anim)
+            {
+                anim.runtimeAnimatorController = animatorController;
+                gameObject.GetOrAddComponent<AnimatorControl>();
+            }
         }
 
         private void SetupChildMeshRenderers(SkinnedMeshRenderer[] skinnedMeshes)
