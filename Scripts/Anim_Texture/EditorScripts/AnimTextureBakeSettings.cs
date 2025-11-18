@@ -18,34 +18,41 @@ namespace AnimTexture
     {
         [EditorBorder(lineCount: 1, topColorStr: ColorTools.G_LIGHT_GREEN)]
 
+        [HelpBox]
+        public string helpStr = "Select or Put a gameObject";
         public GameObject targetGO;
 
+        [Tooltip("Save bakedTexture in baked targetGO folder")]
+        public bool isSaveInObjFolder;
+
         [EditorBox("Bake Type", "isBakeMesh,isBakeBones",boxType = EditorBoxAttribute.BoxType.HBox)]
-        [Tooltip("bake selected skinnedMeshRenderer mesh to texture")]
-        [EditorButton(onClickCall ="BakeMesh")]
+        [EditorButton(onClickCall =nameof(BakeMesh),tooltip = "bake selected skinnedMeshRenderer mesh to texture")]
         public bool isBakeMesh;
 
         
-        [Tooltip("bake selected skinnedMeshRenderer bones to texture")]
-        [EditorButton(onClickCall = "BakeBone")]
+        [EditorButton(onClickCall = nameof(BakeBone),tooltip = "bake selected skinnedMeshRenderer bones to texture")]
         [HideInInspector]
         public bool isBakeBones;
 
-        [EditorBox("AnimTexPlayer", "isDestroySkinned,isCreateAnimTexPlayer", boxType = EditorBoxAttribute.BoxType.VBox)]
+        [EditorBox("AnimTexPlayer", "isDestroySkinned,isCreateAnimTexPlayerWithAnimatorControl,isCreateAnimTexPlayerWithSimpleControl", boxType = EditorBoxAttribute.BoxType.VBox)]
         [Tooltip("destroy skinnedMeshRenderer when CreateAnimTexPlayer done ")]
         public bool isDestroySkinned;
 
         [HideInInspector]
-        [Tooltip("create new TextureAnimation player from selected object")]
-        [EditorButton(onClickCall = "CreateAnimTexPlayer")]
-        public bool isCreateAnimTexPlayer;
+        [EditorButton(onClickCall = nameof(CreateAnimTexPlayerWithAnimatorControl),tooltip = "create new TextureAnimation player from selected object")]
+        public bool isCreateAnimTexPlayerWithAnimatorControl;
+
+        [HideInInspector]
+        [EditorButton(onClickCall = nameof(CreateAnimTexPlayerSimpleControl), tooltip = "create new TextureAnimation player from selected object")]
+        public bool isCreateAnimTexPlayerWithSimpleControl;
+
 
 
         public void BakeMesh()
         {
             GameObject[] objs = GetSelectedOrTarget();
 
-            AnimTextureEditor.BakeAnimTexFromObjs(objs);
+            AnimTextureEditor.BakeAnimTexFromObjs(objs,isSaveInObjFolder);
         }
 
         private GameObject[] GetSelectedOrTarget()
@@ -59,12 +66,25 @@ namespace AnimTexture
         public void BakeBone()
         {
             GameObject[] objs = GetSelectedOrTarget();
-            AnimTextureEditor.BakeBoneTexture(objs);
+            AnimTextureEditor.BakeBoneTexture(objs,isSaveInObjFolder);
         }
-        public void CreateAnimTexPlayer()
+        public void CreateAnimTexPlayerWithAnimatorControl()
         {
             var objs = Selection.GetFiltered<GameObject>(SelectionMode.Assets);
-            AnimTexturePlayerCreator.CreatePlayer(objs, isDestroySkinned);
+            var list = AnimTexturePlayerCreator.CreatePlayer(objs, isDestroySkinned);
+            foreach (var obj in list)
+            {
+                obj.DestroyComponents<Animation>(true, true);
+            }
+        }
+        public void CreateAnimTexPlayerSimpleControl()
+        {
+            var objs = Selection.GetFiltered<GameObject>(SelectionMode.Assets);
+            var list = AnimTexturePlayerCreator.CreatePlayerWithSimpleControl(objs, isDestroySkinned);
+            foreach (var obj in list)
+            {
+                obj.DestroyComponents<Animation>(true,true);
+            }
         }
     }
 }

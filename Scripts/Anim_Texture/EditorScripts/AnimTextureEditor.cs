@@ -8,6 +8,7 @@ namespace AnimTexture
     using System.Linq;
     using System.IO;
     using System.Text;
+    using PowerUtilities;
 
     public partial class AnimTextureEditor
     {
@@ -15,33 +16,6 @@ namespace AnimTexture
         //if you change AnimTexture path, need change this path.
         public const string ANIM_TEXTURE_PATH = "AnimTexture";
         public const string DEFAULT_TEX_DIR = ANIM_TEXTURE_PATH+"/AnimTexPath";
-
-        /// <summary>
-        /// Bake animTex from a gameObject
-        /// (contains SkinnedMeshRenderer, 
-        /// Animation(get animClips from animationState)
-        /// </summary>
-        //[MenuItem(POWER_UTILS_MENU + "/BakeAnimTexAtlas_From_LegacyAnimType")]
-        //static void BakeAllInOne()
-        //{
-        //    var objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
-        //    if(objs.Length == 0)
-        //    {
-        //        EditorUtility.DisplayDialog("Warning", $" selected nothing", "ok");
-        //        return;
-        //    }
-
-        //    foreach (var go in objs)
-        //    {
-        //        var newInst = Object.Instantiate(go);
-        //        newInst.name = go.name;
-
-        //        int clipCount = BakeAllClipsFromAnimation(newInst);
-        //        Object.DestroyImmediate(newInst);
-        //        ShowResult(go, clipCount);
-        //    }
-        //    EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>($"Assets/{DEFAULT_TEX_DIR}"));
-        //}
 
         /// <summary>
         /// Bake animTex from selected objects,
@@ -58,7 +32,12 @@ namespace AnimTexture
             BakeAnimTexFromObjs(objs);
         }
 
-        public static void BakeAnimTexFromObjs(GameObject[] objs)
+        /// <summary>
+        /// baked animation object to boneTexture
+        /// </summary>
+        /// <param name="objs"></param>
+        /// <param name="finalTargetFolder">save in folder</param>
+        public static void BakeAnimTexFromObjs(GameObject[] objs, bool isSaveInPrefabFolder=false)
         {
             var skinnedMeshGo = objs.Where(obj => obj.GetComponentInChildren<SkinnedMeshRenderer>()).FirstOrDefault();
             if (!skinnedMeshGo)
@@ -66,15 +45,25 @@ namespace AnimTexture
                 EditorUtility.DisplayDialog("Warning", $" not found SkinnedMeshRenderer from selected objects", "ok");
                 return;
             }
-            //1 check animationClip
-            List<AnimationClip> clipList = GetAnimationClipsFromAssetOrAnimation(objs);
+            
+            var saveFolder = $"Assets/{DEFAULT_TEX_DIR}";
 
-            var clipCount = BakeAllClips(skinnedMeshGo, clipList);
-            ShowResult(skinnedMeshGo, clipCount);
-            EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>($"Assets/{DEFAULT_TEX_DIR}"));
+            foreach (var obj in objs)
+            {
+                if (isSaveInPrefabFolder)
+                    saveFolder = AssetDatabaseTools.GetAssetFolder(obj);
+
+                //1 check animationClip
+                List<AnimationClip> clipList = GetAnimationClipsFromAssetOrAnimation(obj);
+
+                var clipCount = BakeAllClips(obj, clipList, saveFolder);
+                ShowResult(skinnedMeshGo, clipCount);
+            }
+
+            EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>(saveFolder));
         }
 
-        public static List<AnimationClip> GetAnimationClipsFromAssetOrAnimation(GameObject[] objs)
+        public static List<AnimationClip> GetAnimationClipsFromAssetOrAnimation(params GameObject[] objs)
         {
             var clipList = GetAnimationClipsFromAssets(objs);
             if (clipList.Count() == 0)
@@ -85,12 +74,12 @@ namespace AnimTexture
             return clipList;
         }
 
-        public static List<AnimationClip> GetAnimstionClipFromAnimation(GameObject[] objs)
+        public static List<AnimationClip> GetAnimstionClipFromAnimation(params GameObject[] objs)
         {
             return objs.SelectMany(obj => AnimationUtility.GetAnimationClips(obj)).ToList();
         }
 
-        public static List<AnimationClip> GetAnimationClipsFromAssets(GameObject[] objs)
+        public static List<AnimationClip> GetAnimationClipsFromAssets(params GameObject[] objs)
         {
             return objs.SelectMany(obj => AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(obj)))
                 .Where(a => a is AnimationClip c && !c.name.StartsWith("__preview__"))
@@ -112,41 +101,21 @@ namespace AnimTexture
                 Debug.Log($"{go} ,clips:{clipCount}");
         }
 
-        public static int BakeAllClipsFromAnimation(GameObject go)
+        public static int BakeAllClips(GameObject obj,List<AnimationClip> clipList,string saveFolder=null)
         {
-            var anim = go.GetComponentInChildren<Animation>();
-            if(!anim)
-            {
-                EditorUtility.DisplayDialog("Warning", $"{go} not found Animation", "ok");
-                return 0;
-            }
+            saveFolder = CreateSaveFolder(saveFolder);
 
-            var clipList = new List<AnimationClip>();
-            foreach (AnimationState state in anim)
-                clipList.Add(state.clip);
-
-            return BakeAllClips(go, clipList);
-        }
-
-        public static int BakeAllClips(GameObject go,List<AnimationClip> clipList)
-        {
-            var skin = go.GetComponentInChildren<SkinnedMeshRenderer>();
-
-            var dir = $"{Application.dataPath}/{DEFAULT_TEX_DIR}/";
-            if (!Directory.Exists(dir))
-            {
-                Directory.CreateDirectory(dir);
-            }
+            var skin = obj.GetComponentInChildren<SkinnedMeshRenderer>();
 
             var manifest = ScriptableObject.CreateInstance<AnimTextureManifest>();
             var yList = GenerateAtlas(skin, clipList, out manifest.atlas);
-            var count = BakeClip(go, skin, clipList, manifest, yList);
+            var count = BakeClip(obj, skin, clipList, manifest, yList);
             manifest.atlas.Apply();
 
             //output atlas
-            AssetDatabase.CreateAsset(manifest.atlas, $"Assets/{DEFAULT_TEX_DIR}/{go.name}_AnimTexture.asset");
+            AssetDatabase.CreateAsset(manifest.atlas, $"{saveFolder}/{obj.name}_AnimTexture.asset");
             //output infos
-            AssetDatabase.CreateAsset(manifest, $"Assets/{DEFAULT_TEX_DIR}/{go.name}_{typeof(AnimTextureManifest).Name}.asset");
+            AssetDatabase.CreateAsset(manifest, $"{saveFolder}/{obj.name}_{typeof(AnimTextureManifest).Name}.asset");
 
             AssetDatabase.Refresh();
             return count;

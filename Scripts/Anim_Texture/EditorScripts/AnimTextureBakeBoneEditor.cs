@@ -28,55 +28,71 @@ namespace AnimTexture
             var objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
             BakeBoneTexture(objs);
         }
-        public static void BakeBoneTexture(GameObject[] objs)
+        public static void BakeBoneTexture(GameObject[] objs, bool isSaveInObjFolder = false)
         {
-            var skinnedMeshGo = objs.Where(obj => obj.GetComponentInChildren<SkinnedMeshRenderer>()).FirstOrDefault();
-            if (!skinnedMeshGo)
+            var hasSkinned = objs.Where(obj => obj.GetComponentInChildren<SkinnedMeshRenderer>()).FirstOrDefault();
+            if (! hasSkinned)
             {
                 EditorUtility.DisplayDialog("Warning", $" not found SkinnedMeshRenderer from selected objects", "ok");
                 return;
             }
 
-            //1 check animationClip
-            var clipList = GetAnimationClipsFromAssets(objs);
-            if (clipList.Count() == 0)
-            {
-                clipList = GetAnimstionClipFromAnimation(objs);
-            }
-
+            // find BakeBoneMatrix.compute
             var bakeBoneCS = AssetDatabaseTools.FindAssetPathAndLoad<ComputeShader>(out _, BAKE_BONE_CS_FILENAME, ".compute");
             if (!bakeBoneCS)
                 throw new FileNotFoundException("cannot found compute shader : BakeBone");
 
-            var clipCount = BakeBoneAllClips(skinnedMeshGo, clipList, bakeBoneCS, bakeBoneCS.CanExecute());
-            ShowResult(skinnedMeshGo, clipCount);
-            EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>($"Assets/{DEFAULT_TEX_DIR}"));
+            var saveFolder = $"Assets/{DEFAULT_TEX_DIR}";
+
+            for (int i = 0; i < objs.Length; i++)
+            {
+                var obj = objs[i];
+                if (isSaveInObjFolder)
+                    saveFolder = AssetDatabaseTools.GetAssetFolder(obj);
+
+                var skinnedMesh = obj.GetComponentInChildren<SkinnedMeshRenderer>();
+                //1 check animationClip
+                var clipList = GetAnimationClipsFromAssetOrAnimation(obj);
+
+                var clipCount = BakeBoneAllClips(obj, clipList, bakeBoneCS, bakeBoneCS.CanExecute(), saveFolder);
+                ShowResult(obj, clipCount);
+            }
+            EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>(saveFolder));
         }
 
-        public static int BakeBoneAllClips(GameObject go, List<AnimationClip> clipList, ComputeShader bakeBondCS, bool isUseCS)
+        /// <summary>
+        /// Create save folder(default or saveFolder)
+        /// </summary>
+        /// <param name="saveFolder"></param>
+        /// <returns></returns>
+        public static string CreateSaveFolder(string saveFolder)
         {
-            var couunt = 0;
-            var skin = go.GetComponentInChildren<SkinnedMeshRenderer>();
+            saveFolder = string.IsNullOrEmpty(saveFolder) ? $"Assets/{DEFAULT_TEX_DIR}" : saveFolder;
+            PathTools.CreateAbsFolderPath(saveFolder);
+            return saveFolder;
+        }
 
-            var dir = $"{Application.dataPath}/{DEFAULT_TEX_DIR}/";
-            if (!Directory.Exists(dir))
-            {
-                Directory.CreateDirectory(dir);
-            }
+        public static int BakeBoneAllClips(GameObject obj, List<AnimationClip> clipList, ComputeShader bakeBondCS, bool isUseCS, string saveFolder)
+        {
+            saveFolder = CreateSaveFolder(saveFolder);
+
+            // create manifest
+            var couunt = 0;
+            var skin = obj.GetComponentInChildren<SkinnedMeshRenderer>();
 
             var manifest = ScriptableObject.CreateInstance<AnimTextureManifest>();
             FillBoneWeights(skin, manifest);
             FillBones(skin, manifest);
 
             var yList = GenBoneTexture(skin, clipList, out manifest.atlas);
-            couunt += BakeBoneClips(go, skin, clipList, manifest, yList, bakeBondCS, isUseCS);
+            couunt += BakeBoneClips(obj, skin, clipList, manifest, yList, bakeBondCS, isUseCS);
             manifest.atlas.Apply();
 
             //output infos
             if (manifest.atlas)
-                AssetDatabase.CreateAsset(manifest.atlas, $"Assets/{DEFAULT_TEX_DIR}/{go.name}_BoneTexture.asset");
+                AssetDatabase.CreateAsset(manifest.atlas, $"{saveFolder}/{obj.name}_BoneTexture.asset");
 
-            AssetDatabase.CreateAsset(manifest, $"Assets/{DEFAULT_TEX_DIR}/{go.name}_{typeof(AnimTextureManifest).Name}.asset");
+            AssetDatabase.CreateAsset(manifest, $"{saveFolder}/{obj.name}_{typeof(AnimTextureManifest).Name}.asset");
 
             AssetDatabase.Refresh();
             return couunt;

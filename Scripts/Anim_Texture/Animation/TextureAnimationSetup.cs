@@ -26,7 +26,7 @@ namespace AnimTexture
         [EditorNotNull]
         public AnimTextureManifest animTextureManifest;
 
-        [Tooltip("for Animator play animation states")]
+        [Tooltip("for Animator play animation states,AnimatorControl need only")]
         [LoadAsset("AnimTexSimpleController_noClip")]
         [EditorNotNull]
         public RuntimeAnimatorController animatorController;
@@ -37,13 +37,13 @@ namespace AnimTexture
         [Tooltip("open material's keyword")]
         public string animTexKeyword = "_ANIM_TEX_ON";
 
-        [EditorButton(onClickCall = "SetupAnimTexture")]
+        [EditorButton(onClickCall = nameof(SetupAnimTexture))]
         public bool isSetupAnimTex;
 
         [Header("Current Skinned")]
         public SkinnedMeshRenderer[] skinnedMeshes;
 
-        [EditorButton(onClickCall = "FindSkinned")]
+        [EditorButton(onClickCall = nameof(FindSkinned))]
         public bool isFindSkinned;
 
         void FindSkinned()
