@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 namespace AnimTexture
 {
+    using PowerUtilities;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEditor;
@@ -19,9 +20,9 @@ namespace AnimTexture
         /// Create new go list, setup animTexture
         /// </summary>
         /// <param name="objs"></param>
-        /// <param name="destroySkinnedMeshRenderer"></param>
+        /// <param name="isDestroySkinnedMeshRenderer"></param>
         /// <returns></returns>
-        public static List<GameObject> CreatePlayer(GameObject[] objs, bool destroySkinnedMeshRenderer)
+        public static List<GameObject> CreatePlayer(GameObject[] objs, bool isDestroySkinnedMeshRenderer)
         {
             var list = new List<GameObject>();
             foreach (var obj in objs)
@@ -39,14 +40,16 @@ namespace AnimTexture
                 SetupAnimTexture(go, obj.name);
 
                 SetupAnimator(go);
-                SetupMeshRenderer(go, destroySkinnedMeshRenderer);
+                SetupMeshRenderer(go, isDestroySkinnedMeshRenderer);
+
+                go.DestroyComponents<Animation>(true, true);
 
                 list.Add(go);
             }
             return list;
         }
 
-        public static List<GameObject> CreatePlayerWithSimpleControl(GameObject[] objs, bool destroySkinnedMeshRenderer)
+        public static List<GameObject> CreatePlayerWithSimpleControl(GameObject[] objs, bool isDestroySkinnedMeshRenderer)
         {
             var list = new List<GameObject>();
             foreach (var obj in objs)
@@ -65,7 +68,9 @@ namespace AnimTexture
 
                 //SetupAnimator(go);
                 GetOrAdd<SimpleAnimationControl>(go);
-                SetupMeshRenderer(go, destroySkinnedMeshRenderer);
+                SetupMeshRenderer(go, isDestroySkinnedMeshRenderer);
+
+                go.DestroyComponents<Animation>(true,true);
 
                 list.Add(go);
             }
@@ -77,7 +82,6 @@ namespace AnimTexture
             var anim = go.GetComponentInChildren<Animation>();
             if (anim)
                 anim.enabled = false;
-
 
             var manifest = AssetDatabase.LoadAssetAtPath<AnimTextureManifest>(AnimTextureEditor.GetManifestPath(goName));
             var texAnim = GetOrAdd<TextureAnimation>(go);

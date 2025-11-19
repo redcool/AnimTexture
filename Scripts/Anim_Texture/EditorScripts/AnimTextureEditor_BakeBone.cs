@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
-using static AnimTexture.AnimTextureManifest;
 using Object = UnityEngine.Object;
 
 namespace AnimTexture
@@ -26,10 +25,12 @@ namespace AnimTexture
         public static void BakeBoneTexFromSelected()
         {
             var objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
-            BakeBoneTexture(objs);
+            BakeBoneTexture(objs, false,out var _);
         }
-        public static void BakeBoneTexture(GameObject[] objs, bool isSaveInObjFolder = false)
+        public static void BakeBoneTexture(GameObject[] objs, bool isSaveInObjFolder,out AnimTextureManifest manifest)
         {
+            manifest = default;
+
             var hasSkinned = objs.Where(obj => obj.GetComponentInChildren<SkinnedMeshRenderer>()).FirstOrDefault();
             if (! hasSkinned)
             {
@@ -53,25 +54,13 @@ namespace AnimTexture
                 //1 check animationClip
                 var clipList = GetAnimationClipsFromAssetOrAnimation(obj);
 
-                var clipCount = BakeBoneAllClips(obj, clipList, bakeBoneCS, bakeBoneCS.CanExecute(), saveFolder);
+                var clipCount = BakeBoneAllClips(obj, clipList, bakeBoneCS, bakeBoneCS.CanExecute(), saveFolder,out manifest);
                 ShowResult(obj, clipCount);
             }
             EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>(saveFolder));
         }
 
-        /// <summary>
-        /// Create save folder(default or saveFolder)
-        /// </summary>
-        /// <param name="saveFolder"></param>
-        /// <returns></returns>
-        public static string CreateSaveFolder(string saveFolder)
-        {
-            saveFolder = string.IsNullOrEmpty(saveFolder) ? $"Assets/{DEFAULT_TEX_DIR}" : saveFolder;
-            PathTools.CreateAbsFolderPath(saveFolder);
-            return saveFolder;
-        }
-
-        public static int BakeBoneAllClips(GameObject obj, List<AnimationClip> clipList, ComputeShader bakeBondCS, bool isUseCS, string saveFolder)
+        public static int BakeBoneAllClips(GameObject obj, List<AnimationClip> clipList, ComputeShader bakeBondCS, bool isUseCS, string saveFolder,out AnimTextureManifest manifest)
         {
             saveFolder = CreateSaveFolder(saveFolder);
 
@@ -79,7 +68,7 @@ namespace AnimTexture
             var couunt = 0;
             var skin = obj.GetComponentInChildren<SkinnedMeshRenderer>();
 
-            var manifest = ScriptableObject.CreateInstance<AnimTextureManifest>();
+            manifest = ScriptableObject.CreateInstance<AnimTextureManifest>();
             FillBoneWeights(skin, manifest);
             FillBones(skin, manifest);
 
