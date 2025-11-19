@@ -21,7 +21,7 @@
             base.OnInspectorGUI();
             var inst = target as BakeAnimTexture;
 
-            if (GUILayout.Button("Bake AnimTexture"))
+            if (GUILayout.Button("Start Bake"))
             {
                 var targetGO = inst.targetGO ? inst.targetGO : Selection.activeGameObject;
                 if (!targetGO)
