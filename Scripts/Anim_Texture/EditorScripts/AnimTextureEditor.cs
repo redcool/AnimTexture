@@ -16,6 +16,7 @@ namespace AnimTexture
         //if you change AnimTexture path, need change this path.
         public const string ANIM_TEXTURE_PATH = "AnimTexture";
         public const string DEFAULT_TEX_DIR = ANIM_TEXTURE_PATH+"/AnimTexPath";
+        public const string ASSET_DEFAULT_TEX_DIR = "Assets/"+DEFAULT_TEX_DIR;
 
         /// <summary>
         /// Bake animTex from selected objects,
@@ -46,12 +47,11 @@ namespace AnimTexture
                 return;
             }
             
-            var saveFolder = $"Assets/{DEFAULT_TEX_DIR}";
-
+            var saveFolder = ASSET_DEFAULT_TEX_DIR;
             foreach (var obj in objs)
             {
                 if (isSaveInPrefabFolder)
-                    saveFolder = AssetDatabaseTools.GetAssetFolder(obj);
+                    saveFolder = AssetDatabaseTools.GetAssetFolder(obj, ASSET_DEFAULT_TEX_DIR);
 
                 //1 check animationClip
                 List<AnimationClip> clipList = GetAnimationClipsFromAssetOrAnimation(obj);

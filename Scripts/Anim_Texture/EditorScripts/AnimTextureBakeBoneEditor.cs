@@ -42,13 +42,12 @@ namespace AnimTexture
             if (!bakeBoneCS)
                 throw new FileNotFoundException("cannot found compute shader : BakeBone");
 
-            var saveFolder = $"Assets/{DEFAULT_TEX_DIR}";
-
+            var saveFolder = ASSET_DEFAULT_TEX_DIR;
             for (int i = 0; i < objs.Length; i++)
             {
                 var obj = objs[i];
                 if (isSaveInObjFolder)
-                    saveFolder = AssetDatabaseTools.GetAssetFolder(obj);
+                    saveFolder = AssetDatabaseTools.GetAssetFolder(obj,ASSET_DEFAULT_TEX_DIR);
 
                 var skinnedMesh = obj.GetComponentInChildren<SkinnedMeshRenderer>();
                 //1 check animationClip
