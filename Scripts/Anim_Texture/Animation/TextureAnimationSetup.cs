@@ -111,7 +111,7 @@ namespace AnimTexture
 
                 var mr = meshRendererTr.gameObject.GetOrAddComponent<MeshRenderer>();
                 //mr.sharedMaterials = skinned.sharedMaterials;
-                mr.sharedMaterial = animTexMat ?? skinned.share;
+                mr.sharedMaterial = animTexMat ?? skinned.sharedMaterial;
 
                 var mf = meshRendererTr.gameObject.GetOrAddComponent<MeshFilter>();
                 mf.sharedMesh = skinned.sharedMesh;
