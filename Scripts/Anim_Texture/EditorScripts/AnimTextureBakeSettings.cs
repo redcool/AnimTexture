@@ -20,21 +20,24 @@ namespace AnimTexture
     {
         [HelpBox]
         public string helpStr = "Select or Put a gameObject";
+
+        [Tooltip("Bake target obj,check Selection.objects when empty," +
+            "Get clips from Animation's controller or Animation")]
         public GameObject targetGO;
 
-        [Header("Bake Anim Texture")]
-        [Tooltip("bake bone or bake mesh to texture")]
+        [Header("Bake AnimTexture(mesh texture or bone texture")]
         public AnimTextureBakeType bakeType = AnimTextureBakeType.BakeBone;
 
-        [Tooltip("Save bakedTexture in baked targetGO folder")]
-        public bool isSaveInObjFolder;
+        [Tooltip("Baked animTexture save into targetGO folder")]
+        public bool isSaveInObjFolder = true;
 
         [Header("Create Player")]
         public AnimTexPlayerType playerType = AnimTexPlayerType.Animator;
-        [Tooltip("destroy skinnedMeshRenderer when CreateAnimTexPlayer done ")]
+
+        [Tooltip("Destroy skinnedMeshRenderer")]
         public bool isDestroySkinnedMeshRenderer;
 
-        [Tooltip("materials support AnimTexture")]
+        [Tooltip("MeshRenderer sharedMaterial, need support animTexture")]
         public Material[] animTexMats;
 
         [EditorButton(onClickCall = nameof(StartBake))]

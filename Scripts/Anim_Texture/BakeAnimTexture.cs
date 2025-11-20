@@ -31,7 +31,7 @@
                 }
                 var objs = new[] { targetGO };
 
-                AnimTextureEditor.StartBakeFlow(objs,inst.bakeType,true, inst.playerType, inst.isDestroySkinnedMeshRenderer, inst.animTexMats);
+                AnimTextureEditor.StartBakeFlow(objs,inst.bakeType,inst.isSaveInObjFolder, inst.playerType, inst.isDestroySkinnedMeshRenderer, inst.animTexMats);
             }
         }
 
@@ -42,18 +42,24 @@
 
     public class BakeAnimTexture : MonoBehaviour
     {
+        [Tooltip("Bake target obj,check Selection.objects when empty," +
+            "Get clips from Animation's controller or Animation")]
+        public GameObject targetGO;
 
-        [Header("Bake AnimTexture")]
+        [Header("Bake AnimTexture(mesh texture or bone texture")]
         public AnimTextureBakeType bakeType = AnimTextureBakeType.BakeBone;
+
+        [Tooltip("Baked animTexture save into targetGO folder")]
+        public bool isSaveInObjFolder = true;
 
         [Header("Create Player")]
         public AnimTexPlayerType playerType = AnimTexPlayerType.Animator;
 
+        [Tooltip("Destroy skinnedMeshRenderer")]
         public bool isDestroySkinnedMeshRenderer;
 
-        [Tooltip("material support animTexture")]
+        [Tooltip("MeshRenderer sharedMaterial, need support animTexture")]
         public Material[] animTexMats;
 
-        public GameObject targetGO;
     }
 }
