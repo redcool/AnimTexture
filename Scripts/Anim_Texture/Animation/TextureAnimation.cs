@@ -115,8 +115,8 @@
             for (int i = 0; i < mrs.Length; i++)
             {
                 var mr = mrs[i];
-                mats[i] = (Application.isPlaying && !isUpdateBlock )? mr.material : mr.sharedMaterial;  // new instance
-                if (manifest.atlas)
+                mats[i] = (Application.isPlaying && !isUpdateBlock) ? mr.material : mr.sharedMaterial;  // new instance
+                if (manifest.atlas && mats[i])
                     mats[i].SetTexture(ID_ANIM_TEX, manifest.atlas);
             }
         }
@@ -282,6 +282,21 @@
                 return;
 
             CrossFade(index, nextIndex, fadeTime);
+        }
+
+        /// <summary>
+        /// CrossFade to next clip, use curClipInfo, when curClipInfo is null, play nextClipName
+        /// </summary>
+        /// <param name="nextClipName"></param>
+        /// <param name="fadingTime"></param>
+        public void CrossFade(string nextClipName,float fadingTime)
+        {
+            if (curClipInfo == null)
+            {
+                Play(nextClipName);
+                return;
+            }
+            CrossFade(curClipInfo.clipName, nextClipName, fadingTime);
         }
 
         IEnumerator WaitForUpdateCrossLerp(int index,float fadeTime)

@@ -16,7 +16,7 @@ namespace AnimTexture
     /// </summary>
     public class TextureAnimationSetup : MonoBehaviour
     {
-        const string helpBox = "Replace SkinnedMeshRenderer to MeshRenderer,1 replace skinned material to AnimTexture mat";
+        const string helpBox = "Replace SkinnedMeshRenderer to MeshRenderer, \n1 replace skinned material to AnimTexture mat";
         TextureAnimation texAnim;
         //=============================================================== FastSetup
         [HelpBox]
@@ -26,9 +26,9 @@ namespace AnimTexture
         [EditorNotNull]
         public AnimTextureManifest animTextureManifest;
 
+        [EditorNotNull]
         [Tooltip("for Animator play animation states,AnimatorControl need only")]
         [LoadAsset("AnimTexSimpleController_noClip")]
-        [EditorNotNull]
         public RuntimeAnimatorController animatorController;
 
         [Tooltip("mat for each SkinnedMeshRenderer(AnimTex or BoneTexture)")]
@@ -67,12 +67,11 @@ namespace AnimTexture
                 Debug.Log("SkinnedMeshRenderer not found");
                 return;
             }
-            if(skinnedMeshes.Length > animTextureMats.Length)
-            {
-                Debug.Log("SkinnedMeshes.length must < animTextureMats.Length");
-                return;
-            }
-
+            //if(skinnedMeshes.Length > animTextureMats.Length)
+            //{
+            //    Debug.Log("SkinnedMeshes.length must < animTextureMats.Length");
+            //    return;
+            //}
 
             SetupChildMeshRenderers(skinnedMeshes);
             texAnim.SetupMeshRenderer();
@@ -89,15 +88,15 @@ namespace AnimTexture
 
         private void SetupChildMeshRenderers(SkinnedMeshRenderer[] skinnedMeshes)
         {
-            var parentTr = transform.Find("MeshRendererGO");
-            if (parentTr)
+            var meshRendererTr = transform.Find("MeshRendererGO");
+            if (meshRendererTr)
             {
-                parentTr.gameObject.DestroyChildren();
+                meshRendererTr.gameObject.DestroyChildren();
             }
             else
             {
-                parentTr = new GameObject("MeshRendererGO").transform;
-                parentTr.SetParent(transform, false);
+                meshRendererTr = new GameObject("MeshRendererGO").transform;
+                meshRendererTr.SetParent(transform, false);
             }
 
             for (int i = 0; i < skinnedMeshes.Length; i++)
@@ -108,15 +107,13 @@ namespace AnimTexture
                 if (animTexMat)
                     animTexMat.EnableKeyword(animTexKeyword);
 
-                var childTr = new GameObject(skinned.name).transform;
-                childTr.parent = parentTr.transform;
-                childTr.position = Vector3.zero;
+                meshRendererTr.position = Vector3.zero;
 
-                var mr = childTr.gameObject.GetOrAddComponent<MeshRenderer>();
+                var mr = meshRendererTr.gameObject.GetOrAddComponent<MeshRenderer>();
                 //mr.sharedMaterials = skinned.sharedMaterials;
-                mr.sharedMaterial = animTexMat;
+                mr.sharedMaterial = animTexMat ?? skinned.share;
 
-                var mf = childTr.gameObject.GetOrAddComponent<MeshFilter>();
+                var mf = meshRendererTr.gameObject.GetOrAddComponent<MeshFilter>();
                 mf.sharedMesh = skinned.sharedMesh;
 
                 skinned.enabled = false;
