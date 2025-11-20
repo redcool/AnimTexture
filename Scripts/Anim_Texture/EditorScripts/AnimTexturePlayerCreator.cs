@@ -14,7 +14,7 @@ namespace AnimTexture
         static void CreatePlayer()
         {
             var objs = Selection.GetFiltered<GameObject>(SelectionMode.Assets);
-            CreatePlayer(objs,false);
+            CreatePlayer(objs);
         }
         /// <summary>
         /// Create new go list, setup animTexture
@@ -22,7 +22,7 @@ namespace AnimTexture
         /// <param name="objs"></param>
         /// <param name="isDestroySkinnedMeshRenderer"></param>
         /// <returns></returns>
-        public static List<GameObject> CreatePlayer(GameObject[] objs, bool isDestroySkinnedMeshRenderer)
+        public static List<GameObject> CreatePlayer(GameObject[] objs)
         {
             var list = new List<GameObject>();
             foreach (var obj in objs)
@@ -40,7 +40,7 @@ namespace AnimTexture
                 SetupAnimTexture(go, obj.name);
 
                 SetupAnimator(go);
-                SetupMeshRenderer(go, isDestroySkinnedMeshRenderer);
+                SetupMeshRenderer(go);
 
                 go.DestroyComponents<Animation>(true, true);
 
@@ -49,7 +49,7 @@ namespace AnimTexture
             return list;
         }
 
-        public static List<GameObject> CreatePlayerWithSimpleControl(GameObject[] objs, bool isDestroySkinnedMeshRenderer)
+        public static List<GameObject> CreatePlayerWithSimpleControl(GameObject[] objs)
         {
             var list = new List<GameObject>();
             foreach (var obj in objs)
@@ -68,9 +68,7 @@ namespace AnimTexture
 
                 //SetupAnimator(go);
                 GetOrAdd<SimpleAnimationControl>(go);
-                SetupMeshRenderer(go, isDestroySkinnedMeshRenderer);
-
-                go.DestroyComponents<Animation>(true,true);
+                SetupMeshRenderer(go);
 
                 list.Add(go);
             }
@@ -90,17 +88,15 @@ namespace AnimTexture
             GetOrAdd<TextureAnimationSetup>(go);
         }
 
-        private static void SetupMeshRenderer(GameObject go,bool destroySkinnedMeshRenderer)
+        private static void SetupMeshRenderer(GameObject go)
         {
             var skin = go.GetComponentInChildren<SkinnedMeshRenderer>();
             var mf = GetOrAdd<MeshFilter>(go);
             mf.sharedMesh = skin.sharedMesh;
             skin.enabled = false;
-            if(destroySkinnedMeshRenderer)
-                Object.DestroyImmediate(skin);
 
             var mr = GetOrAdd<MeshRenderer>(go);
-            //mr.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>($"Assets/{AnimTextureEditor.ANIM_TEXTURE_PATH}/Shaders/AnimTexture_MeshTexture.mat");
+            mr.sharedMaterials = skin.sharedMaterials;
         }
 
         private static void SetupAnimator(GameObject go)

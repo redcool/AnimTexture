@@ -9,6 +9,8 @@ namespace AnimTexture
     using System.IO;
     using System.Text;
     using PowerUtilities;
+    using System;
+    using Object = UnityEngine.Object;
 
     public partial class AnimTextureEditor
     {
@@ -112,6 +114,8 @@ namespace AnimTexture
         public static List<AnimationClip> GetAnimationClipsFromAssetOrAnimation(GameObject obj)
         {
             var clipList = AnimationUtility.GetAnimationClips(obj).ToList();
+            if (clipList.Count == 0)
+                    throw new Exception($"AnimationClip not found from {obj}");
             return clipList;
         }
 
@@ -176,16 +180,20 @@ namespace AnimTexture
         /// <param name="playerType"></param>
         /// <param name="isDestroySkinnedMesnRenderer"></param>
         /// <param name="animTexMats"></param>
-        /// <returns></returns>
-        public static bool StartBakeFlow(GameObject[] objs, AnimTextureBakeType bakeType, bool isSaveInPrefabFolder, AnimTexPlayerType playerType, bool isDestroySkinnedMesnRenderer, Material[] animTexMats)
+        /// <returns>player list created</returns>
+        public static List<GameObject> StartBakeFlow(GameObject[] objs, AnimTextureBakeType bakeType, bool isSaveInPrefabFolder, AnimTexPlayerType playerType, bool isDestroySkinnedMesnRenderer, Material[] animTexMats)
         {
+            if (objs == null || objs.Length == 0)
+                return new List<GameObject>();
+
             AnimTextureManifest manifest = BakeAnimTexture(objs, bakeType, isSaveInPrefabFolder);
 
-            var player1 = CreateAnimTexPlayers(playerType, objs, isDestroySkinnedMesnRenderer).FirstOrDefault();
-            if (!player1)
-                return false;
-            SetupAnimTexPlayer(manifest, player1, animTexMats);
-            return true;
+            var players = CreateAnimTexPlayers(playerType, objs);
+            foreach (var player in players)
+            {
+                SetupAnimTexPlayer(manifest, player, animTexMats, isDestroySkinnedMesnRenderer);
+            }
+            return players;
         }
 
         public static AnimTextureManifest BakeAnimTexture(GameObject[] objs, AnimTextureBakeType bakeType, bool isSaveInPrefabFolder)
@@ -204,25 +212,26 @@ namespace AnimTexture
             return manifest;
         }
 
-        public static void SetupAnimTexPlayer(AnimTextureManifest manifest, GameObject animTexPlayerGO, Material[] animTexMats)
+        public static void SetupAnimTexPlayer(AnimTextureManifest manifest, GameObject animTexPlayerGO, Material[] animTexMats, bool isDestroySkinnedMesnRenderer)
         {
             var setup = animTexPlayerGO.GetComponentInChildren<TextureAnimationSetup>();
             setup.animTextureManifest = manifest;
             setup.animTextureMats = animTexMats;
             setup.animatorController = animTexPlayerGO.GetComponent<Animator>()?.runtimeAnimatorController;
+            setup.isDestroySkinnedMeshRenderer = isDestroySkinnedMesnRenderer;
             setup.SetupAnimTexture();
         }
 
-        public static List<GameObject> CreateAnimTexPlayers(AnimTexPlayerType playerType, GameObject[] objs, bool isDestroySkinnedMesnRenderer)
+        public static List<GameObject> CreateAnimTexPlayers(AnimTexPlayerType playerType, GameObject[] objs)
         {
             switch (playerType)
             {
                 case AnimTexPlayerType.Animator:
-                    return AnimTexturePlayerCreator.CreatePlayer(objs, isDestroySkinnedMesnRenderer);
+                    return AnimTexturePlayerCreator.CreatePlayer(objs);
                 case AnimTexPlayerType.SimpleAnimation:
-                    return AnimTexturePlayerCreator.CreatePlayerWithSimpleControl(objs, isDestroySkinnedMesnRenderer);
+                    return AnimTexturePlayerCreator.CreatePlayerWithSimpleControl(objs);
             }
-            return default;
+            return new List<GameObject>();
         }
     }
 }

@@ -37,6 +37,8 @@ namespace AnimTexture
         [Tooltip("open material's keyword")]
         public string animTexKeyword = "_ANIM_TEX_ON";
 
+        public bool isDestroySkinnedMeshRenderer;
+
         [EditorButton(onClickCall = nameof(SetupAnimTexture))]
         public bool isSetupAnimTex;
 
@@ -67,11 +69,6 @@ namespace AnimTexture
                 Debug.Log("SkinnedMeshRenderer not found");
                 return;
             }
-            //if(skinnedMeshes.Length > animTextureMats.Length)
-            //{
-            //    Debug.Log("SkinnedMeshes.length must < animTextureMats.Length");
-            //    return;
-            //}
 
             SetupChildMeshRenderers(skinnedMeshes);
             texAnim.SetupMeshRenderer();
@@ -83,6 +80,12 @@ namespace AnimTexture
             {
                 anim.runtimeAnimatorController = animatorController;
                 gameObject.GetOrAddComponent<AnimatorControl>();
+            }
+
+            if (isDestroySkinnedMeshRenderer)
+            {
+                foreach (var item in skinnedMeshes)
+                    item.Destroy();
             }
         }
 

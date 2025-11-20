@@ -13,28 +13,38 @@
     using Object = UnityEngine.Object;
 
 #if UNITY_EDITOR
+    [CanEditMultipleObjects]
     [CustomEditor(typeof(BakeAnimTexture))]
     public class BakeAnimTextureEditor : Editor
     {
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            var inst = target as BakeAnimTexture;
 
             if (GUILayout.Button("Start Bake"))
             {
-                var targetGO = inst.targetGO ? inst.targetGO : Selection.activeGameObject;
-                if (!targetGO)
+                var insts = targets.Select(t => t as BakeAnimTexture);
+                foreach (var inst in insts)
                 {
-                    Debug.Log($"nothing selected {targetGO}");
-                    return;
-                }
-                var objs = new[] { targetGO };
+                    GameObject[] objs = GetTargets(inst);
 
-                AnimTextureEditor.StartBakeFlow(objs,inst.bakeType,inst.isSaveInObjFolder, inst.playerType, inst.isDestroySkinnedMeshRenderer, inst.animTexMats);
+                    var players = AnimTextureEditor.StartBakeFlow(objs, inst.bakeType, inst.isSaveInObjFolder, inst.playerType, inst.isDestroySkinnedMeshRenderer, inst.animTexMats);
+                    foreach (var player in players)
+                    {
+                        player.DestroyComponents<BakeAnimTexture>(true, true);
+                        player.DestroyComponents<Animation>(true, true);
+                    }
+                }
             }
         }
 
+        public static GameObject[] GetTargets(BakeAnimTexture inst)
+        {
+            var objs = inst.targetObjects != null ? inst.targetObjects.Where(obj => obj).ToArray() : default;
+            if (objs == null || objs.Length == 0)
+                objs = new GameObject[] { inst.gameObject };
+            return objs;
+        }
     }
 #endif
     public enum AnimTextureBakeType { BakeBone,BakeMesh }
@@ -42,9 +52,8 @@
 
     public class BakeAnimTexture : MonoBehaviour
     {
-        [Tooltip("Bake target obj,check Selection.objects when empty," +
-            "Get clips from Animation's controller or Animation")]
-        public GameObject targetGO;
+        [Tooltip("Bake targetGO or self when empty, Get clips from Animation's controller or Animation")]
+        public GameObject[] targetObjects;
 
         [Header("Bake AnimTexture(mesh texture or bone texture")]
         public AnimTextureBakeType bakeType = AnimTextureBakeType.BakeBone;

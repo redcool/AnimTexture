@@ -19,11 +19,10 @@ namespace AnimTexture
     public class AnimTextureBakeSettings : ScriptableObject
     {
         [HelpBox]
-        public string helpStr = "Select or Put a gameObject";
+        public string helpStr = "Select or Put gameObjects,when empty get objects from selection";
 
-        [Tooltip("Bake target obj,check Selection.objects when empty," +
-            "Get clips from Animation's controller or Animation")]
-        public GameObject targetGO;
+        [Tooltip("Bake target obj,check Selection.objects when empty,Get clips from Animation's controller or Animation")]
+        public GameObject[] targetObjects;
 
         [Header("Bake AnimTexture(mesh texture or bone texture")]
         public AnimTextureBakeType bakeType = AnimTextureBakeType.BakeBone;
@@ -43,19 +42,23 @@ namespace AnimTexture
         [EditorButton(onClickCall = nameof(StartBake))]
         public bool isStartBake;
 
-        private GameObject[] GetSelectedOrTarget()
+        private GameObject[] GetSelectedOrTargetS()
         {
-            var objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
-            if (targetGO)
-                objs = new[] { targetGO };
+            var objs = targetObjects != null ? targetObjects.Where(obj => obj).ToArray() : default;
+            if (objs == null || objs.Length == 0)
+                objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
             return objs;
         }
 
         public void StartBake()
         {
-            var objs = GetSelectedOrTarget();
+            var objs = GetSelectedOrTargetS();
 
-            AnimTextureEditor.StartBakeFlow(objs, bakeType, true, playerType, isDestroySkinnedMeshRenderer, animTexMats);
+            var players = AnimTextureEditor.StartBakeFlow(objs, bakeType, true, playerType, isDestroySkinnedMeshRenderer, animTexMats);
+            foreach (var player in players)
+            {
+                player.DestroyComponents<BakeAnimTexture>(true, true);
+            }
         }
     }
 }
