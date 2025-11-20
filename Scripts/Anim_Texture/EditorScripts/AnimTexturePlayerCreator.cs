@@ -30,21 +30,20 @@ namespace AnimTexture
                 if (! obj.GetComponentInChildren<SkinnedMeshRenderer>())
                     continue;
 
-                var parentGo = new GameObject(obj.name);
-                AddAgent(parentGo);
+                var playerGO = new GameObject(obj.name + "_AnimTex");
+                AddAgent(playerGO);
 
-                var go = Object.Instantiate(obj);
+                var instGO = Object.Instantiate(obj);
+                instGO.name = obj.name;
+                instGO.transform.SetParent(playerGO.transform);
+                SetupAnimTexture(instGO, obj.name);
 
-                go.name = obj.name + "_Animator";
-                go.transform.SetParent(parentGo.transform);
-                SetupAnimTexture(go, obj.name);
+                SetupAnimator(instGO, obj.GetComponent<Animator>()?.runtimeAnimatorController);
+                SetupMeshRenderer(instGO);
 
-                SetupAnimator(go);
-                SetupMeshRenderer(go);
+                instGO.DestroyComponents<Animation>(true, true);
 
-                go.DestroyComponents<Animation>(true, true);
-
-                list.Add(go);
+                list.Add(playerGO);
             }
             return list;
         }
@@ -99,10 +98,10 @@ namespace AnimTexture
             mr.sharedMaterials = skin.sharedMaterials;
         }
 
-        private static void SetupAnimator(GameObject go)
+        private static void SetupAnimator(GameObject go,RuntimeAnimatorController originalController)
         {
             var animator = GetOrAdd<Animator>(go);
-            //animator.runtimeAnimatorController = AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>($"Assets/{AnimTextureEditor.ANIM_TEXTURE_PATH}/OtherRes/SimpleController.controller");
+            animator.runtimeAnimatorController = originalController;
 
             GetOrAdd<AnimatorControl>(go);
         }

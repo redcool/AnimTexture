@@ -196,6 +196,27 @@ namespace AnimTexture
             return players;
         }
 
+        /// <summary>
+        /// Clearup , save prefab
+        /// </summary>
+        /// <param name="players"></param>
+        public static void EndBakeFlow(List<GameObject> players, List<string> prefabFolders,bool isSavePlayerPrefab)
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                var player = players[i];
+                player.DestroyComponents<BakeAnimTexture>(true, true);
+                player.DestroyComponents<Animation>(true, true);
+
+                if (isSavePlayerPrefab)
+                {
+                    var folder = i < prefabFolders.Count ? prefabFolders[i] : "";
+                    if (!string.IsNullOrEmpty(folder))
+                        PrefabTools.CreatePrefab(player, $"{folder}/{player.name}.prefab");
+                }
+            }
+        }
+
         public static AnimTextureManifest BakeAnimTexture(GameObject[] objs, AnimTextureBakeType bakeType, bool isSaveInPrefabFolder)
         {
             AnimTextureManifest manifest = default;
@@ -217,7 +238,7 @@ namespace AnimTexture
             var setup = animTexPlayerGO.GetComponentInChildren<TextureAnimationSetup>();
             setup.animTextureManifest = manifest;
             setup.animTextureMats = animTexMats;
-            setup.animatorController = animTexPlayerGO.GetComponent<Animator>()?.runtimeAnimatorController;
+            setup.animatorController = animTexPlayerGO.GetComponentInChildren<Animator>()?.runtimeAnimatorController;
             setup.isDestroySkinnedMeshRenderer = isDestroySkinnedMesnRenderer;
             setup.SetupAnimTexture();
         }

@@ -29,11 +29,8 @@
                     GameObject[] objs = GetTargets(inst);
 
                     var players = AnimTextureEditor.StartBakeFlow(objs, inst.bakeType, inst.isSaveInObjFolder, inst.playerType, inst.isDestroySkinnedMeshRenderer, inst.animTexMats);
-                    foreach (var player in players)
-                    {
-                        player.DestroyComponents<BakeAnimTexture>(true, true);
-                        player.DestroyComponents<Animation>(true, true);
-                    }
+                    var prefabFolders = objs.Select(obj => AssetDatabaseTools.GetAssetFolder(obj)).ToList();
+                    AnimTextureEditor.EndBakeFlow(players, prefabFolders,inst.isSavePlayerPrefab);
                 }
             }
         }
@@ -69,6 +66,8 @@
 
         [Tooltip("MeshRenderer sharedMaterial, need support animTexture")]
         public Material[] animTexMats;
+
+        public bool isSavePlayerPrefab;
 
     }
 }

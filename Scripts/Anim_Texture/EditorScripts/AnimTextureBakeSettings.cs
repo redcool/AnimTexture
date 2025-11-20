@@ -39,6 +39,8 @@ namespace AnimTexture
         [Tooltip("MeshRenderer sharedMaterial, need support animTexture")]
         public Material[] animTexMats;
 
+        public bool isSavePlayerPrefab;
+
         [EditorButton(onClickCall = nameof(StartBake))]
         public bool isStartBake;
 
@@ -55,10 +57,8 @@ namespace AnimTexture
             var objs = GetSelectedOrTargetS();
 
             var players = AnimTextureEditor.StartBakeFlow(objs, bakeType, true, playerType, isDestroySkinnedMeshRenderer, animTexMats);
-            foreach (var player in players)
-            {
-                player.DestroyComponents<BakeAnimTexture>(true, true);
-            }
+            var prefabFolders = objs.Select(obj => AssetDatabaseTools.GetAssetFolder(obj)).ToList();
+            AnimTextureEditor.EndBakeFlow(players, prefabFolders, isSavePlayerPrefab);
         }
     }
 }
