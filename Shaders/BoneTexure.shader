@@ -131,8 +131,6 @@ ENDHLSL
                 half4 vertex : SV_POSITION;
                 half2 uv : TEXCOORD0;
 				float3 normal:TEXCOORD1;
-				//animTexture
-				float4 weights:TECOORD2;
             };
 
 
@@ -156,7 +154,6 @@ ENDHLSL
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
 				o.normal = TransformObjectToWorldNormal(v.normal);
-				o.weights = v.indices;
                 return o;
             }
 
