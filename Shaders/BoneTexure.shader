@@ -4,11 +4,12 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
 
-		//================================================= AnimTex,get matrix from _AnimTexture
-		[Group(GPUSkin)]
-        [GroupEnum(GPUSkin,_None _ANIM_TEX_ON _GPU_SKINNED_ON,true,use AnimTex or GpuSkin)] _GpuSkinnedOn("_GpuSkinOn",float) = 0
-
+//================================================= AnimTex,get matrix from _AnimTexture
 		[Group(AnimTex)]
+        [GroupHeader(AnimTex,Mode)]
+        [GroupEnum(AnimTex,_None _ANIM_TEX_ON _GPU_SKINNED_ON,true,use AnimTex or GpuSkin)] _GpuSkinnedOn("_GpuSkinOn",float) = 0
+
+		[GroupHeader(AnimTex,Info)]
 		[GroupItem(AnimTex)] _AnimTex("Anim Tex",2d) = ""{}
 		[GroupItem(AnimTex)] _AnimSampleRate("Anim Sample Rate",float) = 30
 		[GroupItem(AnimTex)] _StartFrame("Start Frame",float) = 0
@@ -63,6 +64,7 @@ HLSLINCLUDE
 		sampler2D _MainTex;
 
 		CBUFFER_START(UnityPerMaterial)
+			//AnimTexture
 			half _StartFrame;
 			half _EndFrame;
 			half _AnimSampleRate;
@@ -72,9 +74,9 @@ HLSLINCLUDE
 			half _CrossLerp;
 			half _PlayTime;
 			half _OffsetPlayTime;
-						
 			half4 _AnimTex_TexelSize;
 
+			// other
 			half4 _MainTex_ST;
 			half _Cutoff;
 		CBUFFER_END
@@ -113,11 +115,13 @@ ENDHLSL
 
             struct appdata
             {
-				uint vertexId:SV_VertexID;
                 float2 uv : TEXCOORD0;
 				float4 pos:POSITION;
 				float4 normal:NORMAL;
 				float4 tangent:TANGENT;
+
+				// animTexturte
+				uint vertexId:SV_VertexID;
 				float4 weights:BLENDWEIGHTS;
 				uint4 indices:BLENDINDICES;
             };
@@ -127,6 +131,7 @@ ENDHLSL
                 half4 vertex : SV_POSITION;
                 half2 uv : TEXCOORD0;
 				float3 normal:TEXCOORD1;
+				//animTexture
 				float4 weights:TECOORD2;
             };
 
