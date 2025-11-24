@@ -30,7 +30,7 @@
 
                     var players = AnimTextureEditor.StartBakeFlow(objs, inst.bakeType, inst.isSaveInObjFolder, inst.playerType, inst.isDestroySkinnedMeshRenderer, inst.animTexMats);
                     var prefabFolders = objs.Select(obj => AssetDatabaseTools.GetAssetFolder(obj)).ToList();
-                    AnimTextureEditor.EndBakeFlow(players, prefabFolders,inst.isSavePlayerPrefab);
+                    AnimTextureEditor.EndBakeFlow(players, prefabFolders,inst.isSavePlayerPrefab,inst.playerType,inst.isDestroySkinnedMeshRenderer);
                 }
             }
         }
@@ -45,7 +45,7 @@
     }
 #endif
     public enum AnimTextureBakeType { BakeBone,BakeMesh }
-    public enum AnimTexPlayerType { None,Animator,SimpleAnimation}
+    public enum AnimTexPlayerType { None,TextureAnimationOnly,SimpleAnimation, Animator }
 
     public class BakeAnimTexture : MonoBehaviour
     {
@@ -59,6 +59,7 @@
         public bool isSaveInObjFolder = true;
 
         [Header("Create Player")]
+        [Tooltip("None: only bake,TextureAnimation: Only TextureAniation,SimpleControl : add SimpleAnimationControl ,Animator: add AnimationControl")]
         public AnimTexPlayerType playerType = AnimTexPlayerType.Animator;
 
         [Tooltip("Destroy skinnedMeshRenderer")]

@@ -58,7 +58,7 @@ namespace AnimTexture
 
             var players = AnimTextureEditor.StartBakeFlow(objs, bakeType, true, playerType, isDestroySkinnedMeshRenderer, animTexMats);
             var prefabFolders = objs.Select(obj => AssetDatabaseTools.GetAssetFolder(obj)).ToList();
-            AnimTextureEditor.EndBakeFlow(players, prefabFolders, isSavePlayerPrefab);
+            AnimTextureEditor.EndBakeFlow(players, prefabFolders, isSavePlayerPrefab, playerType, isDestroySkinnedMeshRenderer);
         }
     }
 }

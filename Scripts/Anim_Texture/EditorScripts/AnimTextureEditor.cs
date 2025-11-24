@@ -14,11 +14,10 @@ namespace AnimTexture
 
     public partial class AnimTextureEditor
     {
-        public const string POWER_UTILS_MENU = "PowerUtilities/" + ANIM_TEXTURE_PATH;
         //if you change AnimTexture path, need change this path.
         public const string ANIM_TEXTURE_PATH = "AnimTexture";
-        public const string DEFAULT_TEX_DIR = ANIM_TEXTURE_PATH + "/AnimTexPath";
-        public const string ASSET_DEFAULT_TEX_DIR = "Assets/" + DEFAULT_TEX_DIR;
+        public const string POWER_UTILS_MENU = "PowerUtilities/" + ANIM_TEXTURE_PATH;
+        public const string ASSET_DEFAULT_TEX_DIR = "Assets/AnimTexture/AnimTexPath";
 
         /// <summary>
         /// Bake animTex from selected objects,
@@ -108,7 +107,7 @@ namespace AnimTexture
             => $"{goName}_{nameof(AnimTextureManifest)}.asset";
 
         public static string GetManifestPath(string goName)
-            => $"Assets/{AnimTextureEditor.DEFAULT_TEX_DIR}/{GetManifestFileName(goName)}";
+            => $"{ASSET_DEFAULT_TEX_DIR}/{GetManifestFileName(goName)}";
 
 
         public static List<AnimationClip> GetAnimationClipsFromAssetOrAnimation(GameObject obj)
@@ -126,7 +125,7 @@ namespace AnimTexture
         /// <returns></returns>
         public static string CreateSaveFolder(string saveFolder)
         {
-            saveFolder = string.IsNullOrEmpty(saveFolder) ? $"Assets/{AnimTextureEditor.DEFAULT_TEX_DIR}" : saveFolder;
+            saveFolder = string.IsNullOrEmpty(saveFolder) ? $"{ASSET_DEFAULT_TEX_DIR}" : saveFolder;
             PathTools.CreateAbsFolderPath(saveFolder);
             return saveFolder;
         }
@@ -200,17 +199,29 @@ namespace AnimTexture
         /// Clearup , save prefab
         /// </summary>
         /// <param name="players"></param>
-        public static void EndBakeFlow(List<GameObject> players, List<string> prefabFolders,bool isSavePlayerPrefab)
+        public static void EndBakeFlow(List<GameObject> players, List<string> prefabFolders,bool isSavePlayerPrefab,AnimTexPlayerType playerType,bool isDestroySkinned)
         {
             for (int i = 0; i < players.Count; i++)
             {
                 var player = players[i];
                 player.DestroyComponents<BakeAnimTexture>(true, true);
                 player.DestroyComponents<Animation>(true, true);
+                if (isDestroySkinned)
+                    player.DestroyComponents<TextureAnimationSetup>(true, true);
+
+                // remove AnimatorControl
+                if (playerType != AnimTexPlayerType.Animator)
+                {
+                    player.DestroyComponents<AnimatorControl>(true, true);
+                    player.DestroyComponents<Animator>(true, true);
+                }
 
                 if (isSavePlayerPrefab)
                 {
-                    var folder = i < prefabFolders.Count ? prefabFolders[i] : "";
+                    var folder = ASSET_DEFAULT_TEX_DIR;
+                    if(i < prefabFolders.Count && !string.IsNullOrEmpty(prefabFolders[i]))
+                        folder = prefabFolders[i];
+
                     if (!string.IsNullOrEmpty(folder))
                         PrefabTools.CreatePrefab(player, $"{folder}/{player.name}.prefab");
                 }
@@ -248,11 +259,14 @@ namespace AnimTexture
             switch (playerType)
             {
                 case AnimTexPlayerType.Animator:
-                    return AnimTexturePlayerCreator.CreatePlayer(objs);
+                    return AnimTexturePlayerCreator.CreatePlayerWithAnimatorControl(objs);
                 case AnimTexPlayerType.SimpleAnimation:
                     return AnimTexturePlayerCreator.CreatePlayerWithSimpleControl(objs);
+                case AnimTexPlayerType.TextureAnimationOnly:
+                    return AnimTexturePlayerCreator.CreatePlayer(objs,null);
+                default:
+                    return new List<GameObject>();
             }
-            return new List<GameObject>();
         }
     }
 }
