@@ -39,7 +39,11 @@ namespace AnimTexture
         [Tooltip("MeshRenderer sharedMaterial, need support animTexture")]
         public Material[] animTexMats;
 
+        [Tooltip("Create prefab and save")]
         public bool isSavePlayerPrefab;
+
+        [Tooltip("Remove NavMeshAgent")]
+        public bool isRemoveAgentPlayer;
 
         [EditorButton(onClickCall = nameof(StartBake))]
         public bool isStartBake;
@@ -58,7 +62,7 @@ namespace AnimTexture
 
             var players = AnimTextureEditor.StartBakeFlow(objs, bakeType, true, playerType, isDestroySkinnedMeshRenderer, animTexMats);
             var prefabFolders = objs.Select(obj => AssetDatabaseTools.GetAssetFolder(obj)).ToList();
-            AnimTextureEditor.EndBakeFlow(players, prefabFolders, isSavePlayerPrefab, playerType, isDestroySkinnedMeshRenderer);
+            AnimTextureEditor.EndBakeFlow(players, prefabFolders, isSavePlayerPrefab, playerType, isDestroySkinnedMeshRenderer,isRemoveAgentPlayer);
         }
     }
 }

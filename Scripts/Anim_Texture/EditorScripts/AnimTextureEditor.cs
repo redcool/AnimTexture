@@ -11,6 +11,7 @@ namespace AnimTexture
     using PowerUtilities;
     using System;
     using Object = UnityEngine.Object;
+    using UnityEngine.AI;
 
     public partial class AnimTextureEditor
     {
@@ -199,7 +200,7 @@ namespace AnimTexture
         /// Clearup , save prefab
         /// </summary>
         /// <param name="players"></param>
-        public static void EndBakeFlow(List<GameObject> players, List<string> prefabFolders,bool isSavePlayerPrefab,AnimTexPlayerType playerType,bool isDestroySkinned)
+        public static void EndBakeFlow(List<GameObject> players, List<string> prefabFolders,bool isSavePlayerPrefab,AnimTexPlayerType playerType,bool isDestroySkinned,bool isRemoveAgent)
         {
             for (int i = 0; i < players.Count; i++)
             {
@@ -215,7 +216,14 @@ namespace AnimTexture
                     player.DestroyComponents<AnimatorControl>(true, true);
                     player.DestroyComponents<Animator>(true, true);
                 }
+                // remove agent
+                if (isRemoveAgent)
+                {
+                    player.DestroyComponents<NavMeshAgent>(true, true);
+                    player.DestroyComponents<AgentPlayer>(true, true);
+                }
 
+                // save 
                 if (isSavePlayerPrefab)
                 {
                     var folder = ASSET_DEFAULT_TEX_DIR;
@@ -225,6 +233,8 @@ namespace AnimTexture
                     if (!string.IsNullOrEmpty(folder))
                         PrefabTools.CreatePrefab(player, $"{folder}/{player.name}.prefab");
                 }
+
+
             }
         }
 
