@@ -23,6 +23,9 @@
         {
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponentInChildren<Animator>();
+
+            if (!agent || !animator)
+                enabled = false;
         }
 
         // Update is called once per frame

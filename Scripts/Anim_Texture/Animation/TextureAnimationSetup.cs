@@ -109,7 +109,10 @@ namespace AnimTexture
 
                 if (animTexMat)
                     animTexMat.EnableKeyword(animTexKeyword);
-
+                foreach (var item in animTexMat.enabledKeywords)
+                {
+                    Debug.Log(item);
+                }
                 meshRendererTr.position = Vector3.zero;
 
                 var mr = meshRendererTr.gameObject.GetOrAddComponent<MeshRenderer>();

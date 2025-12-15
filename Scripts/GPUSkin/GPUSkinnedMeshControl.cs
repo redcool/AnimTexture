@@ -14,9 +14,12 @@ namespace AnimTexture
     {
         public SkinnedMeshRenderer skinned;
 
+        [EditorNotNull]
         [LoadAsset("AnimTexture_GpuSkinned.mat")]
+        [Tooltip("a material with keyword : _GPU_SKINNED_ON")]
         public Material gpuSkinnedMat;
 
+        [EditorNotNull]
         [LoadAsset("CalcBoneMatrix.compute")]
         [Tooltip("use a compute shader calculate bones transform")]
         public ComputeShader calcBoneMatrixCS;
@@ -28,34 +31,35 @@ namespace AnimTexture
         public bool isRemoveSkinnedMeshRenderer;
 
         [Header("Cur State")]
-        public bool isInited;
         public MeshRenderer mr;
         public MeshFilter mf;
         public Mesh originalSharedMesh;
 
         public Transform[] boneTrs;
+
         GraphicsBuffer boneWeightPerVertexBuffer, boneInfoPerVertexBuffer, bonesBuffer;
         GraphicsBuffer localToWorldBuffer,bindPosesBuffer;
-        GraphicsBuffer meshBuffer;
 
-        [EditorButton(onClickCall = "OnEnable")]
+        [EditorButton(onClickCall = nameof(OnEnable))]
         public bool isCallEnable;
 
-        [EditorButton(onClickCall = "Update")]
+        [EditorButton(onClickCall = nameof(Update))]
         public bool isCallUpdate;
 
+        //--------- editor only -------------
+        GraphicsBuffer meshBuffer;
         Vector3[] skinnedVertices;
 
         public void OnEnable()
         {
+
             if (!skinned)
                 skinned = GetComponentInChildren<SkinnedMeshRenderer>();
 
-            isInited = skinned && gpuSkinnedMat;
+            var isValid = skinned && gpuSkinnedMat;
 
-            if (!isInited)
+            if (!isValid)
             {
-                enabled = false;
                 return;
             }
             // save bones
@@ -68,7 +72,10 @@ namespace AnimTexture
             mr = gameObject.GetOrAddComponent<MeshRenderer>();
             mr.sharedMaterial = gpuSkinnedMat;
             mr.bounds = skinned.bounds;
-            
+            mr.localBounds = skinned.bounds;
+            //var center = Vector3.Scale(skinned.bounds.center , skinned.rootBone.localScale);
+            //var size = Vector3.Scale(skinned.bounds.size , skinned.rootBone.localScale);
+            //mr.bounds = new Bounds(center, size);
 
             // mesh filter
             mf = gameObject.GetOrAddComponent<MeshFilter>();
@@ -86,6 +93,9 @@ namespace AnimTexture
 
         public void Update()
         {
+            if(boneTrs == null || boneTrs.Length == 0)
+                return;
+
             var skinnedMat = Application.isPlaying ? mr.material : mr.sharedMaterial;
             SkinnedTools.ApplySkinnedTransform(transform,
                 skinnedMat, 
