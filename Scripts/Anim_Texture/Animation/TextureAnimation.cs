@@ -28,8 +28,9 @@
         //=============================================================== info
         [Tooltip("include animation info,bone info per vertex")]
         public AnimTextureManifest manifest;
-        public float playTime;
+        public float playTime; // start play time
         public float offsetPlayTime;
+        public bool isPlayFinished;
 
         [Tooltip("unchecked use meshRenderer sharedMaterial when playing")]
         public bool isUseMaterialInst = true;
@@ -52,10 +53,10 @@
         [Tooltip("fading in clip info")]
         public AnimTextureClipInfo nextClipInfo;
 
-
+        public string nextClipNameWhenPlayOnceDone;
         //=============================================================== Debug
         //[EditorGroup("Components", true)]
-        [EditorButton(onClickCall = "AddTextureAnimationSetup", tooltip = "add TextureAnimationSetup for setup AnimTexture components")]
+        [EditorButton(onClickCall = nameof(AddTextureAnimationSetup), tooltip = "add TextureAnimationSetup for setup AnimTexture components")]
         public bool isAddTextureAnimationSetup;
 
         //[EditorGroup("Debug",true)]
@@ -73,20 +74,20 @@
         public int nextIndex;
 
         //[EditorGroup("Debug")]
-        public float crossFadeTime = 0.5f;
+        public float crossFadeTime = 0.2f;
 
-        //[EditorGroup("Debug")]
-        //[EditorButton(onClickCall = "TestCrossFade")]
-        public bool crossTest;
+        ////[EditorGroup("Debug")]
+        //[EditorButton(onClickCall = nameof(TestCrossFade))]
+        //public bool crossTest;
 
         void AddTextureAnimationSetup()
         {
             gameObject.GetOrAddComponent<TextureAnimationSetup>();
         }
-        public void TestCrossFade()
-        {
-            CrossFade(curIndex, nextIndex, crossFadeTime);
-        }
+        //public void TestCrossFade()
+        //{
+        //    CrossFade(curIndex, nextIndex, crossFadeTime);
+        //}
 
         // Start is called before the first frame update
         void Awake()
@@ -131,7 +132,8 @@
 
             playTime += GetPlayTime();
             UpdatePlayTime();
-            UpdateAnimLoop();
+            isPlayFinished = UpdateAnimLoop();
+            TryPlayQueueNext();
 
             if (isUpdateBlock && needUpdateBlock)
             {
@@ -153,6 +155,7 @@
                 }
             }
         }
+
 
         void SetupDict()
         {
@@ -199,11 +202,14 @@
             needUpdateBlock = true;
         }
 
-        void UpdateAnimLoop()
+        bool UpdateAnimLoop()
         {
+            var isPlayFinished = false;
+
             if (!nextClipInfo.isLoop)
             {
-                if (playTime > nextClipInfo.length)
+                isPlayFinished = playTime > nextClipInfo.length;
+                if (isPlayFinished)
                 {
                     //var loopLerp = block.GetFloat(ID_LOOP);
                     //Debug.Log(playTime + ":" + nextClipInfo.length);
@@ -219,6 +225,7 @@
 
             }
             needUpdateBlock = true;
+            return isPlayFinished;
         }
 
         void UpdateCrossLerp(float lerp)
@@ -247,6 +254,22 @@
 
             Play(index);
         }
+
+        public void PlayQueue(string clipName,string nextClipNameWhenDone,float fadingTime=0.2f)
+        {
+            nextClipNameWhenPlayOnceDone = nextClipNameWhenDone;
+            //Play(clipName);
+            CrossFade(clipName, fadingTime);
+        }
+
+        void TryPlayQueueNext()
+        {
+            if (!isPlayFinished)
+                return;
+            Play(nextClipNameWhenPlayOnceDone);
+            nextClipNameWhenPlayOnceDone = null;
+        }
+
         /// <summary>
         /// crossFade play,
         /// </summary>
@@ -274,18 +297,19 @@
         /// <param name="clipName">fade out clipName</param>
         /// <param name="nextClipName">fade in clipName</param>
         /// <param name="fadeTime">crassFading time</param>
-        public void CrossFade(string clipName, string nextClipName, float fadeTime)
+        public void CrossFade(string clipName, string nextClipName, float fadingTime)
         {
             var index = GetClipIndex(clipName);
             var nextIndex = GetClipIndex(nextClipName);
             if (index < 0 || nextIndex < 0)
                 return;
 
-            CrossFade(index, nextIndex, fadeTime);
+            fadingTime = Mathf.Clamp01(fadingTime);
+            CrossFade(index, nextIndex, fadingTime);
         }
 
         /// <summary>
-        /// CrossFade to next clip, use curClipInfo, when curClipInfo is null, play nextClipName
+        /// CrossFade to next clip, use curClipInfo, when curClipInfo is null, play nextName
         /// </summary>
         /// <param name="nextClipName"></param>
         /// <param name="fadingTime"></param>

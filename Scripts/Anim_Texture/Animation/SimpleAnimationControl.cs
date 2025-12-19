@@ -1,4 +1,4 @@
-using AnimTexture;
+﻿using AnimTexture;
 using PowerUtilities;
 using System;
 using UnityEngine;
@@ -7,62 +7,69 @@ using UnityEngine.AI;
 public class SimpleAnimationControl : MonoBehaviour
 {
     public TextureAnimation texAnim;
-    public enum AnimationType
-    {
-        Idle,
-        Run,
-        GetHit,
-        Death
-    }
+    [Header("Anim names")]
+    public string idleName = "Idle";
+    public string runName="Run", deathName="Death", attachName="Attack", behitName = "BeHit";
 
-    public AnimationType currentAnimation;
-    AnimationType lastAnimationType;
+    [Header("Play Anim")]
+    public string curName = "Idle";
+    public string nextName;
+
+    public bool isCrossFade = true;
+    [Range(0,1)]
     public float crossFadeTime = .2f;
 
+    public bool isUseAgent;
+    [Header("Queue")]
+    public bool isTestPlayQueue;
+
     NavMeshAgent agent;
-    string curAnimName,lastAnimName;
+
+    [EditorDisableGroup]
+    public string lastName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         texAnim = GetComponent<TextureAnimation>();
-
-        texAnim.Play(currentAnimation.ToString());
+        texAnim.Play(curName);
 
         agent = GetComponentInParent<NavMeshAgent>();
     }
 
-    public void TestRunIdle()
-    {
-        if (!agent)
-            return;
-
-        var animName = agent.velocity.sqrMagnitude > 0.1f ? "Run" : "Idle";
-        if (curAnimName != animName)
-        {
-            curAnimName = animName;
-            lastAnimName = curAnimName == "Run" ? "Idle" : "Run";
-
-            //texAnim.Play(animName);
-            texAnim.CrossFade(lastAnimName, animName, crossFadeTime);
-        }
-    }
-    
-    // Update is called once per frame
     void Update()
-    {
-        TryCrossFade();
-
-        TestRunIdle();
-    }
-
-    public void TryCrossFade()
     {
         if (!texAnim)
             return;
 
-        if(CompareTools.CompareAndSet(ref lastAnimationType, currentAnimation))
+        if (isUseAgent && agent)
         {
-            texAnim.CrossFade(lastAnimationType.ToString(), currentAnimation.ToString(), crossFadeTime);
+            curName = agent.velocity.sqrMagnitude > 0.1f ? runName : idleName;
+        }
+
+        TryCrossFade();
+        TryPlayQueue();
+    }
+
+    private void TryPlayQueue()
+    {
+        if (isTestPlayQueue)
+        {
+            isTestPlayQueue = false;
+            texAnim.PlayQueue(curName, nextName);
+        }
+    }
+
+    public void TryCrossFade()
+    {
+
+        if (lastName != curName)
+        {
+            if (isCrossFade)
+                texAnim.CrossFade(lastName, curName, crossFadeTime);
+            else
+                texAnim.Play(curName);
+
+            lastName = curName;
         }
     }
 }
