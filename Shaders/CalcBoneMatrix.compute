@@ -8,7 +8,7 @@
 #include "../../PowerShaderLib/Lib/Skinned/SkinnedLib.hlsl"
 
 //==================
-// 
+// Apply BoneTransform
 //==================
 StructuredBuffer<float4x4> _LocalToWorldBuffer;
 StructuredBuffer<float4x4> _BindposesBuffer;
@@ -18,7 +18,7 @@ float4x4 _RootWorldToLocal;
 [numthreads(8,8,1)]
 void CalcBoneMatrix (uint3 id : SV_DispatchThreadID,uint3 groupId : SV_GROUPID,uint groupThreadIndex:SV_GROUPINDEX)
 {
-    uint dispatchThreadIndex = GetDispatchThreadIndex(groupId,groupThreadIndex);
+    uint dispatchThreadIndex = GetDispatchThreadIndex(groupId,id);
     _Bones[dispatchThreadIndex] = mul(_RootWorldToLocal,mul(_LocalToWorldBuffer[dispatchThreadIndex],_BindposesBuffer[dispatchThreadIndex]));
 }
 
@@ -31,6 +31,6 @@ RWStructuredBuffer<float3> _MeshBuffer;
 [numthreads(8,8,1)]
 void CalcSkinnedMesh(uint3 id : SV_DispatchThreadID,uint3 groupId : SV_GROUPID,uint groupThreadIndex:SV_GROUPINDEX)
 {
-    uint dispatchThreadIndex = GetDispatchThreadIndex(groupId,groupThreadIndex);
+    uint dispatchThreadIndex = GetDispatchThreadIndex(groupId,id);
     _MeshBuffer[dispatchThreadIndex] = GetSkinnedPos(dispatchThreadIndex,float4(_MeshBuffer[dispatchThreadIndex],1)).xyz;
 }

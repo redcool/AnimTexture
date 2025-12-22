@@ -48,6 +48,11 @@ public class SimpleAnimationControl : MonoBehaviour
 
         TryCrossFade();
         TryPlayQueue();
+
+        if (texAnim.isPlayFinished)
+        {
+            texAnim.CrossFade(idleName, 0.2f);
+        }
     }
 
     private void TryPlayQueue()
