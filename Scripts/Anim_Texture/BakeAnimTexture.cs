@@ -27,6 +27,15 @@
                 foreach (var inst in insts)
                 {
                     GameObject[] objs = GetTargets(inst);
+                    objs = objs.Where(obj =>
+                    {
+                        var skinned = obj.GetComponentInChildren<SkinnedMeshRenderer>();
+                        return skinned && skinned.bones.Length > 0;
+                    }).ToArray();
+                    if(objs.Length == 0)
+                    {
+                        EditorUtility.DisplayDialog("Waring","SkinnedMeshRenderer or bones not found! uncheck Fbx [Rig] [optimize GameObjects]","OK");
+                    }
 
                     var players = AnimTextureEditor.StartBakeFlow(objs, inst.bakeType, inst.isSaveInObjFolder, inst.playerType, inst.isDestroySkinnedMeshRenderer, inst.animTexMats);
                     var prefabFolders = objs.Select(obj => AssetDatabaseTools.GetAssetFolder(obj)).ToList();

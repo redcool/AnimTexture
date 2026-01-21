@@ -108,10 +108,8 @@ namespace AnimTexture
                 var animTexMat = i < animTextureMats.Length ? animTextureMats[i] : default;
 
                 if (animTexMat)
-                    animTexMat.EnableKeyword(animTexKeyword);
-                foreach (var item in animTexMat.enabledKeywords)
                 {
-                    Debug.Log(item);
+                    animTexMat.EnableKeyword(animTexKeyword);
                 }
                 meshRendererTr.position = Vector3.zero;
 

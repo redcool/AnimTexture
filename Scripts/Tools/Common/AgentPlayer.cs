@@ -24,19 +24,24 @@
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponentInChildren<Animator>();
 
-            if (!agent || !animator)
+            if (!agent)
                 enabled = false;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if(moveType == MoveType.JoyStickMove)
+            if (moveType == MoveType.JoyStickMove)
                 InputMove();
             else if (moveType == MoveType.ClickMove)
                 ClickMove();
 
-            //InputMove();
+            if (animator)
+                UpdateAnim();
+        }
+
+        private void UpdateAnim()
+        {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 animator.SetTrigger("IsDie");
