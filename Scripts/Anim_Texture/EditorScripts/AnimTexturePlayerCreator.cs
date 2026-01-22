@@ -13,8 +13,8 @@ namespace AnimTexture
 
     public class AnimTexturePlayerCreator 
     {
-        [MenuItem(AnimTextureEditor.POWER_UTILS_MENU+"/CreatePlayer_FromSelected")]
-        static void CreatePlayer()
+        //[MenuItem(AnimTextureEditor.POWER_UTILS_MENU+"/CreatePlayer_FromSelected")]
+        public static void CreatePlayerFromSelected()
         {
             var objs = Selection.GetFiltered<GameObject>(SelectionMode.Assets);
             CreatePlayerWithAnimatorControl(objs);

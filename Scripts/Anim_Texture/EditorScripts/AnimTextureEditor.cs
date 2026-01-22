@@ -23,12 +23,12 @@ namespace AnimTexture
         /// <summary>
         /// Bake animTex from selected objects,
         /// <returns></returns>
-        [MenuItem(POWER_UTILS_MENU + "/BakeMeshTexture")]
-        public static void BakeMeshTextureFromSelected()
-        {
-            var objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
-            BakeMeshTexture(objs, false, out var _);
-        }
+        //[MenuItem(POWER_UTILS_MENU + "/BakeMeshTexture")]
+        //public static void BakeMeshTextureFromSelected()
+        //{
+        //    var objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
+        //    BakeMeshTexture(objs, false, out var _);
+        //}
 
         /// <summary>
         /// baked animation object to mesh texture
@@ -169,6 +169,20 @@ namespace AnimTexture
             atlas = new Texture2D(width, y, TextureFormat.RGBAHalf, false);
             atlas.filterMode = FilterMode.Point;
             return yList;
+        }
+
+        public static bool CheckHasSkinnedMeshRenderer(GameObject[] objs)
+        {
+            objs = objs.Where(obj =>
+            {
+                var skinned = obj.GetComponentInChildren<SkinnedMeshRenderer>();
+                return skinned && skinned.bones.Length > 0;
+            }).ToArray();
+            if (objs.Length == 0)
+            {
+                EditorUtility.DisplayDialog("Waring", "SkinnedMeshRenderer or bones not found! uncheck Fbx [Rig] [optimize GameObjects]", "OK");
+            }
+            return objs.Length > 0;
         }
 
         /// <summary>

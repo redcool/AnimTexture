@@ -48,6 +48,9 @@ namespace AnimTexture
         [EditorButton(onClickCall = nameof(StartBake))]
         public bool isStartBake;
 
+        [EditorButton(onClickCall = nameof(CreatePlayer))]
+        public bool isCreatePlayer;
+
         private GameObject[] GetSelectedOrTargetS()
         {
             var objs = targetObjects != null ? targetObjects.Where(obj => obj).ToArray() : default;
@@ -59,10 +62,22 @@ namespace AnimTexture
         public void StartBake()
         {
             var objs = GetSelectedOrTargetS();
+            if(! AnimTextureEditor.CheckHasSkinnedMeshRenderer(objs))
+            {
+                return;
+            }
 
             var players = AnimTextureEditor.StartBakeFlow(objs, bakeType, true, playerType, isDestroySkinnedMeshRenderer, animTexMats);
             var prefabFolders = objs.Select(obj => AssetDatabaseTools.GetAssetFolder(obj)).ToList();
             AnimTextureEditor.EndBakeFlow(players, prefabFolders, isSavePlayerPrefab, playerType, isDestroySkinnedMeshRenderer,isRemoveAgentPlayer);
+        }
+
+        public void CreatePlayer()
+        {
+            if (GUILayout.Button(GUIContentEx.TempContent("Create Player", "No bake")))
+            {
+                AnimTexturePlayerCreator.CreatePlayerFromSelected();
+            }
         }
     }
 }

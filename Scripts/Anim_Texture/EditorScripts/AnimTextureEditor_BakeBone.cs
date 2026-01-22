@@ -21,12 +21,12 @@ namespace AnimTexture
 
         public const string BAKE_BONE_CS_FILENAME = "BakeBoneMatrix";
 
-        [MenuItem(POWER_UTILS_MENU + "/BakeBoneTexAtlas")]
-        public static void BakeBoneTexFromSelected()
-        {
-            var objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
-            BakeBoneTexture(objs, false,out var _);
-        }
+        //[MenuItem(POWER_UTILS_MENU + "/BakeBoneTexAtlas")]
+        //public static void BakeBoneTexFromSelected()
+        //{
+        //    var objs = Selection.GetFiltered<GameObject>(SelectionMode.DeepAssets);
+        //    BakeBoneTexture(objs, false,out var _);
+        //}
         public static void BakeBoneTexture(GameObject[] objs, bool isSaveInObjFolder,out AnimTextureManifest manifest)
         {
             manifest = default;

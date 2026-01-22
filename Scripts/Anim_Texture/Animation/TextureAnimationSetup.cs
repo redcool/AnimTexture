@@ -105,7 +105,7 @@ namespace AnimTexture
             for (int i = 0; i < skinnedMeshes.Length; i++)
             {
                 var skinned = skinnedMeshes[i];
-                var animTexMat = i < animTextureMats.Length ? animTextureMats[i] : default;
+                var animTexMat = (animTextureMats != null && i < animTextureMats.Length) ? animTextureMats[i] : default;
 
                 if (animTexMat)
                 {

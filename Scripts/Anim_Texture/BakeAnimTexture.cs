@@ -27,20 +27,19 @@
                 foreach (var inst in insts)
                 {
                     GameObject[] objs = GetTargets(inst);
-                    objs = objs.Where(obj =>
+                    if (!AnimTextureEditor.CheckHasSkinnedMeshRenderer(objs))
                     {
-                        var skinned = obj.GetComponentInChildren<SkinnedMeshRenderer>();
-                        return skinned && skinned.bones.Length > 0;
-                    }).ToArray();
-                    if(objs.Length == 0)
-                    {
-                        EditorUtility.DisplayDialog("Waring","SkinnedMeshRenderer or bones not found! uncheck Fbx [Rig] [optimize GameObjects]","OK");
+                        return;
                     }
 
                     var players = AnimTextureEditor.StartBakeFlow(objs, inst.bakeType, inst.isSaveInObjFolder, inst.playerType, inst.isDestroySkinnedMeshRenderer, inst.animTexMats);
                     var prefabFolders = objs.Select(obj => AssetDatabaseTools.GetAssetFolder(obj)).ToList();
                     AnimTextureEditor.EndBakeFlow(players, prefabFolders,inst.isSavePlayerPrefab,inst.playerType,inst.isDestroySkinnedMeshRenderer,inst.isRemoveAgentPlayer);
                 }
+            }
+            if(GUILayout.Button(GUIContentEx.TempContent("Create Player","No bake")))
+            {
+                AnimTexturePlayerCreator.CreatePlayerFromSelected();
             }
         }
 
